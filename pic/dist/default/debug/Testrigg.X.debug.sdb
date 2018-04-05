@@ -1,0 +1,271 @@
+[p LITE_MODE AUTOSTATIC PIC14 PIC14E ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F15344 ]
+[d frameptr 6 ]
+"102 C:\Users\Jens\MPLABXProjects\Testrigg.X\main.c
+[e E8210 peripheral `uc
+gps 0
+wifi 1
+sigfox 2
+gsm 3
+bt 4
+]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"33 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+[v _strcmp strcmp `(i  1 e 2 0 ]
+"87 C:\Users\Jens\MPLABXProjects\Testrigg.X\main.c
+[v _main main `(v  1 e 1 0 ]
+"136
+[v _initBTSerial initBTSerial `(v  1 e 1 0 ]
+"154
+[v _serialWritePeripheral serialWritePeripheral `(v  1 e 1 0 ]
+"160
+[v _serialPrintPeripheral serialPrintPeripheral `(v  1 e 1 0 ]
+"168
+[v _serialReadPeripheral serialReadPeripheral `(uc  1 e 1 0 ]
+"179
+[v _serialFindPeripheral serialFindPeripheral `(uc  1 e 1 0 ]
+"192
+[v _setActivePeripheral setActivePeripheral `(v  1 e 1 0 ]
+"252
+[v _serialWriteBT serialWriteBT `(v  1 e 1 0 ]
+"259
+[v _serialPrintBT serialPrintBT `(v  1 e 1 0 ]
+"267
+[v _serialReadBT serialReadBT `(uc  1 e 1 0 ]
+"290
+[v _timerCount timerCount `II(v  1 e 1 0 ]
+"301
+[v _startTimer startTimer `(v  1 e 1 0 ]
+"405
+[v _waitForCommand waitForCommand `(v  1 e 1 0 ]
+[s S23 . 1 `uc 1 INTEDG 1 0 :1:0 
+`uc 1 . 1 0 :5:1 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"424 C:\Program Files (x86)\Microchip\xc8\v1.44\include\pic16f15344.h
+[u S28 . 1 `S23 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES28  1 e 1 @11 ]
+"640
+[v _TRISB TRISB `VEuc  1 e 1 @19 ]
+"1223
+[v _RC1REG RC1REG `VEuc  1 e 1 @281 ]
+"1277
+[v _TX1REG TX1REG `VEuc  1 e 1 @282 ]
+"1331
+[v _SP1BRG SP1BRG `VEus  1 e 2 @283 ]
+[s S84 . 1 `uc 1 RX9D 1 0 :1:0 
+`uc 1 OERR 1 0 :1:1 
+`uc 1 FERR 1 0 :1:2 
+`uc 1 ADDEN 1 0 :1:3 
+`uc 1 CREN 1 0 :1:4 
+`uc 1 SREN 1 0 :1:5 
+`uc 1 RX9 1 0 :1:6 
+`uc 1 SPEN 1 0 :1:7 
+]
+"1488
+[u S93 . 1 `S84 1 . 1 0 ]
+[v _RC1STAbits RC1STAbits `VES93  1 e 1 @285 ]
+[s S62 . 1 `uc 1 TX9D 1 0 :1:0 
+`uc 1 TRMT 1 0 :1:1 
+`uc 1 BRGH 1 0 :1:2 
+`uc 1 SENDB 1 0 :1:3 
+`uc 1 SYNC 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 TX9 1 0 :1:6 
+`uc 1 CSRC 1 0 :1:7 
+]
+"1668
+[u S71 . 1 `S62 1 . 1 0 ]
+[v _TX1STAbits TX1STAbits `VES71  1 e 1 @286 ]
+"6996
+[v _T0CON0 T0CON0 `VEuc  1 e 1 @1438 ]
+[s S237 . 1 `uc 1 T0OUTPS 1 0 :4:0 
+`uc 1 T016BIT 1 0 :1:4 
+`uc 1 T0OUT 1 0 :1:5 
+`uc 1 . 1 0 :1:6 
+`uc 1 T0EN 1 0 :1:7 
+]
+"7016
+[s S243 . 1 `uc 1 T0OUTPS0 1 0 :1:0 
+`uc 1 T0OUTPS1 1 0 :1:1 
+`uc 1 T0OUTPS2 1 0 :1:2 
+`uc 1 T0OUTPS3 1 0 :1:3 
+]
+[u S248 . 1 `S237 1 . 1 0 `S243 1 . 1 0 ]
+[v _T0CON0bits T0CON0bits `VES248  1 e 1 @1438 ]
+"7061
+[v _T0CON1 T0CON1 `VEuc  1 e 1 @1439 ]
+[s S224 . 1 `uc 1 INTF 1 0 :1:0 
+`uc 1 . 1 0 :3:1 
+`uc 1 IOCIF 1 0 :1:4 
+`uc 1 TMR0IF 1 0 :1:5 
+]
+"7922
+[u S229 . 1 `S224 1 . 1 0 ]
+[v _PIR0bits PIR0bits `VES229  1 e 1 @1804 ]
+[s S128 . 1 `uc 1 SSP1IF 1 0 :1:0 
+`uc 1 BCL1IF 1 0 :1:1 
+`uc 1 . 1 0 :2:2 
+`uc 1 TX1IF 1 0 :1:4 
+`uc 1 RC1IF 1 0 :1:5 
+`uc 1 TX2IF 1 0 :1:6 
+`uc 1 RC2IF 1 0 :1:7 
+]
+"8030
+[u S136 . 1 `S128 1 . 1 0 ]
+[v _PIR3bits PIR3bits `VES136  1 e 1 @1807 ]
+[s S263 . 1 `uc 1 INTE 1 0 :1:0 
+`uc 1 . 1 0 :3:1 
+`uc 1 IOCIE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+]
+"8217
+[u S268 . 1 `S263 1 . 1 0 ]
+[v _PIE0bits PIE0bits `VES268  1 e 1 @1814 ]
+"11089
+[v _RC2REG RC2REG `VEuc  1 e 1 @2585 ]
+"11127
+[v _TX2REG TX2REG `VEuc  1 e 1 @2586 ]
+"11165
+[v _SP2BRG SP2BRG `VEus  1 e 2 @2587 ]
+"11270
+[v _RC2STAbits RC2STAbits `VES93  1 e 1 @2589 ]
+"11392
+[v _TX2STAbits TX2STAbits `VES71  1 e 1 @2590 ]
+[s S176 . 1 `uc 1 RX1DTPPS 1 0 :6:0 
+]
+"16886
+[s S178 . 1 `uc 1 RX1DTPPS0 1 0 :1:0 
+`uc 1 RX1DTPPS1 1 0 :1:1 
+`uc 1 RX1DTPPS2 1 0 :1:2 
+`uc 1 RX1DTPPS3 1 0 :1:3 
+`uc 1 RX1DTPPS4 1 0 :1:4 
+`uc 1 RX1DTPPS5 1 0 :1:5 
+]
+[u S185 . 1 `S176 1 . 1 0 `S178 1 . 1 0 ]
+[v _RX1DTPPSbits RX1DTPPSbits `VES185  1 e 1 @7883 ]
+[s S106 . 1 `uc 1 RX2DTPPS 1 0 :6:0 
+]
+"17002
+[s S108 . 1 `uc 1 RX2DTPPS0 1 0 :1:0 
+`uc 1 RX2DTPPS1 1 0 :1:1 
+`uc 1 RX2DTPPS2 1 0 :1:2 
+`uc 1 RX2DTPPS3 1 0 :1:3 
+`uc 1 RX2DTPPS4 1 0 :1:4 
+`uc 1 RX2DTPPS5 1 0 :1:5 
+]
+[u S115 . 1 `S106 1 . 1 0 `S108 1 . 1 0 ]
+[v _RX2DTPPSbits RX2DTPPSbits `VES115  1 e 1 @7885 ]
+"17276
+[v _RA4PPS RA4PPS `VEuc  1 e 1 @7956 ]
+"17452
+[v _RB6PPS RB6PPS `VEuc  1 e 1 @7966 ]
+"17584
+[v _RC1PPS RC1PPS `VEuc  1 e 1 @7969 ]
+"17716
+[v _RC4PPS RC4PPS `VEuc  1 e 1 @7972 ]
+"17804
+[v _RC6PPS RC6PPS `VEuc  1 e 1 @7974 ]
+"17892
+[v _ANSELA ANSELA `VEuc  1 e 1 @7992 ]
+"18277
+[v _ANSELB ANSELB `VEuc  1 e 1 @8003 ]
+"18589
+[v _ANSELC ANSELC `VEuc  1 e 1 @8014 ]
+"22254
+[v _TRISA5 TRISA5 `VEb  1 e 0 @149 ]
+"22258
+[v _TRISB5 TRISB5 `VEb  1 e 0 @157 ]
+"22264
+[v _TRISC0 TRISC0 `VEb  1 e 0 @160 ]
+"22270
+[v _TRISC3 TRISC3 `VEb  1 e 0 @163 ]
+"22274
+[v _TRISC5 TRISC5 `VEb  1 e 0 @165 ]
+"56 C:\Users\Jens\MPLABXProjects\Testrigg.X\main.c
+[v _timerSetpoint timerSetpoint `i  1 e 2 0 ]
+"57
+[v _timerActual timerActual `i  1 e 2 0 ]
+"58
+[v _timerDone timerDone `uc  1 e 1 0 ]
+"87
+[v _main main `(v  1 e 1 0 ]
+{
+"134
+} 0
+"405
+[v _waitForCommand waitForCommand `(v  1 e 1 0 ]
+{
+"406
+[v waitForCommand@buffer buffer `[32]uc  1 a 32 0 ]
+"413
+[v waitForCommand@i i `i  1 a 2 32 ]
+"407
+[v waitForCommand@s1 s1 `*.4uc  1 a 1 34 ]
+"441
+} 0
+"33 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+[v _strcmp strcmp `(i  1 e 2 0 ]
+{
+[v strcmp@s1 s1 `*.4DCuc  1 a 1 wreg ]
+"35
+[v strcmp@r r `c  1 a 1 4 ]
+"33
+[v strcmp@s1 s1 `*.4DCuc  1 a 1 wreg ]
+[v strcmp@s2 s2 `*.25DCuc  1 p 2 1 ]
+[v strcmp@s1 s1 `*.4DCuc  1 a 1 5 ]
+"42
+} 0
+"301 C:\Users\Jens\MPLABXProjects\Testrigg.X\main.c
+[v _startTimer startTimer `(v  1 e 1 0 ]
+{
+[v startTimer@seconds seconds `i  1 p 2 1 ]
+"312
+} 0
+"267
+[v _serialReadBT serialReadBT `(uc  1 e 1 0 ]
+{
+"276
+} 0
+"259
+[v _serialPrintBT serialPrintBT `(v  1 e 1 0 ]
+{
+"260
+[v serialPrintBT@i i `i  1 a 2 5 ]
+"259
+[v serialPrintBT@s s `*.25uc  1 p 2 2 ]
+"265
+} 0
+"252
+[v _serialWriteBT serialWriteBT `(v  1 e 1 0 ]
+{
+[v serialWriteBT@c c `uc  1 a 1 wreg ]
+[v serialWriteBT@c c `uc  1 a 1 wreg ]
+[v serialWriteBT@c c `uc  1 a 1 1 ]
+"257
+} 0
+"192
+[v _setActivePeripheral setActivePeripheral `(v  1 e 1 0 ]
+{
+[v setActivePeripheral@peri peri `E8210  1 a 1 wreg ]
+[v setActivePeripheral@peri peri `E8210  1 a 1 wreg ]
+"200
+[v setActivePeripheral@peri peri `E8210  1 a 1 1 ]
+"250
+} 0
+"136
+[v _initBTSerial initBTSerial `(v  1 e 1 0 ]
+{
+"152
+} 0
+"290
+[v _timerCount timerCount `II(v  1 e 1 0 ]
+{
+"299
+} 0
