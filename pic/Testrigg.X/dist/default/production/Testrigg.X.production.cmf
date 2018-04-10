@@ -11,56 +11,57 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\Jens\AppData\Local\Temp\s3pk.obj
+$C:\Users\Jens\AppData\Local\Temp\s818.obj
 reset_vec CODE 0 0 0 2 2
 end_init CODE 0 25 25 2 2
 config CONFIG 0 8007 8007 5 2
 $dist/default/production\Testrigg.X.production.obj
 cinit CODE 0 27 27 A 2
-text1 CODE 0 31 31 A6 2
-text2 CODE 0 246 246 40 2
-text3 CODE 0 286 286 27 2
-text4 CODE 0 42D 42D A 2
-text5 CODE 0 2ED 2ED 1A 2
-text6 CODE 0 1A7 1A7 54 2
-text7 CODE 0 D7 D7 77 2
-text8 CODE 0 307 307 1A 2
-text9 CODE 0 452 452 8 2
-text10 CODE 0 1FB 1FB 4B 2
-text11 CODE 0 364 364 11 2
-text12 CODE 0 14E 14E 59 2
-text13 CODE 0 321 321 1A 2
-text14 CODE 0 45A 45A 8 2
-text15 CODE 0 2AD 2AD 22 2
-text16 CODE 0 437 437 A 2
-text17 CODE 0 33B 33B 16 2
-maintext CODE 0 2CF 2CF 1E 2
+text1 CODE 0 31 31 C9 2
+text2 CODE 0 269 269 40 2
+text3 CODE 0 2A9 2A9 27 2
+text4 CODE 0 45E 45E A 2
+text5 CODE 0 310 310 1A 2
+text6 CODE 0 1CA 1CA 54 2
+text7 CODE 0 FA FA 77 2
+text8 CODE 0 32A 32A 1A 2
+text9 CODE 0 483 483 8 2
+text10 CODE 0 21E 21E 4B 2
+text11 CODE 0 387 387 11 2
+text12 CODE 0 171 171 59 2
+text13 CODE 0 344 344 1A 2
+text14 CODE 0 48B 48B 8 2
+text15 CODE 0 2D0 2D0 22 2
+text16 CODE 0 468 468 A 2
+text17 CODE 0 35E 35E 16 2
+maintext CODE 0 2F2 2F2 1E 2
 cstackCOMMON COMMON 1 70 70 B 1
 cstackBANK0 BANK0 1 20 20 45 1
-stringtext1 STRCODE 0 351 351 13 2
-stringtext2 STRCODE 0 375 375 F 2
-stringtext3 STRCODE 0 384 384 D 2
-stringtext4 STRCODE 0 391 391 D 2
-stringtext5 STRCODE 0 39E 39E D 2
-stringtext6 STRCODE 0 3AB 3AB C 2
-stringtext7 STRCODE 0 3B7 3B7 C 2
-stringtext8 STRCODE 0 3C3 3C3 C 2
-stringtext9 STRCODE 0 3CF 3CF B 2
+stringtext1 STRCODE 0 374 374 13 2
+stringtext2 STRCODE 0 398 398 F 2
+stringtext3 STRCODE 0 3A7 3A7 E 2
+stringtext4 STRCODE 0 3B5 3B5 D 2
+stringtext5 STRCODE 0 3C2 3C2 D 2
+stringtext6 STRCODE 0 3CF 3CF D 2
+stringtext7 STRCODE 0 3DC 3DC C 2
+stringtext8 STRCODE 0 3E8 3E8 C 2
+stringtext9 STRCODE 0 3F4 3F4 C 2
 intentry CODE 0 4 4 21 2
 bssBANK0 BANK0 1 65 65 4 1
 bssCOMMON COMMON 1 7B 7B 1 1
-stringtext10 STRCODE 0 3DA 3DA B 2
-stringtext11 STRCODE 0 3E5 3E5 B 2
-stringtext12 STRCODE 0 3F0 3F0 B 2
-stringtext13 STRCODE 0 3FB 3FB A 2
-stringtext14 STRCODE 0 405 405 A 2
-stringtext15 STRCODE 0 40F 40F A 2
-stringtext16 STRCODE 0 419 419 A 2
-stringtext17 STRCODE 0 423 423 A 2
-stringtext18 STRCODE 0 441 441 9 2
-stringtext19 STRCODE 0 44A 44A 8 2
-stringtext20 STRCODE 0 462 462 7 2
-stringtext21 STRCODE 0 469 469 5 2
+stringtext10 STRCODE 0 400 400 B 2
+stringtext11 STRCODE 0 40B 40B B 2
+stringtext12 STRCODE 0 416 416 B 2
+stringtext13 STRCODE 0 421 421 B 2
+stringtext14 STRCODE 0 42C 42C A 2
+stringtext15 STRCODE 0 436 436 A 2
+stringtext16 STRCODE 0 440 440 A 2
+stringtext17 STRCODE 0 44A 44A A 2
+stringtext18 STRCODE 0 454 454 A 2
+stringtext19 STRCODE 0 472 472 9 2
+stringtext20 STRCODE 0 47B 47B 8 2
+stringtext21 STRCODE 0 493 493 7 2
+stringtext22 STRCODE 0 49A 49A 5 2
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
 # is described on a single line as follows:
@@ -82,9 +83,9 @@ BANK4 220-26F 1
 BANK5 2A0-2EF 1
 BANK6 320-32F 1
 CONST 2-3 2
-CONST 46E-FFF 2
+CONST 49F-FFF 2
 ENTRY 2-3 2
-ENTRY 46E-FFF 2
+ENTRY 49F-FFF 2
 IDLOC 8000-8003 2
 SFR10 500-56F 1
 SFR11 580-5EF 1
@@ -142,7 +143,7 @@ SFR62 1F00-1F6F 1
 SFR63 1F80-1FEF 1
 STACK 2049-21EF 1
 CODE 2-3 2
-CODE 46E-FFF 2
+CODE 49F-FFF 2
 SFR0 0-1F 1
 SFR1 80-9F 1
 SFR2 100-11F 1
@@ -156,9 +157,9 @@ SFR9 480-4EF 1
 BIGRAM 2000-21EF 1
 COMMON 7C-7D 1
 STRCODE 2-3 2
-STRCODE 46E-FFF 2
+STRCODE 49F-FFF 2
 STRING 2-3 2
-STRING 46E-FFF 2
+STRING 49F-FFF 2
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
 # The beginning of the section is indicated by %LINETAB.
@@ -173,18 +174,18 @@ STRING 46E-FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Testrigg.X.production.obj
-27 cinit CODE >1174:C:\Users\Jens\AppData\Local\Temp\s3pk.
-27 cinit CODE >1177:C:\Users\Jens\AppData\Local\Temp\s3pk.
-27 cinit CODE >1198:C:\Users\Jens\AppData\Local\Temp\s3pk.
-28 cinit CODE >1202:C:\Users\Jens\AppData\Local\Temp\s3pk.
-29 cinit CODE >1203:C:\Users\Jens\AppData\Local\Temp\s3pk.
-2A cinit CODE >1204:C:\Users\Jens\AppData\Local\Temp\s3pk.
-2B cinit CODE >1205:C:\Users\Jens\AppData\Local\Temp\s3pk.
-2C cinit CODE >1206:C:\Users\Jens\AppData\Local\Temp\s3pk.
-2D cinit CODE >1212:C:\Users\Jens\AppData\Local\Temp\s3pk.
-2D cinit CODE >1214:C:\Users\Jens\AppData\Local\Temp\s3pk.
-2E cinit CODE >1215:C:\Users\Jens\AppData\Local\Temp\s3pk.
-2F cinit CODE >1216:C:\Users\Jens\AppData\Local\Temp\s3pk.
+27 cinit CODE >1198:C:\Users\Jens\AppData\Local\Temp\s818.
+27 cinit CODE >1201:C:\Users\Jens\AppData\Local\Temp\s818.
+27 cinit CODE >1222:C:\Users\Jens\AppData\Local\Temp\s818.
+28 cinit CODE >1226:C:\Users\Jens\AppData\Local\Temp\s818.
+29 cinit CODE >1227:C:\Users\Jens\AppData\Local\Temp\s818.
+2A cinit CODE >1228:C:\Users\Jens\AppData\Local\Temp\s818.
+2B cinit CODE >1229:C:\Users\Jens\AppData\Local\Temp\s818.
+2C cinit CODE >1230:C:\Users\Jens\AppData\Local\Temp\s818.
+2D cinit CODE >1236:C:\Users\Jens\AppData\Local\Temp\s818.
+2D cinit CODE >1238:C:\Users\Jens\AppData\Local\Temp\s818.
+2E cinit CODE >1239:C:\Users\Jens\AppData\Local\Temp\s818.
+2F cinit CODE >1240:C:\Users\Jens\AppData\Local\Temp\s818.
 4 intentry CODE >257:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 9 intentry CODE >259:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 C intentry CODE >260:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
@@ -194,178 +195,178 @@ C intentry CODE >260:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main
 1C intentry CODE >264:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 1E intentry CODE >265:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 20 intentry CODE >267:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-33B text17 CODE >110:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-33B text17 CODE >115:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-33E text17 CODE >116:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-340 text17 CODE >117:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-344 text17 CODE >118:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-345 text17 CODE >119:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-346 text17 CODE >120:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-347 text17 CODE >123:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-349 text17 CODE >124:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-34E text17 CODE >125:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-350 text17 CODE >126:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-437 text16 CODE >142:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-437 text16 CODE >143:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-437 text16 CODE >144:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-43A text16 CODE >145:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-43D text16 CODE >146:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-43E text16 CODE >147:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-43F text16 CODE >149:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2AD text15 CODE >152:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2AD text15 CODE >153:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2AF text15 CODE >154:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2B8 text15 CODE >155:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2C6 text15 CODE >156:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2CA text15 CODE >157:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2CB text15 CODE >158:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2CD text15 CODE >161:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-45A text14 CODE >221:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-45B text14 CODE >222:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-45B text14 CODE >223:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-45E text14 CODE >224:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-461 text14 CODE >225:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-321 text13 CODE >227:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-321 text13 CODE >228:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-323 text13 CODE >229:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-32C text13 CODE >230:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-336 text13 CODE >231:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-33A text13 CODE >229:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-14E text12 CODE >164:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-14F text12 CODE >173:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-151 text12 CODE >174:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-152 text12 CODE >175:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-153 text12 CODE >176:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-154 text12 CODE >179:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-155 text12 CODE >182:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-158 text12 CODE >183:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-15D text12 CODE >184:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-15F text12 CODE >185:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-164 text12 CODE >190:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-167 text12 CODE >191:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-16C text12 CODE >192:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-16E text12 CODE >193:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-173 text12 CODE >198:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-176 text12 CODE >199:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-17B text12 CODE >200:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-17D text12 CODE >201:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-182 text12 CODE >206:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-185 text12 CODE >207:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-18A text12 CODE >208:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-18C text12 CODE >209:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-191 text12 CODE >212:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-192 text12 CODE >179:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A0 text12 CODE >212:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A0 text12 CODE >214:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A2 text12 CODE >215:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A3 text12 CODE >216:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A4 text12 CODE >217:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A5 text12 CODE >218:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A6 text12 CODE >219:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-364 text11 CODE >269:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-364 text11 CODE >272:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-365 text11 CODE >273:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-36A text11 CODE >274:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-36C text11 CODE >276:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-36E text11 CODE >277:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-371 text11 CODE >278:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-373 text11 CODE >279:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-374 text11 CODE >280:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1FB text10 CODE >333:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1FB text10 CODE >334:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1FF text10 CODE >335:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-206 text10 CODE >336:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-207 text10 CODE >337:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-20E text10 CODE >338:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-20F text10 CODE >339:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-212 text10 CODE >340:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-21C text10 CODE >341:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-220 text10 CODE >342:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-224 text10 CODE >343:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-22A text10 CODE >344:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-22E text10 CODE >342:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-22F text10 CODE >346:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+35E text17 CODE >110:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+35E text17 CODE >115:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+361 text17 CODE >116:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+363 text17 CODE >117:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+367 text17 CODE >118:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+368 text17 CODE >119:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+369 text17 CODE >120:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+36A text17 CODE >123:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+36C text17 CODE >124:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+371 text17 CODE >125:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+373 text17 CODE >126:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+468 text16 CODE >142:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+468 text16 CODE >143:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+468 text16 CODE >144:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+46B text16 CODE >145:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+46E text16 CODE >146:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+46F text16 CODE >147:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+470 text16 CODE >149:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2D0 text15 CODE >152:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2D0 text15 CODE >153:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2D2 text15 CODE >154:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2DB text15 CODE >155:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2E9 text15 CODE >156:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2ED text15 CODE >157:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2EE text15 CODE >158:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F0 text15 CODE >161:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+48B text14 CODE >221:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+48C text14 CODE >222:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+48C text14 CODE >223:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+48F text14 CODE >224:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+492 text14 CODE >225:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+344 text13 CODE >227:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+344 text13 CODE >228:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+346 text13 CODE >229:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+34F text13 CODE >230:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+359 text13 CODE >231:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+35D text13 CODE >229:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+171 text12 CODE >164:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+172 text12 CODE >173:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+174 text12 CODE >174:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+175 text12 CODE >175:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+176 text12 CODE >176:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+177 text12 CODE >179:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+178 text12 CODE >182:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+17B text12 CODE >183:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+180 text12 CODE >184:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+182 text12 CODE >185:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+187 text12 CODE >190:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+18A text12 CODE >191:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+18F text12 CODE >192:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+191 text12 CODE >193:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+196 text12 CODE >198:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+199 text12 CODE >199:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+19E text12 CODE >200:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1A0 text12 CODE >201:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1A5 text12 CODE >206:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1A8 text12 CODE >207:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1AD text12 CODE >208:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1AF text12 CODE >209:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1B4 text12 CODE >212:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1B5 text12 CODE >179:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1C3 text12 CODE >212:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1C3 text12 CODE >214:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1C5 text12 CODE >215:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1C6 text12 CODE >216:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1C7 text12 CODE >217:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1C8 text12 CODE >218:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1C9 text12 CODE >219:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+387 text11 CODE >269:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+387 text11 CODE >272:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+388 text11 CODE >273:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+38D text11 CODE >274:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+38F text11 CODE >276:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+391 text11 CODE >277:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+394 text11 CODE >278:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+396 text11 CODE >279:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+397 text11 CODE >280:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+21E text10 CODE >333:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+21E text10 CODE >334:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+222 text10 CODE >335:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+229 text10 CODE >336:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+22A text10 CODE >337:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 231 text10 CODE >338:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-236 text10 CODE >350:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-23D text10 CODE >351:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-245 text10 CODE >352:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-452 text9 CODE >128:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-453 text9 CODE >129:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-453 text9 CODE >130:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-456 text9 CODE >131:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-459 text9 CODE >132:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-307 text8 CODE >134:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-307 text8 CODE >135:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-309 text8 CODE >136:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-312 text8 CODE >137:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-31C text8 CODE >138:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-320 text8 CODE >136:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-D7 text7 CODE >302:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-D7 text7 CODE >303:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-DE text7 CODE >305:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-E2 text7 CODE >306:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-E9 text7 CODE >307:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-F5 text7 CODE >308:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-FC text7 CODE >309:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-104 text7 CODE >310:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-107 text7 CODE >312:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-10E text7 CODE >313:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-111 text7 CODE >314:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-114 text7 CODE >315:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-11A text7 CODE >313:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-11B text7 CODE >319:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-122 text7 CODE >320:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-12A text7 CODE >322:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-131 text7 CODE >323:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-134 text7 CODE >324:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-137 text7 CODE >325:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-13D text7 CODE >323:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-13E text7 CODE >329:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-145 text7 CODE >330:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-14D text7 CODE >331:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A7 text6 CODE >282:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1A7 text6 CODE >283:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1AE text6 CODE >284:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1B2 text6 CODE >285:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1B9 text6 CODE >286:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1C5 text6 CODE >287:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1CC text6 CODE >288:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1D4 text6 CODE >290:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1D7 text6 CODE >292:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1DE text6 CODE >293:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1E1 text6 CODE >294:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1E4 text6 CODE >295:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1EA text6 CODE >293:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1EB text6 CODE >298:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1F2 text6 CODE >299:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-1FA text6 CODE >300:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2ED text5 CODE >373:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2EE text5 CODE >374:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2F2 text5 CODE >375:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2F9 text5 CODE >376:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-300 text5 CODE >377:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-306 text5 CODE >378:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-42D text4 CODE >235:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-42D text4 CODE >236:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-42D text4 CODE >237:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-430 text4 CODE >238:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-433 text4 CODE >239:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-434 text4 CODE >240:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-435 text4 CODE >242:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-286 text3 CODE >33:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
-287 text3 CODE >37:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
-288 text3 CODE >38:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
-28C text3 CODE >39:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
-290 text3 CODE >37:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
-2A7 text3 CODE >41:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
-246 text2 CODE >4:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-247 text2 CODE >6:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-250 text2 CODE >7:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-263 text2 CODE >8:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-27A text2 CODE >10:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-27E text2 CODE >11:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-282 text2 CODE >6:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-283 text2 CODE >13:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+232 text10 CODE >339:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+235 text10 CODE >340:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+23F text10 CODE >341:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+243 text10 CODE >342:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+247 text10 CODE >343:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+24D text10 CODE >344:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+251 text10 CODE >342:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+252 text10 CODE >346:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+254 text10 CODE >338:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+259 text10 CODE >350:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+260 text10 CODE >351:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+268 text10 CODE >352:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+483 text9 CODE >128:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+484 text9 CODE >129:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+484 text9 CODE >130:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+487 text9 CODE >131:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+48A text9 CODE >132:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+32A text8 CODE >134:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+32A text8 CODE >135:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+32C text8 CODE >136:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+335 text8 CODE >137:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+33F text8 CODE >138:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+343 text8 CODE >136:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+FA text7 CODE >302:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+FA text7 CODE >303:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+101 text7 CODE >305:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+105 text7 CODE >306:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+10C text7 CODE >307:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+118 text7 CODE >308:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+11F text7 CODE >309:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+127 text7 CODE >310:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+12A text7 CODE >312:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+131 text7 CODE >313:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+134 text7 CODE >314:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+137 text7 CODE >315:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+13D text7 CODE >313:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+13E text7 CODE >319:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+145 text7 CODE >320:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+14D text7 CODE >322:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+154 text7 CODE >323:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+157 text7 CODE >324:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+15A text7 CODE >325:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+160 text7 CODE >323:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+161 text7 CODE >329:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+168 text7 CODE >330:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+170 text7 CODE >331:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1CA text6 CODE >282:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1CA text6 CODE >283:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1D1 text6 CODE >284:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1D5 text6 CODE >285:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1DC text6 CODE >286:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1E8 text6 CODE >287:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1EF text6 CODE >288:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1F7 text6 CODE >290:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+1FA text6 CODE >292:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+201 text6 CODE >293:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+204 text6 CODE >294:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+207 text6 CODE >295:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+20D text6 CODE >293:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+20E text6 CODE >298:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+215 text6 CODE >299:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+21D text6 CODE >300:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+310 text5 CODE >373:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+311 text5 CODE >374:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+315 text5 CODE >375:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+31C text5 CODE >376:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+323 text5 CODE >377:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+329 text5 CODE >378:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+45E text4 CODE >235:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+45E text4 CODE >236:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+45E text4 CODE >237:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+461 text4 CODE >238:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+464 text4 CODE >239:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+465 text4 CODE >240:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+466 text4 CODE >242:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2A9 text3 CODE >33:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+2AA text3 CODE >37:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+2AB text3 CODE >38:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+2AF text3 CODE >39:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+2B3 text3 CODE >37:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+2CA text3 CODE >41:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
+269 text2 CODE >4:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+26A text2 CODE >6:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+273 text2 CODE >7:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+286 text2 CODE >8:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+29D text2 CODE >10:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+2A1 text2 CODE >11:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+2A5 text2 CODE >6:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
+2A6 text2 CODE >13:C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
 31 text1 CODE >380:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 31 text1 CODE >383:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 31 text1 CODE >384:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
@@ -379,36 +380,41 @@ FC text7 CODE >309:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 54 text1 CODE >394:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 5A text1 CODE >397:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 66 text1 CODE >398:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-68 text1 CODE >399:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-75 text1 CODE >400:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-77 text1 CODE >401:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-84 text1 CODE >402:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-86 text1 CODE >403:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-93 text1 CODE >404:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-96 text1 CODE >405:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-99 text1 CODE >406:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-9B text1 CODE >407:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-AC text1 CODE >409:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-B1 text1 CODE >411:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-B3 text1 CODE >413:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-BA text1 CODE >414:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-C5 text1 CODE >415:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-C9 text1 CODE >416:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-CD text1 CODE >413:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-CE text1 CODE >418:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-D3 text1 CODE >420:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-D6 text1 CODE >422:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2CF maintext CODE >88:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2CF maintext CODE >90:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2D1 maintext CODE >91:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2D2 maintext CODE >92:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2D3 maintext CODE >95:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2D4 maintext CODE >96:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2D5 maintext CODE >99:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2E2 maintext CODE >100:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2E5 maintext CODE >101:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2E9 maintext CODE >104:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
-2EC maintext CODE >103:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+69 text1 CODE >399:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+6F text1 CODE >400:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+7C text1 CODE >401:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+7F text1 CODE >402:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+85 text1 CODE >403:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+92 text1 CODE >404:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+95 text1 CODE >405:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+9B text1 CODE >406:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+A8 text1 CODE >407:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+AB text1 CODE >408:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+AE text1 CODE >409:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+B1 text1 CODE >410:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+B7 text1 CODE >411:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+C8 text1 CODE >413:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+CD text1 CODE >415:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+CF text1 CODE >417:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+D6 text1 CODE >418:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+E1 text1 CODE >419:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+E5 text1 CODE >420:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+E9 text1 CODE >417:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+EA text1 CODE >422:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+EF text1 CODE >424:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+F3 text1 CODE >425:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+F9 text1 CODE >427:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F2 maintext CODE >88:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F2 maintext CODE >90:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F4 maintext CODE >91:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F5 maintext CODE >92:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F6 maintext CODE >95:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F7 maintext CODE >96:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+2F8 maintext CODE >99:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+305 maintext CODE >100:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+308 maintext CODE >101:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+30C maintext CODE >104:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
+30F maintext CODE >103:C:\Users\Jens\Documents\GitHub\testrigg\pic\Testrigg.X\main.c
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -427,7 +433,7 @@ __Hspace_1 7C 0 ABS 0 - -
 __Hspace_2 0 0 ABS 0 - -
 __Hspace_3 0 0 ABS 0 - -
 startTimer@seconds 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-__end_of_startTimer 6EA 0 CODE 0 text11 dist/default/production\Testrigg.X.production.obj
+__end_of_startTimer 730 0 CODE 0 text11 dist/default/production\Testrigg.X.production.obj
 strncmp@s1 77 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 strncmp@s2 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 waitForCommand@message 20 0 BANK0 1 cstackBANK0 dist/default/production\Testrigg.X.production.obj
@@ -436,10 +442,10 @@ __CFG_MCLRE$ON 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _timerCount 8 0 CODE 0 intentry dist/default/production\Testrigg.X.production.obj
 __Hstrings 0 0 ABS 0 strings -
 __CFG_WDTCCS$SC 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-___sp 0 0 STACK 2 stack C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-_main 59E 0 CODE 0 maintext dist/default/production\Testrigg.X.production.obj
+___sp 0 0 STACK 2 stack C:\Users\Jens\AppData\Local\Temp\s818.obj
+_main 5E4 0 CODE 0 maintext dist/default/production\Testrigg.X.production.obj
 btemp 7E 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-start 4A 0 CODE 0 init C:\Users\Jens\AppData\Local\Temp\s3pk.obj
+start 4A 0 CODE 0 init C:\Users\Jens\AppData\Local\Temp\s818.obj
 __size_of_main 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Hstringtext10 0 0 ABS 0 stringtext10 -
 __Hstringtext11 0 0 ABS 0 stringtext11 -
@@ -454,59 +460,60 @@ __Hstringtext19 0 0 ABS 0 stringtext19 -
 __Hstringtext20 0 0 ABS 0 stringtext20 -
 __Hstringtext21 0 0 ABS 0 stringtext21 -
 __Hstringtext22 0 0 ABS 0 stringtext22 -
+__Hstringtext23 0 0 ABS 0 stringtext23 -
 __HbssCOMMON 0 0 ABS 0 bssCOMMON -
 _RC2STAbits A1D 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-_getWiFiData 34E 0 CODE 0 text6 dist/default/production\Testrigg.X.production.obj
-_serialWriteBT 8B4 0 CODE 0 text14 dist/default/production\Testrigg.X.production.obj
+_getWiFiData 394 0 CODE 0 text6 dist/default/production\Testrigg.X.production.obj
+_serialWriteBT 916 0 CODE 0 text14 dist/default/production\Testrigg.X.production.obj
 __size_of_setActivePeripheral 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Hpowerup 0 0 CODE 0 powerup -
-waitForCommand@i_431 60 0 BANK0 1 cstackBANK0 dist/default/production\Testrigg.X.production.obj
+waitForCommand@i_435 60 0 BANK0 1 cstackBANK0 dist/default/production\Testrigg.X.production.obj
 waitForCommand@command 3E 0 BANK0 1 cstackBANK0 dist/default/production\Testrigg.X.production.obj
 _timerDone 7B 0 COMMON 1 bssCOMMON dist/default/production\Testrigg.X.production.obj
-intlevel0 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-intlevel1 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-intlevel2 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-intlevel3 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-intlevel4 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-intlevel5 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s3pk.obj
+intlevel0 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s818.obj
+intlevel1 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s818.obj
+intlevel2 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s818.obj
+intlevel3 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s818.obj
+intlevel4 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s818.obj
+intlevel5 0 0 ENTRY 0 functab C:\Users\Jens\AppData\Local\Temp\s818.obj
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 wtemp0 7E 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-_getGPSData 3F6 0 CODE 0 text10 dist/default/production\Testrigg.X.production.obj
+_getGPSData 43C 0 CODE 0 text10 dist/default/production\Testrigg.X.production.obj
 __Hfunctab 0 0 ENTRY 0 functab -
 _RC1STAbits 11D 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __size_of_serialFindPeripheral 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Hclrtext 0 0 ABS 0 clrtext -
 __end_of_timerCount 4A 0 CODE 0 intentry dist/default/production\Testrigg.X.production.obj
-_getGSMData 1AE 0 CODE 0 text7 dist/default/production\Testrigg.X.production.obj
+_getGSMData 1F4 0 CODE 0 text7 dist/default/production\Testrigg.X.production.obj
 __size_of_serialPrintBT 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _ANSELA 1F38 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _ANSELB 1F43 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _ANSELC 1F4E 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 serialPrintBT@i 75 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 serialPrintBT@s 72 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-_setActivePeripheral 29C 0 CODE 0 text12 dist/default/production\Testrigg.X.production.obj
+_setActivePeripheral 2E2 0 CODE 0 text12 dist/default/production\Testrigg.X.production.obj
 serialWritePeripheral@c 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-__end_of_serialFindPeripheral 59E 0 CODE 0 text15 dist/default/production\Testrigg.X.production.obj
+__end_of_serialFindPeripheral 5E4 0 CODE 0 text15 dist/default/production\Testrigg.X.production.obj
 __size_of_serialReadPeripheral 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 setActivePeripheral@peri 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 getGPSData@c 79 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 __Lmaintext 0 0 ABS 0 maintext -
-__end_of_serialWritePeripheral 8B4 0 CODE 0 text9 dist/default/production\Testrigg.X.production.obj
+__end_of_serialWritePeripheral 916 0 CODE 0 text9 dist/default/production\Testrigg.X.production.obj
 __CFG_FEXTOSC$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-__end_of_serialPrintBT 676 0 CODE 0 text13 dist/default/production\Testrigg.X.production.obj
-__end_of_serialReadPeripheral 882 0 CODE 0 text16 dist/default/production\Testrigg.X.production.obj
+__end_of_serialPrintBT 6BC 0 CODE 0 text13 dist/default/production\Testrigg.X.production.obj
+__end_of_serialReadPeripheral 8E4 0 CODE 0 text16 dist/default/production\Testrigg.X.production.obj
 serialFindPeripheral@i 74 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 serialFindPeripheral@s 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 ?_strcmp 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 __CFG_SAFEN$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __size_of_strncmp 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-__end_of_getGPSData 48C 0 CODE 0 text10 dist/default/production\Testrigg.X.production.obj
+__end_of_getGPSData 4D2 0 CODE 0 text10 dist/default/production\Testrigg.X.production.obj
 waitForCommand@i 5E 0 BANK0 1 cstackBANK0 dist/default/production\Testrigg.X.production.obj
 waitForCommand@p 62 0 BANK0 1 cstackBANK0 dist/default/production\Testrigg.X.production.obj
 __size_of_serialWriteBT 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-_serialWritePeripheral 8A4 0 CODE 0 text9 dist/default/production\Testrigg.X.production.obj
+_serialWritePeripheral 906 0 CODE 0 text9 dist/default/production\Testrigg.X.production.obj
 _timerActual 65 0 BANK0 1 bssBANK0 dist/default/production\Testrigg.X.production.obj
-__end_of_getGSMData 29C 0 CODE 0 text7 dist/default/production\Testrigg.X.production.obj
+__end_of_getGSMData 2E2 0 CODE 0 text7 dist/default/production\Testrigg.X.production.obj
 __Lstringtext10 0 0 ABS 0 stringtext10 -
 __Lstringtext11 0 0 ABS 0 stringtext11 -
 __Lstringtext12 0 0 ABS 0 stringtext12 -
@@ -520,6 +527,7 @@ __Lstringtext19 0 0 ABS 0 stringtext19 -
 __Lstringtext20 0 0 ABS 0 stringtext20 -
 __Lstringtext21 0 0 ABS 0 stringtext21 -
 __Lstringtext22 0 0 ABS 0 stringtext22 -
+__Lstringtext23 0 0 ABS 0 stringtext23 -
 start_initialization 4E 0 CODE 0 cinit dist/default/production\Testrigg.X.production.obj
 _waitForCommand 62 0 CODE 0 text1 dist/default/production\Testrigg.X.production.obj
 __CFG_WDTCPS$WDTCPS_31 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
@@ -536,7 +544,7 @@ _SP2BRG A1B 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __pcstackBANK0 20 0 BANK0 1 cstackBANK0 dist/default/production\Testrigg.X.production.obj
 _T0CON0 59E 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _T0CON1 59F 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-__end_of_serialWriteBT 8C4 0 CODE 0 text14 dist/default/production\Testrigg.X.production.obj
+__end_of_serialWriteBT 926 0 CODE 0 text14 dist/default/production\Testrigg.X.production.obj
 _TRISA5 95 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _TRISB5 9D 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _TRISC0 A0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
@@ -546,8 +554,8 @@ _TX1REG 11A 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _TX2REG A1A 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _timerSetpoint 67 0 BANK0 1 bssBANK0 dist/default/production\Testrigg.X.production.obj
 sendSigfox@hexMessage 77 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-___int_sp 0 0 STACK 2 stack C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-__end_of_setActivePeripheral 34E 0 CODE 0 text12 dist/default/production\Testrigg.X.production.obj
+___int_sp 0 0 STACK 2 stack C:\Users\Jens\AppData\Local\Temp\s818.obj
+__end_of_setActivePeripheral 394 0 CODE 0 text12 dist/default/production\Testrigg.X.production.obj
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -559,7 +567,7 @@ __Hbank7 0 0 BANK7 1 bank7 -
 __Hbank8 0 0 BANK8 1 bank8 -
 __Hbank9 0 0 BANK9 1 bank9 -
 __Hcinit 62 0 CODE 0 cinit -
-__end_of_strcmp 55A 0 CODE 0 text3 dist/default/production\Testrigg.X.production.obj
+__end_of_strcmp 5A0 0 CODE 0 text3 dist/default/production\Testrigg.X.production.obj
 __Hidloc 0 0 IDLOC 0 idloc -
 __Hsfr10 0 0 ABS 0 sfr10 -
 __Hsfr11 0 0 ABS 0 sfr11 -
@@ -675,7 +683,7 @@ __Hmaintext 0 0 ABS 0 maintext -
 __Hcommon 0 0 ABS 0 common -
 __Hconfig 10018 0 CONFIG 0 config -
 serialWriteBT@c 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-__end_of_waitForCommand 1AE 0 CODE 0 text1 dist/default/production\Testrigg.X.production.obj
+__end_of_waitForCommand 1F4 0 CODE 0 text1 dist/default/production\Testrigg.X.production.obj
 __Lbank0 0 0 ABS 0 bank0 -
 __Lbank1 0 0 ABS 0 bank1 -
 __Lbank2 0 0 ABS 0 bank2 -
@@ -688,7 +696,7 @@ __Lbank8 0 0 BANK8 1 bank8 -
 __Lbank9 0 0 BANK9 1 bank9 -
 __Lcinit 4E 0 CODE 0 cinit -
 __Lidloc 0 0 IDLOC 0 idloc -
-__end_of_serialPrintPeripheral 642 0 CODE 0 text8 dist/default/production\Testrigg.X.production.obj
+__end_of_serialPrintPeripheral 688 0 CODE 0 text8 dist/default/production\Testrigg.X.production.obj
 __Lsfr10 0 0 ABS 0 sfr10 -
 __Lsfr11 0 0 ABS 0 sfr11 -
 __Lsfr12 0 0 ABS 0 sfr12 -
@@ -747,7 +755,7 @@ _RX1DTPPSbits 1ECB 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Lstack 0 0 STACK 2 stack -
 serialPrintPeripheral@i 75 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 serialPrintPeripheral@s 72 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-__end_of_strncmp 50C 0 CODE 0 text2 dist/default/production\Testrigg.X.production.obj
+__end_of_strncmp 552 0 CODE 0 text2 dist/default/production\Testrigg.X.production.obj
 _RX2DTPPSbits 1ECD 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _INTCONbits B 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Habs1 0 0 ABS 0 abs1 -
@@ -778,30 +786,31 @@ __Lsfr7 0 0 ABS 0 sfr7 -
 __Lsfr8 0 0 ABS 0 sfr8 -
 __Lsfr9 0 0 ABS 0 sfr9 -
 __Ltext 0 0 ABS 0 text -
-__pstringtext1 6A2 0 STRCODE 0 stringtext1 dist/default/production\Testrigg.X.production.obj
-__pstringtext2 6EA 0 STRCODE 0 stringtext2 dist/default/production\Testrigg.X.production.obj
-__pstringtext3 708 0 STRCODE 0 stringtext3 dist/default/production\Testrigg.X.production.obj
-__pstringtext4 722 0 STRCODE 0 stringtext4 dist/default/production\Testrigg.X.production.obj
-__pstringtext5 73C 0 STRCODE 0 stringtext5 dist/default/production\Testrigg.X.production.obj
-__pstringtext6 756 0 STRCODE 0 stringtext6 dist/default/production\Testrigg.X.production.obj
-__pstringtext7 76E 0 STRCODE 0 stringtext7 dist/default/production\Testrigg.X.production.obj
-__pstringtext8 786 0 STRCODE 0 stringtext8 dist/default/production\Testrigg.X.production.obj
-__pstringtext9 79E 0 STRCODE 0 stringtext9 dist/default/production\Testrigg.X.production.obj
-__pstringtext10 7B4 0 STRCODE 0 stringtext10 dist/default/production\Testrigg.X.production.obj
-__pstringtext11 7CA 0 STRCODE 0 stringtext11 dist/default/production\Testrigg.X.production.obj
-__pstringtext12 7E0 0 STRCODE 0 stringtext12 dist/default/production\Testrigg.X.production.obj
-__pstringtext13 7F6 0 STRCODE 0 stringtext13 dist/default/production\Testrigg.X.production.obj
-__pstringtext14 80A 0 STRCODE 0 stringtext14 dist/default/production\Testrigg.X.production.obj
-__pstringtext15 81E 0 STRCODE 0 stringtext15 dist/default/production\Testrigg.X.production.obj
-__pstringtext16 832 0 STRCODE 0 stringtext16 dist/default/production\Testrigg.X.production.obj
-__pstringtext17 846 0 STRCODE 0 stringtext17 dist/default/production\Testrigg.X.production.obj
-__pstringtext18 882 0 STRCODE 0 stringtext18 dist/default/production\Testrigg.X.production.obj
-__pstringtext19 894 0 STRCODE 0 stringtext19 dist/default/production\Testrigg.X.production.obj
-__pstringtext20 8C4 0 STRCODE 0 stringtext20 dist/default/production\Testrigg.X.production.obj
-__pstringtext21 8D2 0 STRCODE 0 stringtext21 dist/default/production\Testrigg.X.production.obj
-__pstringtext22 0 0 STRCODE 0 stringtext22 dist/default/production\Testrigg.X.production.obj
+__pstringtext1 6E8 0 STRCODE 0 stringtext1 dist/default/production\Testrigg.X.production.obj
+__pstringtext2 730 0 STRCODE 0 stringtext2 dist/default/production\Testrigg.X.production.obj
+__pstringtext3 74E 0 STRCODE 0 stringtext3 dist/default/production\Testrigg.X.production.obj
+__pstringtext4 76A 0 STRCODE 0 stringtext4 dist/default/production\Testrigg.X.production.obj
+__pstringtext5 784 0 STRCODE 0 stringtext5 dist/default/production\Testrigg.X.production.obj
+__pstringtext6 79E 0 STRCODE 0 stringtext6 dist/default/production\Testrigg.X.production.obj
+__pstringtext7 7B8 0 STRCODE 0 stringtext7 dist/default/production\Testrigg.X.production.obj
+__pstringtext8 7D0 0 STRCODE 0 stringtext8 dist/default/production\Testrigg.X.production.obj
+__pstringtext9 7E8 0 STRCODE 0 stringtext9 dist/default/production\Testrigg.X.production.obj
+__pstringtext10 800 0 STRCODE 0 stringtext10 dist/default/production\Testrigg.X.production.obj
+__pstringtext11 816 0 STRCODE 0 stringtext11 dist/default/production\Testrigg.X.production.obj
+__pstringtext12 82C 0 STRCODE 0 stringtext12 dist/default/production\Testrigg.X.production.obj
+__pstringtext13 842 0 STRCODE 0 stringtext13 dist/default/production\Testrigg.X.production.obj
+__pstringtext14 858 0 STRCODE 0 stringtext14 dist/default/production\Testrigg.X.production.obj
+__pstringtext15 86C 0 STRCODE 0 stringtext15 dist/default/production\Testrigg.X.production.obj
+__pstringtext16 880 0 STRCODE 0 stringtext16 dist/default/production\Testrigg.X.production.obj
+__pstringtext17 894 0 STRCODE 0 stringtext17 dist/default/production\Testrigg.X.production.obj
+__pstringtext18 8A8 0 STRCODE 0 stringtext18 dist/default/production\Testrigg.X.production.obj
+__pstringtext19 8E4 0 STRCODE 0 stringtext19 dist/default/production\Testrigg.X.production.obj
+__pstringtext20 8F6 0 STRCODE 0 stringtext20 dist/default/production\Testrigg.X.production.obj
+__pstringtext21 926 0 STRCODE 0 stringtext21 dist/default/production\Testrigg.X.production.obj
+__pstringtext22 934 0 STRCODE 0 stringtext22 dist/default/production\Testrigg.X.production.obj
+__pstringtext23 0 0 STRCODE 0 stringtext23 dist/default/production\Testrigg.X.production.obj
 __CFG_WDTCWS$WDTCWS_7 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-__end_of_getWiFiData 3F6 0 CODE 0 text6 dist/default/production\Testrigg.X.production.obj
+__end_of_getWiFiData 43C 0 CODE 0 text6 dist/default/production\Testrigg.X.production.obj
 __LcstackBANK0 0 0 ABS 0 cstackBANK0 -
 int$flags 7E 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
@@ -809,16 +818,16 @@ __size_of_timerCount 0 0 ABS 0 - dist/default/production\Testrigg.X.production.o
 __S0 800C 0 ABS 0 - -
 __S1 7C 0 ABS 0 - -
 __S2 0 0 ABS 0 - -
-_serialPrintPeripheral 60E 0 CODE 0 text8 dist/default/production\Testrigg.X.production.obj
+_serialPrintPeripheral 654 0 CODE 0 text8 dist/default/production\Testrigg.X.production.obj
 getGPSData@found 78 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 __CFG_BBEN$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 strcmp@s1 75 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 strcmp@s2 71 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
 __CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-_sendSigfox 5DA 0 CODE 0 text5 dist/default/production\Testrigg.X.production.obj
+_sendSigfox 620 0 CODE 0 text5 dist/default/production\Testrigg.X.production.obj
 __Lintentry 8 0 CODE 0 intentry -
 strcmp@r 74 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-reset_vec 0 0 CODE 0 reset_vec C:\Users\Jens\AppData\Local\Temp\s3pk.obj
+reset_vec 0 0 CODE 0 reset_vec C:\Users\Jens\AppData\Local\Temp\s818.obj
 __LbssBANK0 0 0 ABS 0 bssBANK0 -
 __CFG_FCMEN$ON 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Lstringtext1 0 0 ABS 0 stringtext1 -
@@ -832,14 +841,14 @@ __Lstringtext8 0 0 ABS 0 stringtext8 -
 __Lstringtext9 0 0 ABS 0 stringtext9 -
 __size_of_getGPSData 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 _PIE0bits 716 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-__ptext10 3F6 0 CODE 0 text10 dist/default/production\Testrigg.X.production.obj
-__ptext11 6C8 0 CODE 0 text11 dist/default/production\Testrigg.X.production.obj
-__ptext12 29C 0 CODE 0 text12 dist/default/production\Testrigg.X.production.obj
-__ptext13 642 0 CODE 0 text13 dist/default/production\Testrigg.X.production.obj
-__ptext14 8B4 0 CODE 0 text14 dist/default/production\Testrigg.X.production.obj
-__ptext15 55A 0 CODE 0 text15 dist/default/production\Testrigg.X.production.obj
-__ptext16 86E 0 CODE 0 text16 dist/default/production\Testrigg.X.production.obj
-__ptext17 676 0 CODE 0 text17 dist/default/production\Testrigg.X.production.obj
+__ptext10 43C 0 CODE 0 text10 dist/default/production\Testrigg.X.production.obj
+__ptext11 70E 0 CODE 0 text11 dist/default/production\Testrigg.X.production.obj
+__ptext12 2E2 0 CODE 0 text12 dist/default/production\Testrigg.X.production.obj
+__ptext13 688 0 CODE 0 text13 dist/default/production\Testrigg.X.production.obj
+__ptext14 916 0 CODE 0 text14 dist/default/production\Testrigg.X.production.obj
+__ptext15 5A0 0 CODE 0 text15 dist/default/production\Testrigg.X.production.obj
+__ptext16 8D0 0 CODE 0 text16 dist/default/production\Testrigg.X.production.obj
+__ptext17 6BC 0 CODE 0 text17 dist/default/production\Testrigg.X.production.obj
 __size_of_getGSMData 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Lbank10 0 0 BANK10 1 bank10 -
 __Lbank11 0 0 BANK11 1 bank11 -
@@ -895,23 +904,23 @@ __Lbank60 0 0 BANK60 1 bank60 -
 __Lbank61 0 0 BANK61 1 bank61 -
 __Lbank62 0 0 BANK62 1 bank62 -
 __Lbank63 0 0 BANK63 1 bank63 -
-__pmaintext 59E 0 CODE 0 maintext dist/default/production\Testrigg.X.production.obj
+__pmaintext 5E4 0 CODE 0 maintext dist/default/production\Testrigg.X.production.obj
 __Lbigram 0 0 ABS 0 bigram -
 __CFG_BORV$LO 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __CFG_BBSIZE$BB512 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Lcommon 0 0 ABS 0 common -
 __Lconfig 1000E 0 CONFIG 0 config -
-_serialFindPeripheral 55A 0 CODE 0 text15 dist/default/production\Testrigg.X.production.obj
+_serialFindPeripheral 5A0 0 CODE 0 text15 dist/default/production\Testrigg.X.production.obj
 __CFG_CP$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __CFG_WDTE$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __CFG_WRTAPP$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-_initBTSerial 676 0 CODE 0 text17 dist/default/production\Testrigg.X.production.obj
-_strcmp 50C 0 CODE 0 text3 dist/default/production\Testrigg.X.production.obj
+_initBTSerial 6BC 0 CODE 0 text17 dist/default/production\Testrigg.X.production.obj
+_strcmp 552 0 CODE 0 text3 dist/default/production\Testrigg.X.production.obj
 _TX2STAbits A1E 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
-stackhi 21EF 0 ABS 0 - C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-stacklo 2049 0 ABS 0 - C:\Users\Jens\AppData\Local\Temp\s3pk.obj
-_serialReadPeripheral 86E 0 CODE 0 text16 dist/default/production\Testrigg.X.production.obj
-__end_of_sendSigfox 60E 0 CODE 0 text5 dist/default/production\Testrigg.X.production.obj
+stackhi 21EF 0 ABS 0 - C:\Users\Jens\AppData\Local\Temp\s818.obj
+stacklo 2049 0 ABS 0 - C:\Users\Jens\AppData\Local\Temp\s818.obj
+_serialReadPeripheral 8D0 0 CODE 0 text16 dist/default/production\Testrigg.X.production.obj
+__end_of_sendSigfox 654 0 CODE 0 text5 dist/default/production\Testrigg.X.production.obj
 __Lspace_0 0 0 ABS 0 - -
 __Lspace_1 0 0 ABS 0 - -
 __Lspace_2 0 0 ABS 0 - -
@@ -939,17 +948,17 @@ __Hreset_vec 4 0 CODE 0 reset_vec -
 __HbssBANK0 0 0 ABS 0 bssBANK0 -
 __size_of_strcmp 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __ptext1 62 0 CODE 0 text1 dist/default/production\Testrigg.X.production.obj
-__ptext2 48C 0 CODE 0 text2 dist/default/production\Testrigg.X.production.obj
-__ptext3 50C 0 CODE 0 text3 dist/default/production\Testrigg.X.production.obj
-__ptext4 85A 0 CODE 0 text4 dist/default/production\Testrigg.X.production.obj
-__ptext5 5DA 0 CODE 0 text5 dist/default/production\Testrigg.X.production.obj
-__ptext6 34E 0 CODE 0 text6 dist/default/production\Testrigg.X.production.obj
-__ptext7 1AE 0 CODE 0 text7 dist/default/production\Testrigg.X.production.obj
-__ptext8 60E 0 CODE 0 text8 dist/default/production\Testrigg.X.production.obj
-__ptext9 8A4 0 CODE 0 text9 dist/default/production\Testrigg.X.production.obj
+__ptext2 4D2 0 CODE 0 text2 dist/default/production\Testrigg.X.production.obj
+__ptext3 552 0 CODE 0 text3 dist/default/production\Testrigg.X.production.obj
+__ptext4 8BC 0 CODE 0 text4 dist/default/production\Testrigg.X.production.obj
+__ptext5 620 0 CODE 0 text5 dist/default/production\Testrigg.X.production.obj
+__ptext6 394 0 CODE 0 text6 dist/default/production\Testrigg.X.production.obj
+__ptext7 1F4 0 CODE 0 text7 dist/default/production\Testrigg.X.production.obj
+__ptext8 654 0 CODE 0 text8 dist/default/production\Testrigg.X.production.obj
+__ptext9 906 0 CODE 0 text9 dist/default/production\Testrigg.X.production.obj
 __Lpowerup 0 0 CODE 0 powerup -
 __Leeprom_data 0 0 EEDATA 3 eeprom_data -
-__end_of_initBTSerial 6A2 0 CODE 0 text17 dist/default/production\Testrigg.X.production.obj
+__end_of_initBTSerial 6E8 0 CODE 0 text17 dist/default/production\Testrigg.X.production.obj
 __Lreset_vec 0 0 CODE 0 reset_vec -
 __Hstringtext1 0 0 ABS 0 stringtext1 -
 __Hstringtext2 0 0 ABS 0 stringtext2 -
@@ -960,8 +969,8 @@ __Hstringtext6 0 0 ABS 0 stringtext6 -
 __Hstringtext7 0 0 ABS 0 stringtext7 -
 __Hstringtext8 0 0 ABS 0 stringtext8 -
 __Hstringtext9 0 0 ABS 0 stringtext9 -
-_strncmp 48C 0 CODE 0 text2 dist/default/production\Testrigg.X.production.obj
-_serialReadBT 85A 0 CODE 0 text4 dist/default/production\Testrigg.X.production.obj
+_strncmp 4D2 0 CODE 0 text2 dist/default/production\Testrigg.X.production.obj
+_serialReadBT 8BC 0 CODE 0 text4 dist/default/production\Testrigg.X.production.obj
 __CFG_CLKOUTEN$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __end_of__initialization 5A 0 CODE 0 cinit dist/default/production\Testrigg.X.production.obj
 strncmp@len 73 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
@@ -971,10 +980,10 @@ __CFG_WRTC$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Lclrtext 0 0 ABS 0 clrtext -
 __size_of_waitForCommand 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/default/production\Testrigg.X.production.obj
-_startTimer 6C8 0 CODE 0 text11 dist/default/production\Testrigg.X.production.obj
+_startTimer 70E 0 CODE 0 text11 dist/default/production\Testrigg.X.production.obj
 _T0CON0bits 59E 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Hend_init 4E 0 CODE 0 end_init -
-__end_of_main 5DA 0 CODE 0 maintext dist/default/production\Testrigg.X.production.obj
+__end_of_main 620 0 CODE 0 maintext dist/default/production\Testrigg.X.production.obj
 __size_of_serialPrintPeripheral 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __CFG_WRTSAF$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __Hram 0 0 ABS 0 ram -
@@ -986,8 +995,8 @@ __CFG_PPS1WAY$ON 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __initialization 4E 0 CODE 0 cinit dist/default/production\Testrigg.X.production.obj
 __CFG_PWRTE$OFF 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 __pbssBANK0 65 0 BANK0 1 bssBANK0 dist/default/production\Testrigg.X.production.obj
-_serialPrintBT 642 0 CODE 0 text13 dist/default/production\Testrigg.X.production.obj
-__end_of_serialReadBT 86E 0 CODE 0 text4 dist/default/production\Testrigg.X.production.obj
+_serialPrintBT 688 0 CODE 0 text13 dist/default/production\Testrigg.X.production.obj
+__end_of_serialReadBT 8D0 0 CODE 0 text4 dist/default/production\Testrigg.X.production.obj
 __size_of_sendSigfox 0 0 ABS 0 - dist/default/production\Testrigg.X.production.obj
 # %SPLITSTAB Section
 # This section enumerates all the psect splits performed by the assembler.
@@ -1014,15 +1023,15 @@ __size_of_sendSigfox 0 0 ABS 0 - dist/default/production\Testrigg.X.production.o
 # and size are in units of delta. The file address is in units of bytes.
 # All other numeric quantities are in decimal.
 %SEGMENTS
-text4 0 42D 85A 14 2
-text9 0 452 8A4 10 2
-text11 0 364 6C8 11 2
+text4 0 45E 8BC 14 2
+text9 0 483 906 10 2
+text11 0 387 70E 11 2
 cstackCOMMON 1 70 70 C 1
 cstackBANK0 1 20 20 49 1
-stringtext1 0 351 6A2 13 2
-stringtext2 0 375 6EA B8 2
-intentry 0 4 8 34D 2
+stringtext1 0 374 6E8 13 2
+stringtext2 0 398 730 C6 2
+intentry 0 4 8 370 2
 reset_vec 0 0 0 2 2
-stringtext18 0 441 882 11 2
-stringtext20 0 462 8C4 C 2
+stringtext19 0 472 8E4 11 2
+stringtext21 0 493 926 C 2
 config 0 8007 1000E 5 2

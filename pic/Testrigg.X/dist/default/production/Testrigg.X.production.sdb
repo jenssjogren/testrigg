@@ -210,16 +210,16 @@ bt 4
 "380
 [v _waitForCommand waitForCommand `(v  1 e 1 0 ]
 {
-"410
+"414
 [v waitForCommand@message message `[30]uc  1 a 30 0 ]
-[v waitForCommand@i_431 i `i  1 a 2 64 ]
-"408
+[v waitForCommand@i_435 i `i  1 a 2 64 ]
+"412
 [v waitForCommand@p p `*.4uc  1 a 1 66 ]
 "381
 [v waitForCommand@command command `[32]uc  1 a 32 30 ]
 "387
 [v waitForCommand@i i `i  1 a 2 62 ]
-"422
+"427
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
 [v _strncmp strncmp `(i  1 e 2 0 ]

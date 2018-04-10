@@ -396,14 +396,18 @@ void waitForCommand() {
     //Act upon command given
     if (strcmp(command, "GET_GPS\r\n") == 0) {
         getGPSData();
+        serialPrintBT("MESSAGE_END\r\n");
     } else if (strcmp(command, "GET_GSM\r\n") == 0) {
         getGSMData();
+        serialPrintBT("MESSAGE_END\r\n");
     } else if (strcmp(command, "GET_WIFI\r\n") == 0) {
         getWiFiData();
+        serialPrintBT("MESSAGE_END\r\n");
     } else if (strcmp(command, "GET_ALL\r\n") == 0) {
         getGPSData();
         getGSMData();
         getWiFiData();
+        serialPrintBT("MESSAGE_END\r\n");
     } else if (strncmp(command, "SEND_SIGFOX:", 12) == 0) {
         char * p;
         p = command + 12;
@@ -418,5 +422,6 @@ void waitForCommand() {
         message[i] = '\0';
         
         sendSigfox(message);
+        serialPrintBT("MESSAGE_END\r\n");
     }
 }

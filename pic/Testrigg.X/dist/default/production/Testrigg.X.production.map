@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v1.44\dat\en_msgs.txt -cs \
   -h+dist/default/production\Testrigg.X.production.sym \
   --cmf=dist/default/production\Testrigg.X.production.cmf -z -Q16F15344 \
-  -oC:\Users\Jens\AppData\Local\Temp\s3pk.2 \
+  -oC:\Users\Jens\AppData\Local\Temp\s818.2 \
   -Mdist/default/production/Testrigg.X.production.map -E1 -ver=XC8 \
   -ASTACK=02049h-021efh -pstack=STACK -ACODE=00h-07FFhx2 \
   -ASTRCODE=00h-0FFFh -ASTRING=00h-0FFhx16 -ACONST=00h-0FFhx16 \
@@ -40,7 +40,7 @@ Linker command line:
   -pfunctab=ENTRY -ACONFIG=08007h-0800Bh -pconfig=CONFIG -DCONFIG=2 \
   -AIDLOC=08000h-08003h -pidloc=IDLOC -DIDLOC=2 -DCODE=2 -DSTRCODE=2 \
   -DSTRING=2 -DCONST=2 -DENTRY=2 -k \
-  C:\Users\Jens\AppData\Local\Temp\s3pk.obj \
+  C:\Users\Jens\AppData\Local\Temp\s818.obj \
   dist/default/production\Testrigg.X.production.obj 
 
 Object code version is 3.11
@@ -50,56 +50,57 @@ Machine type is 16F15344
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Jens\AppData\Local\Temp\s3pk.obj
+C:\Users\Jens\AppData\Local\Temp\s818.obj
                 end_init                             25       25        2        8       0
                 reset_vec                             0        0        2        0       0
                 config                             8007     8007        5    1000E       0
 dist/default/production\Testrigg.X.production.obj
                 cinit                                27       27        A        8       0
                 intentry                              4        4       21        8       0
-                text17                              33B      33B       16        8       0
-                text16                              437      437        A      85A       0
-                text15                              2AD      2AD       22        8       0
-                text14                              45A      45A        8      8A4       0
-                text13                              321      321       1A        8       0
-                text12                              14E      14E       59        8       0
-                text11                              364      364       11      6C8       0
-                text10                              1FB      1FB       4B        8       0
-                text9                               452      452        8      8A4       0
-                text8                               307      307       1A        8       0
-                text7                                D7       D7       77        8       0
-                text6                               1A7      1A7       54        8       0
-                text5                               2ED      2ED       1A        8       0
-                text4                               42D      42D        A      85A       0
-                text3                               286      286       27        8       0
-                text2                               246      246       40        8       0
-                text1                                31       31       A6        8       0
-                maintext                            2CF      2CF       1E        8       0
+                text17                              35E      35E       16        8       0
+                text16                              468      468        A      8BC       0
+                text15                              2D0      2D0       22        8       0
+                text14                              48B      48B        8      906       0
+                text13                              344      344       1A        8       0
+                text12                              171      171       59        8       0
+                text11                              387      387       11      70E       0
+                text10                              21E      21E       4B        8       0
+                text9                               483      483        8      906       0
+                text8                               32A      32A       1A        8       0
+                text7                                FA       FA       77        8       0
+                text6                               1CA      1CA       54        8       0
+                text5                               310      310       1A        8       0
+                text4                               45E      45E        A      8BC       0
+                text3                               2A9      2A9       27        8       0
+                text2                               269      269       40        8       0
+                text1                                31       31       C9        8       0
+                maintext                            2F2      2F2       1E        8       0
                 cstackBANK0                          20       20       45       20       1
                 cstackCOMMON                         70       70        B       70       1
                 bssBANK0                             65       65        4       20       1
                 bssCOMMON                            7B       7B        1       70       1
-                stringtext21                        469      469        5      8C4       0
-                stringtext20                        462      462        7      8C4       0
-                stringtext19                        44A      44A        8      882       0
-                stringtext18                        441      441        9      882       0
-                stringtext17                        423      423        A      6EA       0
-                stringtext16                        419      419        A      6EA       0
-                stringtext15                        40F      40F        A      6EA       0
-                stringtext14                        405      405        A      6EA       0
-                stringtext13                        3FB      3FB        A      6EA       0
-                stringtext12                        3F0      3F0        B      6EA       0
-                stringtext11                        3E5      3E5        B      6EA       0
-                stringtext10                        3DA      3DA        B      6EA       0
-                stringtext9                         3CF      3CF        B      6EA       0
-                stringtext8                         3C3      3C3        C      6EA       0
-                stringtext7                         3B7      3B7        C      6EA       0
-                stringtext6                         3AB      3AB        C      6EA       0
-                stringtext5                         39E      39E        D      6EA       0
-                stringtext4                         391      391        D      6EA       0
-                stringtext3                         384      384        D      6EA       0
-                stringtext2                         375      375        F      6EA       0
-                stringtext1                         351      351       13      6A2       0
+                stringtext22                        49A      49A        5      926       0
+                stringtext21                        493      493        7      926       0
+                stringtext20                        47B      47B        8      8E4       0
+                stringtext19                        472      472        9      8E4       0
+                stringtext18                        454      454        A      730       0
+                stringtext17                        44A      44A        A      730       0
+                stringtext16                        440      440        A      730       0
+                stringtext15                        436      436        A      730       0
+                stringtext14                        42C      42C        A      730       0
+                stringtext13                        421      421        B      730       0
+                stringtext12                        416      416        B      730       0
+                stringtext11                        40B      40B        B      730       0
+                stringtext10                        400      400        B      730       0
+                stringtext9                         3F4      3F4        C      730       0
+                stringtext8                         3E8      3E8        C      730       0
+                stringtext7                         3DC      3DC        C      730       0
+                stringtext6                         3CF      3CF        D      730       0
+                stringtext5                         3C2      3C2        D      730       0
+                stringtext4                         3B5      3B5        D      730       0
+                stringtext3                         3A7      3A7        E      730       0
+                stringtext2                         398      398        F      730       0
+                stringtext1                         374      374       13      6E8       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   STACK          
@@ -109,47 +110,48 @@ TOTAL           Name                               Link     Load   Length     Sp
                 cinit                                27       27        A         0
                 intentry                              4        4       21         0
                 reset_vec                             0        0        2         0
-                text17                              33B      33B       16         0
-                text16                              437      437        A         0
-                text15                              2AD      2AD       22         0
-                text14                              45A      45A        8         0
-                text13                              321      321       1A         0
-                text12                              14E      14E       59         0
-                text11                              364      364       11         0
-                text10                              1FB      1FB       4B         0
-                text9                               452      452        8         0
-                text8                               307      307       1A         0
-                text7                                D7       D7       77         0
-                text6                               1A7      1A7       54         0
-                text5                               2ED      2ED       1A         0
-                text4                               42D      42D        A         0
-                text3                               286      286       27         0
-                text2                               246      246       40         0
-                text1                                31       31       A6         0
-                maintext                            2CF      2CF       1E         0
+                text17                              35E      35E       16         0
+                text16                              468      468        A         0
+                text15                              2D0      2D0       22         0
+                text14                              48B      48B        8         0
+                text13                              344      344       1A         0
+                text12                              171      171       59         0
+                text11                              387      387       11         0
+                text10                              21E      21E       4B         0
+                text9                               483      483        8         0
+                text8                               32A      32A       1A         0
+                text7                                FA       FA       77         0
+                text6                               1CA      1CA       54         0
+                text5                               310      310       1A         0
+                text4                               45E      45E        A         0
+                text3                               2A9      2A9       27         0
+                text2                               269      269       40         0
+                text1                                31       31       C9         0
+                maintext                            2F2      2F2       1E         0
 
         CLASS   STRCODE        
-                stringtext21                        469      469        5         0
-                stringtext20                        462      462        7         0
-                stringtext19                        44A      44A        8         0
-                stringtext18                        441      441        9         0
-                stringtext17                        423      423        A         0
-                stringtext16                        419      419        A         0
-                stringtext15                        40F      40F        A         0
-                stringtext14                        405      405        A         0
-                stringtext13                        3FB      3FB        A         0
-                stringtext12                        3F0      3F0        B         0
-                stringtext11                        3E5      3E5        B         0
-                stringtext10                        3DA      3DA        B         0
-                stringtext9                         3CF      3CF        B         0
-                stringtext8                         3C3      3C3        C         0
-                stringtext7                         3B7      3B7        C         0
-                stringtext6                         3AB      3AB        C         0
-                stringtext5                         39E      39E        D         0
-                stringtext4                         391      391        D         0
-                stringtext3                         384      384        D         0
-                stringtext2                         375      375        F         0
-                stringtext1                         351      351       13         0
+                stringtext22                        49A      49A        5         0
+                stringtext21                        493      493        7         0
+                stringtext20                        47B      47B        8         0
+                stringtext19                        472      472        9         0
+                stringtext18                        454      454        A         0
+                stringtext17                        44A      44A        A         0
+                stringtext16                        440      440        A         0
+                stringtext15                        436      436        A         0
+                stringtext14                        42C      42C        A         0
+                stringtext13                        421      421        B         0
+                stringtext12                        416      416        B         0
+                stringtext11                        40B      40B        B         0
+                stringtext10                        400      400        B         0
+                stringtext9                         3F4      3F4        C         0
+                stringtext8                         3E8      3E8        C         0
+                stringtext7                         3DC      3DC        C         0
+                stringtext6                         3CF      3CF        D         0
+                stringtext5                         3C2      3C2        D         0
+                stringtext4                         3B5      3B5        D         0
+                stringtext3                         3A7      3A7        E         0
+                stringtext2                         398      398        F         0
+                stringtext1                         374      374       13         0
 
         CLASS   STRING         
 
@@ -438,16 +440,16 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000002  000002         0       0  CODE        2
-                intentry                       000004  00034D  000351         8       0  CODE        2
+                intentry                       000004  000370  000374         8       0  CODE        2
                 cstackBANK0                    000020  000049  000069        20       1  BANK0       1
                 cstackCOMMON                   000070  00000C  00007C        70       1  COMMON      1
-                stringtext1                    000351  000013  000364       6A2       0  STRCODE     2
-                text11                         000364  000011  000375       6C8       0  CODE        2
-                stringtext2                    000375  0000B8  00042D       6EA       0  STRCODE     2
-                text4                          00042D  000014  000441       85A       0  CODE        2
-                stringtext18                   000441  000011  000452       882       0  STRCODE     2
-                text9                          000452  000010  000462       8A4       0  CODE        2
-                stringtext20                   000462  00000C  00046E       8C4       0  STRCODE     2
+                stringtext1                    000374  000013  000387       6E8       0  STRCODE     2
+                text11                         000387  000011  000398       70E       0  CODE        2
+                stringtext2                    000398  0000C6  00045E       730       0  STRCODE     2
+                text4                          00045E  000014  000472       8BC       0  CODE        2
+                stringtext19                   000472  000011  000483       8E4       0  STRCODE     2
+                text9                          000483  000010  000493       906       0  CODE        2
+                stringtext21                   000493  00000C  00049F       926       0  STRCODE     2
                 config                         008007  000005  00800C     1000E       0  CONFIG      2
 
 
@@ -463,12 +465,12 @@ UNUSED ADDRESS RANGES
         BANK6            00320-0032F              10           1
         BIGRAM           02000-021EF             1F0           1
         CODE             00002-00003               2           2
-                         0046E-00FFF             392
+                         0049F-00FFF             361
         COMMON           0007C-0007D               2           1
         CONST            00002-00003               2           2
-                         0046E-00FFF             100
+                         0049F-00FFF             100
         ENTRY            00002-00003               2           2
-                         0046E-00FFF             100
+                         0049F-00FFF             100
         IDLOC            08000-08003               4           2
         RAM              00069-0006F               7           1
                          000A0-000EF              50
@@ -543,9 +545,9 @@ UNUSED ADDRESS RANGES
         SFR9             00480-004EF              70           1
         STACK            02049-021EF             1A7           1
         STRCODE          00002-00003               2           2
-                         0046E-00FFF             B92
+                         0049F-00FFF             B61
         STRING           00002-00003               2           2
-                         0046E-00FFF             100
+                         0049F-00FFF             100
 
                                   Symbol Table
 
@@ -779,6 +781,7 @@ __Hstringtext2                  stringtext2  00000
 __Hstringtext20                 stringtext20 00000
 __Hstringtext21                 stringtext21 00000
 __Hstringtext22                 stringtext22 00000
+__Hstringtext23                 stringtext23 00000
 __Hstringtext3                  stringtext3  00000
 __Hstringtext4                  stringtext4  00000
 __Hstringtext5                  stringtext5  00000
@@ -957,6 +960,7 @@ __Lstringtext2                  stringtext2  00000
 __Lstringtext20                 stringtext20 00000
 __Lstringtext21                 stringtext21 00000
 __Lstringtext22                 stringtext22 00000
+__Lstringtext23                 stringtext23 00000
 __Lstringtext3                  stringtext3  00000
 __Lstringtext4                  stringtext4  00000
 __Lstringtext5                  stringtext5  00000
@@ -972,71 +976,72 @@ ___int_sp                       stack        00000
 ___latbits                      (abs)        00001
 ___sp                           stack        00000
 __end_of__initialization        cinit        0002D
-__end_of_getGPSData             text10       00246
-__end_of_getGSMData             text7        0014E
-__end_of_getWiFiData            text6        001FB
-__end_of_initBTSerial           text17       00351
-__end_of_main                   maintext     002ED
-__end_of_sendSigfox             text5        00307
-__end_of_serialFindPeripheral   text15       002CF
-__end_of_serialPrintBT          text13       0033B
-__end_of_serialPrintPeripheral  text8        00321
-__end_of_serialReadBT           text4        00437
-__end_of_serialReadPeripheral   text16       00441
-__end_of_serialWriteBT          text14       00462
-__end_of_serialWritePeripheral  text9        0045A
-__end_of_setActivePeripheral    text12       001A7
-__end_of_startTimer             text11       00375
-__end_of_strcmp                 text3        002AD
-__end_of_strncmp                text2        00286
+__end_of_getGPSData             text10       00269
+__end_of_getGSMData             text7        00171
+__end_of_getWiFiData            text6        0021E
+__end_of_initBTSerial           text17       00374
+__end_of_main                   maintext     00310
+__end_of_sendSigfox             text5        0032A
+__end_of_serialFindPeripheral   text15       002F2
+__end_of_serialPrintBT          text13       0035E
+__end_of_serialPrintPeripheral  text8        00344
+__end_of_serialReadBT           text4        00468
+__end_of_serialReadPeripheral   text16       00472
+__end_of_serialWriteBT          text14       00493
+__end_of_serialWritePeripheral  text9        0048B
+__end_of_setActivePeripheral    text12       001CA
+__end_of_startTimer             text11       00398
+__end_of_strcmp                 text3        002D0
+__end_of_strncmp                text2        002A9
 __end_of_timerCount             intentry     00025
-__end_of_waitForCommand         text1        000D7
+__end_of_waitForCommand         text1        000FA
 __initialization                cinit        00027
 __pbssBANK0                     bssBANK0     00065
 __pbssCOMMON                    bssCOMMON    0007B
 __pcstackBANK0                  cstackBANK0  00020
 __pcstackCOMMON                 cstackCOMMON 00070
 __pintentry                     intentry     00004
-__pmaintext                     maintext     002CF
-__pstringtext1                  stringtext1  00351
-__pstringtext10                 stringtext10 003DA
-__pstringtext11                 stringtext11 003E5
-__pstringtext12                 stringtext12 003F0
-__pstringtext13                 stringtext13 003FB
-__pstringtext14                 stringtext14 00405
-__pstringtext15                 stringtext15 0040F
-__pstringtext16                 stringtext16 00419
-__pstringtext17                 stringtext17 00423
-__pstringtext18                 stringtext18 00441
-__pstringtext19                 stringtext19 0044A
-__pstringtext2                  stringtext2  00375
-__pstringtext20                 stringtext20 00462
-__pstringtext21                 stringtext21 00469
-__pstringtext22                 stringtext22 00000
-__pstringtext3                  stringtext3  00384
-__pstringtext4                  stringtext4  00391
-__pstringtext5                  stringtext5  0039E
-__pstringtext6                  stringtext6  003AB
-__pstringtext7                  stringtext7  003B7
-__pstringtext8                  stringtext8  003C3
-__pstringtext9                  stringtext9  003CF
+__pmaintext                     maintext     002F2
+__pstringtext1                  stringtext1  00374
+__pstringtext10                 stringtext10 00400
+__pstringtext11                 stringtext11 0040B
+__pstringtext12                 stringtext12 00416
+__pstringtext13                 stringtext13 00421
+__pstringtext14                 stringtext14 0042C
+__pstringtext15                 stringtext15 00436
+__pstringtext16                 stringtext16 00440
+__pstringtext17                 stringtext17 0044A
+__pstringtext18                 stringtext18 00454
+__pstringtext19                 stringtext19 00472
+__pstringtext2                  stringtext2  00398
+__pstringtext20                 stringtext20 0047B
+__pstringtext21                 stringtext21 00493
+__pstringtext22                 stringtext22 0049A
+__pstringtext23                 stringtext23 00000
+__pstringtext3                  stringtext3  003A7
+__pstringtext4                  stringtext4  003B5
+__pstringtext5                  stringtext5  003C2
+__pstringtext6                  stringtext6  003CF
+__pstringtext7                  stringtext7  003DC
+__pstringtext8                  stringtext8  003E8
+__pstringtext9                  stringtext9  003F4
 __ptext1                        text1        00031
-__ptext10                       text10       001FB
-__ptext11                       text11       00364
-__ptext12                       text12       0014E
-__ptext13                       text13       00321
-__ptext14                       text14       0045A
-__ptext15                       text15       002AD
-__ptext16                       text16       00437
-__ptext17                       text17       0033B
-__ptext2                        text2        00246
-__ptext3                        text3        00286
-__ptext4                        text4        0042D
-__ptext5                        text5        002ED
-__ptext6                        text6        001A7
-__ptext7                        text7        000D7
-__ptext8                        text8        00307
-__ptext9                        text9        00452
+__ptext10                       text10       0021E
+__ptext11                       text11       00387
+__ptext12                       text12       00171
+__ptext13                       text13       00344
+__ptext14                       text14       0048B
+__ptext15                       text15       002D0
+__ptext16                       text16       00468
+__ptext17                       text17       0035E
+__ptext2                        text2        00269
+__ptext3                        text3        002A9
+__ptext4                        text4        0045E
+__ptext5                        text5        00310
+__ptext6                        text6        001CA
+__ptext7                        text7        000FA
+__ptext8                        text8        0032A
+__ptext9                        text9        00483
 __size_of_getGPSData            (abs)        00000
 __size_of_getGSMData            (abs)        00000
 __size_of_getWiFiData           (abs)        00000
@@ -1056,23 +1061,23 @@ __size_of_strcmp                (abs)        00000
 __size_of_strncmp               (abs)        00000
 __size_of_timerCount            (abs)        00000
 __size_of_waitForCommand        (abs)        00000
-_getGPSData                     text10       001FB
-_getGSMData                     text7        000D7
-_getWiFiData                    text6        001A7
-_initBTSerial                   text17       0033B
-_main                           maintext     002CF
-_sendSigfox                     text5        002ED
-_serialFindPeripheral           text15       002AD
-_serialPrintBT                  text13       00321
-_serialPrintPeripheral          text8        00307
-_serialReadBT                   text4        0042D
-_serialReadPeripheral           text16       00437
-_serialWriteBT                  text14       0045A
-_serialWritePeripheral          text9        00452
-_setActivePeripheral            text12       0014E
-_startTimer                     text11       00364
-_strcmp                         text3        00286
-_strncmp                        text2        00246
+_getGPSData                     text10       0021E
+_getGSMData                     text7        000FA
+_getWiFiData                    text6        001CA
+_initBTSerial                   text17       0035E
+_main                           maintext     002F2
+_sendSigfox                     text5        00310
+_serialFindPeripheral           text15       002D0
+_serialPrintBT                  text13       00344
+_serialPrintPeripheral          text8        0032A
+_serialReadBT                   text4        0045E
+_serialReadPeripheral           text16       00468
+_serialWriteBT                  text14       0048B
+_serialWritePeripheral          text9        00483
+_setActivePeripheral            text12       00171
+_startTimer                     text11       00387
+_strcmp                         text3        002A9
+_strncmp                        text2        00269
 _timerActual                    bssBANK0     00065
 _timerCount                     intentry     00004
 _timerDone                      bssCOMMON    0007B
@@ -1113,7 +1118,7 @@ strncmp@s1                      cstackCOMMON 00077
 strncmp@s2                      cstackCOMMON 00071
 waitForCommand@command          cstackBANK0  0003E
 waitForCommand@i                cstackBANK0  0005E
-waitForCommand@i_431            cstackBANK0  00060
+waitForCommand@i_435            cstackBANK0  00060
 waitForCommand@message          cstackBANK0  00020
 waitForCommand@p                cstackBANK0  00062
 wtemp0                          (abs)        0007E
@@ -1185,6 +1190,7 @@ Total ram usage:       68 bytes
 		_getGSMData
 		_getWiFiData
 		_sendSigfox
+		_serialPrintBT
 		_serialReadBT
 		_startTimer
 		_strcmp
@@ -1201,7 +1207,7 @@ Total ram usage:       68 bytes
   s1              1    wreg     PTR const unsigned char 
 		 -> waitForCommand@command(32), 
   s2              2    1[COMMON] PTR const unsigned char 
-		 -> STR_22(13), 
+		 -> STR_26(13), 
   len             2    3[COMMON] unsigned int 
  Auto vars:     Size  Location     Type
   s1              1    7[COMMON] PTR const unsigned char 
@@ -1236,7 +1242,7 @@ Total ram usage:        7 bytes
   s1              1    wreg     PTR const unsigned char 
 		 -> waitForCommand@command(32), 
   s2              2    1[COMMON] PTR const unsigned char 
-		 -> STR_21(10), STR_20(11), STR_19(10), STR_18(10), 
+		 -> STR_24(10), STR_22(11), STR_20(10), STR_18(10), 
  Auto vars:     Size  Location     Type
   s1              1    5[COMMON] PTR const unsigned char 
 		 -> waitForCommand@command(32), 
@@ -1574,8 +1580,10 @@ Total ram usage:        1 bytes
 		line 227 in file "main.c"
  Parameters:    Size  Location     Type
   s               2    2[COMMON] PTR unsigned char 
-		 -> STR_15(13), STR_13(15), STR_12(10), STR_10(12), 
-		 -> STR_9(10), STR_5(12), STR_4(11), STR_1(13), 
+		 -> STR_27(14), STR_25(14), STR_23(14), STR_21(14), 
+		 -> STR_19(14), STR_15(13), STR_13(15), STR_12(10), 
+		 -> STR_10(12), STR_9(10), STR_5(12), STR_4(11), 
+		 -> STR_1(13), 
  Auto vars:     Size  Location     Type
   i               2    5[COMMON] int 
  Return value:  Size  Location     Type
@@ -1600,6 +1608,7 @@ Total ram usage:        5 bytes
 		_getWiFiData
 		_getGSMData
 		_getGPSData
+		_waitForCommand
 		_getSigfoxData
  This function uses a non-reentrant model
 
@@ -1767,12 +1776,12 @@ MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c
-		_strcmp        		CODE           	0286	0000	40
+		_strcmp        		CODE           	02A9	0000	40
 
 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strcmp.c estimated size: 40
 
 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
-		_strncmp       		CODE           	0246	0000	65
+		_strncmp       		CODE           	0269	0000	65
 
 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c estimated size: 65
 
@@ -1782,23 +1791,23 @@ shared
 shared estimated size: 7
 
 main.c
-		_sendSigfox    		CODE           	02ED	0000	27
-		_serialWriteBT 		CODE           	045A	0000	9
-		_getWiFiData   		CODE           	01A7	0000	85
-		_setActivePeripheral		CODE           	014E	0000	90
-		_main          		CODE           	02CF	0000	31
-		_serialWritePeripheral		CODE           	0452	0000	9
-		_serialPrintBT 		CODE           	0321	0000	27
-		_initBTSerial  		CODE           	033B	0000	23
-		_serialFindPeripheral		CODE           	02AD	0000	35
-		_getGPSData    		CODE           	01FB	0000	76
-		_serialPrintPeripheral		CODE           	0307	0000	27
-		_serialReadBT  		CODE           	042D	0000	11
-		_serialReadPeripheral		CODE           	0437	0000	11
-		_waitForCommand		CODE           	0031	0000	167
-		_startTimer    		CODE           	0364	0000	18
+		_sendSigfox    		CODE           	0310	0000	27
+		_serialWriteBT 		CODE           	048B	0000	9
+		_getWiFiData   		CODE           	01CA	0000	85
+		_setActivePeripheral		CODE           	0171	0000	90
+		_main          		CODE           	02F2	0000	31
+		_serialWritePeripheral		CODE           	0483	0000	9
+		_serialPrintBT 		CODE           	0344	0000	27
+		_initBTSerial  		CODE           	035E	0000	23
+		_serialFindPeripheral		CODE           	02D0	0000	35
+		_getGPSData    		CODE           	021E	0000	76
+		_serialPrintPeripheral		CODE           	032A	0000	27
+		_serialReadBT  		CODE           	045E	0000	11
+		_serialReadPeripheral		CODE           	0468	0000	11
+		_waitForCommand		CODE           	0031	0000	202
+		_startTimer    		CODE           	0387	0000	18
 		_timerCount    		CODE           	0004	0000	34
-		_getGSMData    		CODE           	00D7	0000	120
+		_getGSMData    		CODE           	00FA	0000	120
 
-main.c estimated size: 800
+main.c estimated size: 835
 
