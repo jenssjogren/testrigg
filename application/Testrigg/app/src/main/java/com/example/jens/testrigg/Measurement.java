@@ -1,64 +1,62 @@
 package com.example.jens.testrigg;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Measurement {
-    private String gpsLat;
-    private String gpsLong;
-    private String userLat;
-    private String userLong;
+    private Coordinate gps;
+    private Coordinate user;
+    private Coordinate wifiGoogle;
     private String gsmRssi;
     private String gsmCid;
     private String gsmLac;
-    private String[] wifiRssi;
-    private String[] wifiMac;
-    private int wifiNrOfAccessPoints;
+    private AccessPoint[] accessPoints;
+    private int nrOfAccessPoints;
+    private Date measuredTime;
 
     private int rssiEnd = 0;
     private int macEnd = 0;
 
+    public String getMeasuredTime() {
+        return measuredTime.toString();
+    }
+
     public Measurement() {
-        gpsLat = "N/A";
-        gpsLong = "N/A";
-        userLat = "N/A";
-        userLong = "N/A";
+        measuredTime = Calendar.getInstance().getTime();
+        gps = null;
+        user = null;
+        wifiGoogle = null;
         gsmRssi = "N/A";
         gsmCid = "N/A";
         gsmLac = "N/A";
-        wifiRssi = new String[128];
-        wifiMac = new String[128];
-        wifiNrOfAccessPoints = 0;
+        accessPoints = new AccessPoint[128];
+        nrOfAccessPoints = 0;
     }
 
-    public String getGpsLat() {
-        return gpsLat;
+    public Coordinate getWifiGoogle() {
+        return wifiGoogle;
     }
 
-    public void setGpsLat(String gpsLat) {
-        this.gpsLat = gpsLat;
+    public void setWifiGoogle(Coordinate wifiGoogle) {
+        this.wifiGoogle = wifiGoogle;
     }
 
-    public String getGpsLong() {
-        return gpsLong;
+    public Coordinate getGps() {
+        return gps;
     }
 
-    public void setGpsLong(String gpsLong) {
-        this.gpsLong = gpsLong;
+    public void setGps(Coordinate gps) {
+        this.gps = gps;
     }
 
-    public String getUserLat() {
-        return userLat;
+    public Coordinate getUser() {
+        return user;
     }
 
-    public void setUserLat(String userLat) {
-        this.userLat = userLat;
+    public void setUser(Coordinate user) {
+        this.user = user;
     }
 
-    public String getUserLong() {
-        return userLong;
-    }
-
-    public void setUserLong(String userLong) {
-        this.userLong = userLong;
-    }
 
     public String getGsmRssi() {
         return gsmRssi;
@@ -84,29 +82,16 @@ public class Measurement {
         this.gsmLac = gsmLac;
     }
 
-    public String getWifiRssi(int pos) {
-        return wifiRssi[pos];
+    public AccessPoint getAccessPoint(int pos) {
+        return accessPoints[pos];
     }
 
-    public void addWifiRssi(String wifiRssi) {
-        this.wifiRssi[rssiEnd] = wifiRssi;
-        rssiEnd++;
+    public void addAccessPoint(AccessPoint accessPoint) {
+        this.accessPoints[nrOfAccessPoints] = accessPoint;
+        nrOfAccessPoints++;
     }
 
-    public String getWifiMac(int pos) {
-        return wifiMac[pos];
-    }
-
-    public void addWifiMac(String wifiMac) {
-        this.wifiMac[macEnd] = wifiMac;
-        macEnd++;
-    }
-
-    public int getWifiNrOfAccessPoints() {
-        return macEnd;
-    }
-
-    public void setWifiNrOfAccessPoints(int wifiNrOfAccessPoints) {
-        this.wifiNrOfAccessPoints = wifiNrOfAccessPoints;
+    public int getNrOfAccessPoints() {
+        return nrOfAccessPoints;
     }
 }

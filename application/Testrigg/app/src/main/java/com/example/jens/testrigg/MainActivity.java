@@ -3,17 +3,16 @@ package com.example.jens.testrigg;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ConnectBluetooth connectBluetooth;
 
     Button pairedDevicesButton, sendButton;
+    TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
         pairedDevicesButton = (Button) findViewById(R.id.button_paired_devices);
         sendButton = (Button) findViewById(R.id.button_send);
+
+        measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
+        gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
+        userCoordinates = (TextView) findViewById(R.id.textView_user_coordinates_data);
+        wifiCoordinatesGoogle = (TextView) findViewById(R.id.textView_wifi_coordinates_google_data);
+        nrOfAps = (TextView) findViewById(R.id.textView_nr_reached_aps_data);
 
 
         if (mBluetoothAdapter == null) {
@@ -93,6 +99,149 @@ public class MainActivity extends AppCompatActivity {
             return list;
         }
         return null;
+    }
+
+    private Measurement parseMeasureValues(String message) {
+        Measurement measurement = new Measurement();
+
+        //GPS
+        if (message.contains("GPS_START\r\n")) {
+            int indexGps = message.indexOf("GPS_START\r\n");
+            int length = "GPS_START\r\n".length();
+            int endGps = message.indexOf("GPS_END\r\n");
+
+            String gpsNmea = message.substring(indexGps + length, endGps);
+            Log.d(TAG, "NMEA captured length: " + gpsNmea.length());
+
+            if(gpsNmea.length() > 36) {
+                if (gpsNmea.charAt(35) == 'E' || gpsNmea.charAt(35) == 'W') {
+                    // We have connection. Get lat/long
+
+                    gpsNmea = gpsNmea.substring(10, 10+26); //Skip 10 time info chars, coordinates 26 chars
+                    Log.d(TAG, "NMEA coordinates: " + gpsNmea);
+                    if (gpsNmea.length() != 26) {
+                    } else {
+                        //dd + mm.mmmmm/60 for latitude
+                        int latdd = Integer.parseInt(gpsNmea.substring(0, 2));
+                        double latmm = Double.parseDouble(gpsNmea.substring(2, 10));
+                        latmm = latmm / 60;
+
+                        double lat = latdd + latmm;
+
+                        //ddd + mm.mmmmm/60 for longitude
+                        int longdd = Integer.parseInt(gpsNmea.substring(13, 16));
+                        double longmm = Double.parseDouble(gpsNmea.substring(16, 24));
+                        longmm = longmm / 60;
+
+                        double lng = longdd + longmm;
+
+                        Coordinate gps = new Coordinate("" + lat, "" + lng);
+                        measurement.setGps(gps);
+                        Log.d(TAG, "Formatted coordinates: " + gps.lat + " " + gps.lng);
+                    }
+                }
+            }
+
+
+        }
+
+        //GSM
+        if(message.contains("GSM_START\r\n")) {
+            //RSSI
+            int indexCsq = message.indexOf("+CSQ: ");
+            int length = "+CSQ: ".length();
+            String rssi = message.substring(indexCsq+length, indexCsq+length+2);
+
+            rssi = rssi.replace(',', ' ');
+            rssi = rssi.trim();
+
+            //Convert value to dBm
+            int rssiInt = Integer.parseInt(rssi);
+            int dbm = -113 + 2*rssiInt;
+            rssi = "" + dbm;
+            Log.d(TAG, "GSM RSSI in dBm: " + rssi);
+
+            //LAC and CID
+            int indexLac = message.indexOf("+CREG: ");
+            indexLac = indexLac + "+CREG: ".length() + 5;
+            String lac = message.substring(indexLac, indexLac+4);
+
+            Log.d(TAG, "GSM LAC: " + lac);
+
+            int indexCid = indexLac+7;
+            String cid = message.substring(indexCid, indexCid+4);
+            Log.d(TAG, "GSM CID: " + cid);
+
+            measurement.setGsmCid(cid);
+            measurement.setGsmLac(lac);
+            measurement.setGsmRssi(rssi);
+        }
+
+        //WIFI
+        if(message.contains("WIFI_START\r\n")) {
+            if(message.contains("+CWLAP:")) {
+                //We found accesspoints
+                int index = message.indexOf("WIFI_START\r\n");
+                int end = message.indexOf("WIFI_END\r\n");
+                int length = "WIFI_START\r\n".length();
+                String rawData = message.substring(index+length, end);
+                rawData = rawData.replace("+CWLAP:", "");
+                rawData = rawData.replace("OK", "");
+                rawData = rawData.trim();
+
+                index = rawData.indexOf('(');
+                end = rawData.lastIndexOf(')');
+
+                rawData = rawData.substring(index, end);
+
+                String[] aps = rawData.split("\r\n");
+
+                Log.d(TAG, "Nr of APs " + aps.length);
+
+                int commaPos;
+                String rssi, mac;
+                for (String ap:aps) {
+                    commaPos = ap.indexOf(',');
+                    rssi = ap.substring(1, commaPos);
+                    mac = ap.substring(commaPos+2, commaPos+19 );
+                    AccessPoint accessPoint = new AccessPoint(rssi, mac);
+                    measurement.addAccessPoint(accessPoint);
+                }
+                Log.d(TAG, "First AP rssi: " + measurement.getAccessPoint(0).rssi);
+                Log.d(TAG, "First AP mac: " + measurement.getAccessPoint(0).mac);
+                Log.d(TAG, "Last AP rssi: " + measurement.getAccessPoint(aps.length-1).rssi);
+                Log.d(TAG, "Last AP mac: " + measurement.getAccessPoint(aps.length-1).mac);
+            }
+        }
+        return measurement;
+    }
+
+    private void updateLastMeasurementInfo(Measurement measurement) {
+        Coordinate gps = measurement.getGps();
+        Coordinate user = measurement.getUser();
+        Coordinate wifiGoogle = measurement.getWifiGoogle();
+
+        if (gps != null) {
+            gpsCoordinates.setText(gps.lat + " " + gps.lng);
+        }
+        else {
+            gpsCoordinates.setText("N/A");
+        }
+        if (user != null) {
+            userCoordinates.setText(user.lat + " " + user.lng);
+        }
+        else {
+            userCoordinates.setText("N/A");
+        }
+        if (wifiGoogle != null) {
+            wifiCoordinatesGoogle.setText(wifiGoogle.lat + " " + wifiGoogle.lng);
+        }
+        else {
+            wifiCoordinatesGoogle.setText("N/A");
+        }
+
+        measuredTime.setText(measurement.getMeasuredTime());
+        nrOfAps.setText("" + measurement.getNrOfAccessPoints());
     }
 
 
@@ -281,8 +430,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-
-                Toast.makeText(MainActivity.this, "Mottaget: " + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Measurement data received!", Toast.LENGTH_SHORT).show();
+                updateLastMeasurementInfo(parseMeasureValues(message));
             }
         }
     }
