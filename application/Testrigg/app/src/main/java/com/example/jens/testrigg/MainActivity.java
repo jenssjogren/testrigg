@@ -1,12 +1,17 @@
 package com.example.jens.testrigg;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,11 +34,13 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.jens.testrigg.MESSAGE";
     private static final int REQUEST_ENABLE_BT = 1;
     private static final int REQUEST_DEVICE_ADDRESS = 2;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 3;
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ConnectBluetooth connectBluetooth;
+    private boolean isWaitingMessage = false;
 
-    Button pairedDevicesButton, sendButton;
-    TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps;
+    Button pairedDevicesButton, sendButton, createFileButton;
+    TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +49,16 @@ public class MainActivity extends AppCompatActivity {
 
         pairedDevicesButton = (Button) findViewById(R.id.button_paired_devices);
         sendButton = (Button) findViewById(R.id.button_send);
+        createFileButton = (Button) findViewById(R.id.button_create_file);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
         gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
         userCoordinates = (TextView) findViewById(R.id.textView_user_coordinates_data);
         wifiCoordinatesGoogle = (TextView) findViewById(R.id.textView_wifi_coordinates_google_data);
         nrOfAps = (TextView) findViewById(R.id.textView_nr_reached_aps_data);
+        gsmRssi = (TextView) findViewById(R.id.textView_gsm_rssi_data);
+        gsmLac = (TextView) findViewById(R.id.textView_gsm_lac_data);
+        gsmCid = (TextView) findViewById(R.id.textView_gsm_cid_data);
 
 
         if (mBluetoothAdapter == null) {
@@ -77,8 +89,17 @@ public class MainActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                connectBluetooth.write("GET_ALL\r\n".getBytes());
-                connectBluetooth.read();
+                if(!isWaitingMessage) {
+                    connectBluetooth.write("GET_ALL\r\n".getBytes());
+                    connectBluetooth.read();
+                }
+            }
+        });
+        
+        createFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getApplicationDir("Testrigg");
             }
         });
 
@@ -242,13 +263,51 @@ public class MainActivity extends AppCompatActivity {
 
         measuredTime.setText(measurement.getMeasuredTime());
         nrOfAps.setText("" + measurement.getNrOfAccessPoints());
+        gsmRssi.setText(measurement.getGsmRssi());
+        gsmLac.setText(measurement.getGsmLac());
+        gsmCid.setText(measurement.getGsmCid());
+    }
+
+    private File getApplicationDir(String directoryName) {
+        String state = Environment.getExternalStorageState();
+        if (!Environment.MEDIA_MOUNTED.equals(state)) {
+            //Media not mounted
+            Log.e(TAG, "Media not mounted");
+            return null;
+        }
+        else {
+            //Media mounted, keep on going!
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // No permission; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                Toast.makeText(this, "Kunde inte skapa fil", Toast.LENGTH_LONG).show();
+                return null;
+            }
+            else {
+                File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+                        directoryName);
+                if (!dir.mkdirs()) {
+                    Log.e(TAG, "Directory not created");
+                    return null;
+                }
+                return dir;
+            }
+        }
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        connectBluetooth.cancel();
+
+        if (connectBluetooth != null) {
+            connectBluetooth.cancel();
+        }
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -276,7 +335,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Något gick fel", Toast.LENGTH_LONG).show();
                 }
                 break;
-
         }
     }
 
@@ -359,6 +417,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            isWaitingMessage = true;
             progress = ProgressDialog.show(MainActivity.this, "Ansluter...", "Chilla lite!");  //show a progress dialog
 
         }
@@ -430,6 +489,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
+                isWaitingMessage = false;
                 Toast.makeText(MainActivity.this, "Measurement data received!", Toast.LENGTH_SHORT).show();
                 updateLastMeasurementInfo(parseMeasureValues(message));
             }
