@@ -19,11 +19,11 @@
         app:layout_constraintVertical_bias="0.012" />
 
     <Button
-        android:id="@+id/button_create_file"
+        android:id="@+id/button_new_measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="160dp"
-        android:text="Create file"
+        android:text="New measurement"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 

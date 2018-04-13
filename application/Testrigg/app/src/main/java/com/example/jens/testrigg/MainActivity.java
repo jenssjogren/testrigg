@@ -2,10 +2,12 @@ package com.example.jens.testrigg;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -17,10 +19,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ConnectBluetooth connectBluetooth;
     private boolean isWaitingMessage = false;
+    private String currentMeasurementSession = "";
+    private boolean inMeasurementSession = false;
 
-    Button pairedDevicesButton, sendButton, createFileButton;
+    Button pairedDevicesButton, sendButton, newMeasurementButton;
     TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
 
     @Override
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         pairedDevicesButton = (Button) findViewById(R.id.button_paired_devices);
         sendButton = (Button) findViewById(R.id.button_send);
-        createFileButton = (Button) findViewById(R.id.button_create_file);
+        newMeasurementButton = (Button) findViewById(R.id.button_new_measurement);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
         gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
@@ -60,17 +66,14 @@ public class MainActivity extends AppCompatActivity {
         gsmLac = (TextView) findViewById(R.id.textView_gsm_lac_data);
         gsmCid = (TextView) findViewById(R.id.textView_gsm_cid_data);
 
-
         if (mBluetoothAdapter == null) {
             // Device doesn't support Bluetooth
         }
 
         if (!mBluetoothAdapter.isEnabled()) {
-
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-
 
         pairedDevicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,21 +92,67 @@ public class MainActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isWaitingMessage) {
+                if (!isWaitingMessage && connectBluetooth != null) {
                     connectBluetooth.write("GET_ALL\r\n".getBytes());
                     connectBluetooth.read();
                 }
             }
         });
-        
-        createFileButton.setOnClickListener(new View.OnClickListener() {
+
+        newMeasurementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getApplicationDir("Testrigg");
+                if (!inMeasurementSession) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Namnge loggfilen för aktuell mätning");
+
+                    // Set up the input
+                    final EditText input = new EditText(MainActivity.this);
+                    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                    builder.setView(input);
+
+                    // Set up the buttons
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            currentMeasurementSession = input.getText().toString() + ".csv";
+                            inMeasurementSession = true;
+                            newMeasurementButton.setText("Cancel session");
+
+                            File dir = getApplicationDir("Testrigg");
+                            File file = createFile(dir, currentMeasurementSession);
+                            writeToFile(file, "Hello World!;New row\r\n");
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Are you sure to cancel measurements to " + currentMeasurementSession + "?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // End session
+                                    inMeasurementSession = false;
+                                    newMeasurementButton.setText("New measurement");
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog
+                                }
+                            });
+                    // Create the AlertDialog object and return it
+                    builder.show();
+                }
             }
         });
-
-
     }
 
     private ArrayList listPairedDevices() {
@@ -134,11 +183,11 @@ public class MainActivity extends AppCompatActivity {
             String gpsNmea = message.substring(indexGps + length, endGps);
             Log.d(TAG, "NMEA captured length: " + gpsNmea.length());
 
-            if(gpsNmea.length() > 36) {
+            if (gpsNmea.length() > 36) {
                 if (gpsNmea.charAt(35) == 'E' || gpsNmea.charAt(35) == 'W') {
                     // We have connection. Get lat/long
 
-                    gpsNmea = gpsNmea.substring(10, 10+26); //Skip 10 time info chars, coordinates 26 chars
+                    gpsNmea = gpsNmea.substring(10, 10 + 26); //Skip 10 time info chars, coordinates 26 chars
                     Log.d(TAG, "NMEA coordinates: " + gpsNmea);
                     if (gpsNmea.length() != 26) {
                     } else {
@@ -167,30 +216,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //GSM
-        if(message.contains("GSM_START\r\n")) {
+        if (message.contains("GSM_START\r\n")) {
             //RSSI
             int indexCsq = message.indexOf("+CSQ: ");
             int length = "+CSQ: ".length();
-            String rssi = message.substring(indexCsq+length, indexCsq+length+2);
+            String rssi = message.substring(indexCsq + length, indexCsq + length + 2);
 
             rssi = rssi.replace(',', ' ');
             rssi = rssi.trim();
 
             //Convert value to dBm
             int rssiInt = Integer.parseInt(rssi);
-            int dbm = -113 + 2*rssiInt;
+            int dbm = -113 + 2 * rssiInt;
             rssi = "" + dbm;
             Log.d(TAG, "GSM RSSI in dBm: " + rssi);
 
             //LAC and CID
             int indexLac = message.indexOf("+CREG: ");
             indexLac = indexLac + "+CREG: ".length() + 5;
-            String lac = message.substring(indexLac, indexLac+4);
+            String lac = message.substring(indexLac, indexLac + 4);
 
             Log.d(TAG, "GSM LAC: " + lac);
 
-            int indexCid = indexLac+7;
-            String cid = message.substring(indexCid, indexCid+4);
+            int indexCid = indexLac + 7;
+            String cid = message.substring(indexCid, indexCid + 4);
             Log.d(TAG, "GSM CID: " + cid);
 
             measurement.setGsmCid(cid);
@@ -199,13 +248,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //WIFI
-        if(message.contains("WIFI_START\r\n")) {
-            if(message.contains("+CWLAP:")) {
+        if (message.contains("WIFI_START\r\n")) {
+            if (message.contains("+CWLAP:")) {
                 //We found accesspoints
                 int index = message.indexOf("WIFI_START\r\n");
                 int end = message.indexOf("WIFI_END\r\n");
                 int length = "WIFI_START\r\n".length();
-                String rawData = message.substring(index+length, end);
+                String rawData = message.substring(index + length, end);
                 rawData = rawData.replace("+CWLAP:", "");
                 rawData = rawData.replace("OK", "");
                 rawData = rawData.trim();
@@ -221,17 +270,17 @@ public class MainActivity extends AppCompatActivity {
 
                 int commaPos;
                 String rssi, mac;
-                for (String ap:aps) {
+                for (String ap : aps) {
                     commaPos = ap.indexOf(',');
                     rssi = ap.substring(1, commaPos);
-                    mac = ap.substring(commaPos+2, commaPos+19 );
+                    mac = ap.substring(commaPos + 2, commaPos + 19);
                     AccessPoint accessPoint = new AccessPoint(rssi, mac);
                     measurement.addAccessPoint(accessPoint);
                 }
                 Log.d(TAG, "First AP rssi: " + measurement.getAccessPoint(0).rssi);
                 Log.d(TAG, "First AP mac: " + measurement.getAccessPoint(0).mac);
-                Log.d(TAG, "Last AP rssi: " + measurement.getAccessPoint(aps.length-1).rssi);
-                Log.d(TAG, "Last AP mac: " + measurement.getAccessPoint(aps.length-1).mac);
+                Log.d(TAG, "Last AP rssi: " + measurement.getAccessPoint(aps.length - 1).rssi);
+                Log.d(TAG, "Last AP mac: " + measurement.getAccessPoint(aps.length - 1).mac);
             }
         }
         return measurement;
@@ -244,20 +293,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (gps != null) {
             gpsCoordinates.setText(gps.lat + " " + gps.lng);
-        }
-        else {
+        } else {
             gpsCoordinates.setText("N/A");
         }
         if (user != null) {
             userCoordinates.setText(user.lat + " " + user.lng);
-        }
-        else {
+        } else {
             userCoordinates.setText("N/A");
         }
         if (wifiGoogle != null) {
             wifiCoordinatesGoogle.setText(wifiGoogle.lat + " " + wifiGoogle.lng);
-        }
-        else {
+        } else {
             wifiCoordinatesGoogle.setText("N/A");
         }
 
@@ -274,8 +320,7 @@ public class MainActivity extends AppCompatActivity {
             //Media not mounted
             Log.e(TAG, "Media not mounted");
             return null;
-        }
-        else {
+        } else {
             //Media mounted, keep on going!
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -286,16 +331,68 @@ public class MainActivity extends AppCompatActivity {
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                 Toast.makeText(this, "Kunde inte skapa fil", Toast.LENGTH_LONG).show();
                 return null;
-            }
-            else {
+            } else {
                 File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
                         directoryName);
-                if (!dir.mkdirs()) {
-                    Log.e(TAG, "Directory not created");
-                    return null;
+                if (!dir.exists()) {
+                    //Folder does not exist, try to create new
+                    if (!dir.mkdirs()) {
+                        Log.e(TAG, "Directory not created");
+                        return null;
+                    } else {
+                        return dir;
+                    }
                 }
+                //Folder already exists, return it
                 return dir;
             }
+        }
+    }
+
+    private File createFile(File folder, String fileName) {
+        String state = Environment.getExternalStorageState();
+        if (!Environment.MEDIA_MOUNTED.equals(state)) {
+            //Media not mounted
+            Log.e(TAG, "Media not mounted");
+            return null;
+        } else {
+            //Media mounted, keep on going!
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // No permission; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                Toast.makeText(this, "Inga rättigheter att skapa fil", Toast.LENGTH_LONG).show();
+                return null;
+            } else {
+                File file = new File(folder, fileName);
+                if (file.exists()) {
+                    Toast.makeText(this, "Fil finns redan, skapar ingen ny", Toast.LENGTH_LONG).show();
+                    return file;
+                } else {
+                    try {
+                        file.createNewFile();
+                        return file;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Kunde inte skapa fil", Toast.LENGTH_LONG).show();
+                        return null;
+                    }
+                }
+            }
+        }
+    }
+
+    private void writeToFile(File file, String fileContents) {
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(file, true);
+            outputStream.write(fileContents.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -417,7 +514,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            isWaitingMessage = true;
             progress = ProgressDialog.show(MainActivity.this, "Ansluter...", "Chilla lite!");  //show a progress dialog
 
         }
@@ -483,7 +579,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-
+                isWaitingMessage = true;
             }
 
             @Override
