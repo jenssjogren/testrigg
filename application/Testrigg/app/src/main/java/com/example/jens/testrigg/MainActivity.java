@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isWaitingMessage = false;
     private String currentMeasurementSession = "";
     private boolean inMeasurementSession = false;
+    private static final int COLOR_GREEN = Color.rgb(111, 198, 85);
+    private static final int COLOR_RED = Color.rgb(209, 54, 54);
 
     Button pairedDevicesButton, sendButton, newMeasurementButton;
     TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         pairedDevicesButton = (Button) findViewById(R.id.button_paired_devices);
         sendButton = (Button) findViewById(R.id.button_send);
         newMeasurementButton = (Button) findViewById(R.id.button_new_measurement);
+        newMeasurementButton.setBackgroundColor(COLOR_GREEN);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
         gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
@@ -118,10 +122,16 @@ public class MainActivity extends AppCompatActivity {
                             currentMeasurementSession = input.getText().toString() + ".csv";
                             inMeasurementSession = true;
                             newMeasurementButton.setText("Cancel session");
+                            newMeasurementButton.setBackgroundColor(COLOR_RED);
+
+                            String heading = "Time;User defined coordinates;" +
+                                    "GPS coordinates;WiFi coordinates (Google);" +
+                                    "Access points reached;GSM RSSI;GSM LAC;" +
+                                    "GSM CID\r\n";
 
                             File dir = getApplicationDir("Testrigg");
                             File file = createFile(dir, currentMeasurementSession);
-                            writeToFile(file, "Hello World!;New row\r\n");
+                            writeToFile(file, heading);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -141,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
                                     // End session
                                     inMeasurementSession = false;
                                     newMeasurementButton.setText("New measurement");
+                                    newMeasurementButton.setBackgroundColor(COLOR_GREEN);
+                                    currentMeasurementSession = "";
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -226,10 +238,16 @@ public class MainActivity extends AppCompatActivity {
             rssi = rssi.trim();
 
             //Convert value to dBm
-            int rssiInt = Integer.parseInt(rssi);
-            int dbm = -113 + 2 * rssiInt;
-            rssi = "" + dbm;
-            Log.d(TAG, "GSM RSSI in dBm: " + rssi);
+            if(rssi.equals("99")) {
+                //Not known or not detectable signal
+                rssi = "N/A";
+            }
+            else {
+                int rssiInt = Integer.parseInt(rssi);
+                int dbm = -113 + 2 * rssiInt;
+                rssi = "" + dbm;
+                Log.d(TAG, "GSM RSSI in dBm: " + rssi);
+            }
 
             //LAC and CID
             int indexLac = message.indexOf("+CREG: ");
@@ -290,6 +308,12 @@ public class MainActivity extends AppCompatActivity {
         Coordinate gps = measurement.getGps();
         Coordinate user = measurement.getUser();
         Coordinate wifiGoogle = measurement.getWifiGoogle();
+
+        if(!currentMeasurementSession.equals("")) {
+            File folder = getApplicationDir("Testrigg");
+            File file = new File(folder, currentMeasurementSession);
+            saveMeasurementToFile(measurement, file);
+        }
 
         if (gps != null) {
             gpsCoordinates.setText(gps.lat + " " + gps.lng);
@@ -394,6 +418,40 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void saveMeasurementToFile(Measurement measurement, File file) {
+        Coordinate gps = measurement.getGps();
+        Coordinate user = measurement.getUser();
+        Coordinate wifiGoogle = measurement.getWifiGoogle();
+        String rowData = "";
+
+        rowData = rowData + measurement.getMeasuredTime() + ";";
+
+        if (user != null) {
+            rowData = rowData + user.lat + " " + user.lng + ";";
+        } else {
+            rowData = rowData + "N/A" + ";";
+        }
+        if (gps != null) {
+            rowData = rowData + gps.lat + " " + gps.lng + ";";
+        } else {
+            rowData = rowData + "N/A" + ";";
+        }
+        if (wifiGoogle != null) {
+            rowData = rowData + wifiGoogle.lat + " " + wifiGoogle.lng + ";";
+        } else {
+            rowData = rowData + "N/A" + ";";
+        }
+
+        rowData = rowData + "" + measurement.getNrOfAccessPoints() + ";";
+        rowData = rowData + measurement.getGsmRssi() + ";";
+        rowData = rowData + measurement.getGsmLac() + ";";
+        rowData = rowData + measurement.getGsmCid() + ";";
+
+        rowData = rowData + "\r\n";
+
+        writeToFile(file, rowData);
     }
 
 
