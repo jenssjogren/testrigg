@@ -24,11 +24,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
@@ -48,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int COLOR_GREEN = Color.rgb(111, 198, 85);
     private static final int COLOR_RED = Color.rgb(209, 54, 54);
 
-    Button pairedDevicesButton, sendButton, newMeasurementButton;
+    Button pairedDevicesButton, sendButton, newMeasurementButton, getButton, postButton;
     TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
 
     @Override
@@ -60,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         sendButton = (Button) findViewById(R.id.button_send);
         newMeasurementButton = (Button) findViewById(R.id.button_new_measurement);
         newMeasurementButton.setBackgroundColor(COLOR_GREEN);
+        getButton = (Button) findViewById(R.id.button_get);
+        postButton = (Button) findViewById(R.id.button_post);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
         gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
@@ -163,6 +172,22 @@ public class MainActivity extends AppCompatActivity {
                     // Create the AlertDialog object and return it
                     builder.show();
                 }
+            }
+        });
+
+        getButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GetHttpConnection connection = new GetHttpConnection();
+                connection.execute("https://httpbin.org/");
+            }
+        });
+
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PostHttpConnection connection = new PostHttpConnection();
+                connection.execute("https://www.googleapis.com/geolocation/v1/geolocate?key=KEY_HERE");
             }
         });
     }
@@ -647,6 +672,130 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Measurement data received!", Toast.LENGTH_SHORT).show();
                 updateLastMeasurementInfo(parseMeasureValues(message));
             }
+        }
+    }
+
+    private class GetHttpConnection extends AsyncTask<String, Void, Void> {
+        URL url = null;
+
+        @Override
+        protected Void doInBackground(String... urls) {
+            try {
+                url = new URL(urls[0]);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            HttpURLConnection urlConnection = null;
+
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                //urlConnection.setDoOutput(true); //POST
+                //urlConnection.setChunkedStreamingMode(0);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                //OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+                //writeStream(out);
+
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                String data = readStream(in);
+                Log.d(TAG, "InputStream: " + data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
+            return null;
+        }
+
+        private void writeStream(OutputStream out) throws IOException {
+            String output = "Hello world";
+
+            out.write(output.getBytes());
+            out.flush();
+        }
+
+        private String readStream(InputStream is) throws IOException {
+            StringBuilder sb = new StringBuilder();
+            BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);
+            for (String line = r.readLine(); line != null; line =r.readLine()){
+                sb.append(line);
+            }
+            is.close();
+            return sb.toString();
+        }
+    }
+
+    private class PostHttpConnection extends AsyncTask<String, Void, Void> {
+        URL url = null;
+        String output = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [{\"macAddress\": \"00:25:9c:cf:1c:ac\",\"signalStrength\": -43},{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}]}";
+        //String output = "";
+        @Override
+        protected Void doInBackground(String... urls) {
+            try {
+                url = new URL(urls[0]);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            HttpURLConnection urlConnection = null;
+
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setChunkedStreamingMode(0);
+                //urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Accept","*/*");
+                //urlConnection.setFixedLengthStreamingMode(output.getBytes().length);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+                writeStream(out, output);
+                int status = urlConnection.getResponseCode();
+                String responseMessage = urlConnection.getResponseMessage();
+                Log.d(TAG, "Response: code " + status + ", message " + responseMessage);
+
+                if(status < 400) {
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    String data = readStream(in);
+                    Log.d(TAG, "InputStream: " + data);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
+            return null;
+        }
+
+        private void writeStream(OutputStream out, String message) throws IOException {
+            out.write(message.getBytes());
+            out.flush();
+        }
+        private String readStream(InputStream is) throws IOException {
+            StringBuilder sb = new StringBuilder();
+            BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);
+
+
+            for (String line = r.readLine(); line != null; line =r.readLine()){
+                sb.append(line);
+            }
+            is.close();
+            return sb.toString();
         }
     }
 }
