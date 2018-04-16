@@ -14,9 +14,6 @@ public class Measurement {
     private int nrOfAccessPoints;
     private Date measuredTime;
 
-    private int rssiEnd = 0;
-    private int macEnd = 0;
-
     public String getMeasuredTime() {
         return measuredTime.toString();
     }
@@ -89,6 +86,14 @@ public class Measurement {
     public void addAccessPoint(AccessPoint accessPoint) {
         this.accessPoints[nrOfAccessPoints] = accessPoint;
         nrOfAccessPoints++;
+    }
+
+    public AccessPoint[] getAccessPoints() {
+        AccessPoint[] aps = new AccessPoint[nrOfAccessPoints];
+        for (int i = 0; i < nrOfAccessPoints; i++) {
+            aps[i] = accessPoints[i];
+        }
+        return aps;
     }
 
     public int getNrOfAccessPoints() {

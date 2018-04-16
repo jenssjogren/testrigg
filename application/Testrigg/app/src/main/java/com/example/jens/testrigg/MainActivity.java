@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -46,16 +48,18 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.jens.testrigg.MESSAGE";
     private static final int REQUEST_ENABLE_BT = 1;
     private static final int REQUEST_DEVICE_ADDRESS = 2;
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 3;
+    private static final int REQUEST_USER_INPUT_LOCATION = 3;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4;
     private BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private ConnectBluetooth connectBluetooth;
     private boolean isWaitingMessage = false;
     private String currentMeasurementSession = "";
     private boolean inMeasurementSession = false;
+    private boolean postHttpConnectionDone = false;
     private static final int COLOR_GREEN = Color.rgb(111, 198, 85);
     private static final int COLOR_RED = Color.rgb(209, 54, 54);
 
-    Button pairedDevicesButton, sendButton, newMeasurementButton, getButton, postButton;
+    Button pairedDevicesButton, sendButton, newMeasurementButton, getButton, postButton, mapsButton;
     TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
 
     @Override
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         newMeasurementButton.setBackgroundColor(COLOR_GREEN);
         getButton = (Button) findViewById(R.id.button_get);
         postButton = (Button) findViewById(R.id.button_post);
+        mapsButton = (Button) findViewById(R.id.button_maps);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
         gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
@@ -151,8 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     });
 
                     builder.show();
-                }
-                else {
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("Are you sure to cancel measurements to " + currentMeasurementSession + "?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -187,7 +191,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 PostHttpConnection connection = new PostHttpConnection();
-                connection.execute("https://www.googleapis.com/geolocation/v1/geolocate?key=KEY_HERE");
+                String[] params = new String[2];
+                params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + "" ;
+                params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [{\"macAddress\": \"00:25:9c:cf:1c:ac\",\"signalStrength\": -43},{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}]}";
+                connection.execute(params);
+
+
+            }
+        });
+
+        mapsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
+                //startActivityForResult(deviceIntent, REQUEST_DEVICE_ADDRESS);
+                startActivityForResult(mapsIntent, REQUEST_USER_INPUT_LOCATION);
             }
         });
     }
@@ -263,11 +281,10 @@ public class MainActivity extends AppCompatActivity {
             rssi = rssi.trim();
 
             //Convert value to dBm
-            if(rssi.equals("99")) {
+            if (rssi.equals("99")) {
                 //Not known or not detectable signal
                 rssi = "N/A";
-            }
-            else {
+            } else {
                 int rssiInt = Integer.parseInt(rssi);
                 int dbm = -113 + 2 * rssiInt;
                 rssi = "" + dbm;
@@ -329,12 +346,43 @@ public class MainActivity extends AppCompatActivity {
         return measurement;
     }
 
-    private void updateLastMeasurementInfo(Measurement measurement) {
+    private void updateMeasurementInfo(Measurement measurement) {
         Coordinate gps = measurement.getGps();
         Coordinate user = measurement.getUser();
         Coordinate wifiGoogle = measurement.getWifiGoogle();
+        AccessPoint[] accessPoints = measurement.getAccessPoints();
+        int nrOfAccessPoints = measurement.getNrOfAccessPoints();
 
-        if(!currentMeasurementSession.equals("")) {
+        Log.d(TAG, "AccessPoint[] size = " + accessPoints.length);
+        Log.d(TAG, "nrOfAccessPoints = " + nrOfAccessPoints);
+
+
+        if (nrOfAccessPoints >= 2) {
+            PostHttpConnection googleWifiConnection = new PostHttpConnection();
+            String[] params = new String[2];
+            params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + "" ;
+            params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [";
+
+            for (AccessPoint ap : accessPoints) {
+                if (measurement.getAccessPoint(nrOfAccessPoints - 1).equals(ap)) {
+                    params[1] = params[1] + ap.getJson();
+                } else {
+                    params[1] = params[1] + ap.getJson() + ",";
+                }
+            }
+            params[1] = params[1] + "]}";
+
+            Log.d(TAG, "json: " + params[1]);
+
+            googleWifiConnection.execute(params);
+            String response = googleWifiConnection.getResponse();
+
+            Log.d(TAG, "response: " + response);
+
+        }
+
+
+        if (!currentMeasurementSession.equals("")) {
             File folder = getApplicationDir("Testrigg");
             File file = new File(folder, currentMeasurementSession);
             saveMeasurementToFile(measurement, file);
@@ -515,6 +563,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Något gick fel", Toast.LENGTH_LONG).show();
                 }
                 break;
+            case REQUEST_USER_INPUT_LOCATION:
+                if (resultCode == Activity.RESULT_OK) {
+
+                }
         }
     }
 
@@ -670,7 +722,9 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(s);
                 isWaitingMessage = false;
                 Toast.makeText(MainActivity.this, "Measurement data received!", Toast.LENGTH_SHORT).show();
-                updateLastMeasurementInfo(parseMeasureValues(message));
+                //updateMeasurementInfo(parseMeasureValues(message));
+                UpdateAndSaveMeasurement updateSave = new UpdateAndSaveMeasurement();
+                updateSave.execute(parseMeasureValues(message));
             }
         }
     }
@@ -690,19 +744,11 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 urlConnection = (HttpURLConnection) url.openConnection();
-
-                //urlConnection.setDoOutput(true); //POST
-                //urlConnection.setChunkedStreamingMode(0);
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             try {
-                //OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-                //writeStream(out);
-
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 String data = readStream(in);
                 Log.d(TAG, "InputStream: " + data);
@@ -714,17 +760,10 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
-        private void writeStream(OutputStream out) throws IOException {
-            String output = "Hello world";
-
-            out.write(output.getBytes());
-            out.flush();
-        }
-
         private String readStream(InputStream is) throws IOException {
             StringBuilder sb = new StringBuilder();
-            BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);
-            for (String line = r.readLine(); line != null; line =r.readLine()){
+            BufferedReader r = new BufferedReader(new InputStreamReader(is), 1000);
+            for (String line = r.readLine(); line != null; line = r.readLine()) {
                 sb.append(line);
             }
             is.close();
@@ -733,11 +772,182 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class PostHttpConnection extends AsyncTask<String, Void, Void> {
-        URL url = null;
-        String output = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [{\"macAddress\": \"00:25:9c:cf:1c:ac\",\"signalStrength\": -43},{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}]}";
-        //String output = "";
+        private URL url = null;
+        private String output;
+        private String response = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            postHttpConnectionDone = false;
+            Log.d(TAG, "http pre " + postHttpConnectionDone);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            postHttpConnectionDone = true;
+            Log.d(TAG, "http post " + postHttpConnectionDone);
+        }
+
+
+        public String getResponse() {
+            return response;
+        }
+
+
         @Override
         protected Void doInBackground(String... urls) {
+            try {
+                url = new URL(urls[0]);
+                output = urls[1];
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            HttpURLConnection urlConnection = null;
+
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setChunkedStreamingMode(0);
+                //urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Accept", "*/*");
+                //urlConnection.setFixedLengthStreamingMode(output.getBytes().length);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+                writeStream(out, output);
+                int status = urlConnection.getResponseCode();
+                String responseMessage = urlConnection.getResponseMessage();
+                Log.d(TAG, "Response: code " + status + ", message " + responseMessage);
+
+                if (status < 400) {
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    response = readStream(in);
+                    Log.d(TAG, "InputStream: " + response);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
+            return null;
+        }
+
+        private void writeStream(OutputStream out, String message) throws IOException {
+            out.write(message.getBytes());
+            out.flush();
+        }
+
+        private String readStream(InputStream is) throws IOException {
+            StringBuilder sb = new StringBuilder();
+            BufferedReader r = new BufferedReader(new InputStreamReader(is), 1000);
+
+
+            for (String line = r.readLine(); line != null; line = r.readLine()) {
+                sb.append(line);
+            }
+            is.close();
+            return sb.toString();
+        }
+    }
+
+    private class UpdateAndSaveMeasurement extends AsyncTask<Measurement, Void, Void> {
+        private Measurement measurement;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected Void doInBackground(Measurement... measurements) {
+            measurement = measurements[0];
+            Coordinate gps = measurement.getGps();
+            Coordinate user = measurement.getUser();
+            Coordinate wifiGoogle;
+            AccessPoint[] accessPoints = measurement.getAccessPoints();
+            int nrOfAccessPoints = measurement.getNrOfAccessPoints();
+
+            Log.d(TAG, "AccessPoint[] size = " + accessPoints.length);
+            Log.d(TAG, "nrOfAccessPoints = " + nrOfAccessPoints);
+
+
+            if (nrOfAccessPoints >= 2) {
+                //Get location from google based on accesspoints
+                String[] params = new String[2];
+                params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + "" ;
+                params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [";
+
+                for (AccessPoint ap : accessPoints) {
+                    if (measurement.getAccessPoint(nrOfAccessPoints - 1).equals(ap)) {
+                        params[1] = params[1] + ap.getJson();
+                    } else {
+                        params[1] = params[1] + ap.getJson() + ",";
+                    }
+                }
+                params[1] = params[1] + "]}";
+
+                String jsonloc = getWifiLocationJson(params);
+                updateWifiLocation(jsonloc);
+            }
+
+            wifiGoogle = measurement.getWifiGoogle();
+
+
+            //Update for user and save
+            if (!currentMeasurementSession.equals("")) {
+                File folder = getApplicationDir("Testrigg");
+                File file = new File(folder, currentMeasurementSession);
+                saveMeasurementToFile(measurement, file);
+            }
+
+            if (gps != null) {
+                gpsCoordinates.setText(gps.lat + " " + gps.lng);
+            } else {
+                gpsCoordinates.setText("N/A");
+            }
+            if (user != null) {
+                userCoordinates.setText(user.lat + " " + user.lng);
+            } else {
+                userCoordinates.setText("N/A");
+            }
+            if (wifiGoogle != null) {
+                wifiCoordinatesGoogle.setText(wifiGoogle.lat + " " + wifiGoogle.lng);
+            } else {
+                wifiCoordinatesGoogle.setText("N/A");
+            }
+
+            measuredTime.setText(measurement.getMeasuredTime());
+            nrOfAps.setText("" + measurement.getNrOfAccessPoints());
+            gsmRssi.setText(measurement.getGsmRssi());
+            gsmLac.setText(measurement.getGsmLac());
+            gsmCid.setText(measurement.getGsmCid());
+
+
+            return null;
+        }
+
+
+        private String getWifiLocationJson(String[] urls) {
+            URL url = null;
+            String output = urls[1];
+            String response = null;
+
+
             try {
                 url = new URL(urls[0]);
             } catch (MalformedURLException e) {
@@ -755,12 +965,14 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.setChunkedStreamingMode(0);
                 //urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
-                urlConnection.setRequestProperty("Accept","*/*");
+                urlConnection.setRequestProperty("Accept", "*/*");
                 //urlConnection.setFixedLengthStreamingMode(output.getBytes().length);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
 
             try {
                 OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -769,33 +981,62 @@ public class MainActivity extends AppCompatActivity {
                 String responseMessage = urlConnection.getResponseMessage();
                 Log.d(TAG, "Response: code " + status + ", message " + responseMessage);
 
-                if(status < 400) {
+                if (status < 400) {
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                    String data = readStream(in);
-                    Log.d(TAG, "InputStream: " + data);
+                    response = readStream(in);
+                    Log.d(TAG, "InputStream: " + response);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
                 urlConnection.disconnect();
             }
-            return null;
+            return response;
         }
 
-        private void writeStream(OutputStream out, String message) throws IOException {
+        private void writeStream (OutputStream out, String message) throws IOException {
             out.write(message.getBytes());
             out.flush();
         }
-        private String readStream(InputStream is) throws IOException {
+        private String readStream (InputStream is) throws IOException {
             StringBuilder sb = new StringBuilder();
-            BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);
+            BufferedReader r = new BufferedReader(new InputStreamReader(is), 1000);
 
 
-            for (String line = r.readLine(); line != null; line =r.readLine()){
+            for (String line = r.readLine(); line != null; line = r.readLine()) {
                 sb.append(line);
             }
             is.close();
             return sb.toString();
+        }
+
+        private void updateWifiLocation(String jsonFromGoogle) {
+            String lat = "";
+            String lng = "";
+            String acc = "";
+            int index = jsonFromGoogle.indexOf("\"lat\": ") + "\"lat\": ".length();
+
+            while (jsonFromGoogle.charAt(index) != ',') {
+                lat = lat + jsonFromGoogle.charAt(index);
+                index++;
+            }
+
+            index = jsonFromGoogle.indexOf("\"lng\": ") + "\"lng\": ".length();
+            while (jsonFromGoogle.charAt(index) != ' ') {
+                lng = lng + jsonFromGoogle.charAt(index);
+                index++;
+            }
+
+            index = jsonFromGoogle.indexOf("\"accuracy\": ") + "\"accuracy\": ".length();
+            while (jsonFromGoogle.charAt(index) != '}') {
+                acc = acc + jsonFromGoogle.charAt(index);
+                index++;
+            }
+
+            Coordinate coordinate = new Coordinate(lat, lng);
+            measurement.setWifiGoogle(coordinate);
+
+            Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
         }
     }
 }
