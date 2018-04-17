@@ -3,6 +3,7 @@ package com.example.jens.testrigg;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -17,10 +18,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean postHttpConnectionDone = false;
     private static final int COLOR_GREEN = Color.rgb(111, 198, 85);
     private static final int COLOR_RED = Color.rgb(209, 54, 54);
+    private Coordinate userCoordinate = null;
 
     Button pairedDevicesButton, sendButton, newMeasurementButton, getButton, postButton, mapsButton;
     TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
@@ -108,12 +112,50 @@ public class MainActivity extends AppCompatActivity {
         });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                if (!isWaitingMessage && connectBluetooth != null) {
-                    connectBluetooth.write("GET_ALL\r\n".getBytes());
-                    connectBluetooth.read();
-                }
+
+                    // Use the Builder class for convenient dialog construction
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Ange koordinater från?")
+                            .setPositiveButton("GPS", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
+                                    startActivityForResult(mapsIntent, REQUEST_USER_INPUT_LOCATION);
+                                }
+                            })
+                            .setNegativeButton("Textinmatning", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    builder.setMessage("Mata in koordinater");
+                                    LinearLayout lila1= new LinearLayout(builder.getContext());
+                                    lila1.setOrientation(LinearLayout.VERTICAL);
+                                    final EditText lat = new EditText(MainActivity.this);
+                                    lat.setHint("Latitude");
+                                    lat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                                    lila1.addView(lat);
+                                    final EditText lng = new EditText(MainActivity.this);
+                                    lng.setHint("Longitude");
+                                    lng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                                    lila1.addView(lng);
+
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            userCoordinate = new Coordinate(lat.getText().toString(), lng.getText().toString());
+                                            startMeasurementSession();
+                                        }
+                                    });
+
+                                    builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                        }
+                                    });
+                                    builder.setView(lila1);
+                                    builder.show();
+                                }
+                            });
+                    builder.show();
             }
         });
 
@@ -122,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!inMeasurementSession) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("Namnge loggfilen för aktuell mätning");
+                    builder.setMessage("Namnge loggfil för aktuell mätning");
 
                     // Set up the input
                     final EditText input = new EditText(MainActivity.this);
@@ -154,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
                             dialog.cancel();
                         }
                     });
-
                     builder.show();
+
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("Are you sure to cancel measurements to " + currentMeasurementSession + "?")
@@ -192,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 PostHttpConnection connection = new PostHttpConnection();
                 String[] params = new String[2];
-                params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + "" ;
+                params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCfoPMvLd1nctIkv7shLHWzZs-Qb97I2og";
                 params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [{\"macAddress\": \"00:25:9c:cf:1c:ac\",\"signalStrength\": -43},{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}]}";
                 connection.execute(params);
 
@@ -208,6 +250,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(mapsIntent, REQUEST_USER_INPUT_LOCATION);
             }
         });
+    }
+
+    private void startMeasurementSession() {
+        if (!isWaitingMessage && connectBluetooth != null) {
+            connectBluetooth.write("GET_ALL\r\n".getBytes());
+            connectBluetooth.read();
+        }
+        else {
+            Toast.makeText(this, "Kunde inte starta mätning", Toast.LENGTH_LONG).show();
+        }
     }
 
     private ArrayList listPairedDevices() {
@@ -344,71 +396,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return measurement;
-    }
-
-    private void updateMeasurementInfo(Measurement measurement) {
-        Coordinate gps = measurement.getGps();
-        Coordinate user = measurement.getUser();
-        Coordinate wifiGoogle = measurement.getWifiGoogle();
-        AccessPoint[] accessPoints = measurement.getAccessPoints();
-        int nrOfAccessPoints = measurement.getNrOfAccessPoints();
-
-        Log.d(TAG, "AccessPoint[] size = " + accessPoints.length);
-        Log.d(TAG, "nrOfAccessPoints = " + nrOfAccessPoints);
-
-
-        if (nrOfAccessPoints >= 2) {
-            PostHttpConnection googleWifiConnection = new PostHttpConnection();
-            String[] params = new String[2];
-            params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + "" ;
-            params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [";
-
-            for (AccessPoint ap : accessPoints) {
-                if (measurement.getAccessPoint(nrOfAccessPoints - 1).equals(ap)) {
-                    params[1] = params[1] + ap.getJson();
-                } else {
-                    params[1] = params[1] + ap.getJson() + ",";
-                }
-            }
-            params[1] = params[1] + "]}";
-
-            Log.d(TAG, "json: " + params[1]);
-
-            googleWifiConnection.execute(params);
-            String response = googleWifiConnection.getResponse();
-
-            Log.d(TAG, "response: " + response);
-
-        }
-
-
-        if (!currentMeasurementSession.equals("")) {
-            File folder = getApplicationDir("Testrigg");
-            File file = new File(folder, currentMeasurementSession);
-            saveMeasurementToFile(measurement, file);
-        }
-
-        if (gps != null) {
-            gpsCoordinates.setText(gps.lat + " " + gps.lng);
-        } else {
-            gpsCoordinates.setText("N/A");
-        }
-        if (user != null) {
-            userCoordinates.setText(user.lat + " " + user.lng);
-        } else {
-            userCoordinates.setText("N/A");
-        }
-        if (wifiGoogle != null) {
-            wifiCoordinatesGoogle.setText(wifiGoogle.lat + " " + wifiGoogle.lng);
-        } else {
-            wifiCoordinatesGoogle.setText("N/A");
-        }
-
-        measuredTime.setText(measurement.getMeasuredTime());
-        nrOfAps.setText("" + measurement.getNrOfAccessPoints());
-        gsmRssi.setText(measurement.getGsmRssi());
-        gsmLac.setText(measurement.getGsmLac());
-        gsmCid.setText(measurement.getGsmCid());
     }
 
     private File getApplicationDir(String directoryName) {
@@ -564,9 +551,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case REQUEST_USER_INPUT_LOCATION:
+                Log.d(TAG, "Intent handled");
                 if (resultCode == Activity.RESULT_OK) {
-
+                    Coordinate userPosition = (Coordinate) data.getSerializableExtra("Coordinate");
+                    Log.d(TAG, "User coordinates: " + userPosition.lat + ", " + userPosition.lng);
+                    userCoordinate = userPosition;
+                    startMeasurementSession();
                 }
+                break;
         }
     }
 
@@ -680,6 +672,7 @@ public class MainActivity extends AppCompatActivity {
 
         private class IncomingMessage extends AsyncTask<BluetoothSocket, Void, String> {
             InputStream tmpIn = null;
+            private ProgressDialog progress;
             private InputStream mmInStream;
             private byte[] mmBuffer; // mmBuffer store for the stream
             private String message;
@@ -715,14 +708,15 @@ public class MainActivity extends AppCompatActivity {
             protected void onPreExecute() {
                 super.onPreExecute();
                 isWaitingMessage = true;
+                progress = ProgressDialog.show(MainActivity.this, "", "Hämtar data från testrigg!");  //show a progress dialog
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 isWaitingMessage = false;
+                progress.cancel();
                 Toast.makeText(MainActivity.this, "Measurement data received!", Toast.LENGTH_SHORT).show();
-                //updateMeasurementInfo(parseMeasureValues(message));
                 UpdateAndSaveMeasurement updateSave = new UpdateAndSaveMeasurement();
                 updateSave.execute(parseMeasureValues(message));
             }
@@ -876,6 +870,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Measurement... measurements) {
             measurement = measurements[0];
+            measurement.setUser(userCoordinate);
+            userCoordinate = null;
             Coordinate gps = measurement.getGps();
             Coordinate user = measurement.getUser();
             Coordinate wifiGoogle;
@@ -889,7 +885,7 @@ public class MainActivity extends AppCompatActivity {
             if (nrOfAccessPoints >= 2) {
                 //Get location from google based on accesspoints
                 String[] params = new String[2];
-                params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + "" ;
+                params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCfoPMvLd1nctIkv7shLHWzZs-Qb97I2og";
                 params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [";
 
                 for (AccessPoint ap : accessPoints) {

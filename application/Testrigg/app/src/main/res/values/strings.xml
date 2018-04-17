@@ -2,5 +2,5 @@
     <string name="app_name">Testrigg</string>
     <string name="bt_not_enabled_leaving">Bluetooth inte aktiverat, stänger ner</string>
     <string name="title_activity_maps">Map</string>
-    <string name="google_maps_key"></string>
+    <string name="geolocation_api_key">AIzaSyCfoPMvLd1nctIkv7shLHWzZs-Qb97I2og</string>
 </resources>
