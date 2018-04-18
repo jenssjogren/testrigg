@@ -210,16 +210,16 @@ bt 4
 "380
 [v _waitForCommand waitForCommand `(v  1 e 1 0 ]
 {
-"414
+"420
 [v waitForCommand@message message `[30]uc  1 a 30 0 ]
-[v waitForCommand@i_435 i `i  1 a 2 64 ]
-"412
+[v waitForCommand@i_439 i `i  1 a 2 64 ]
+"418
 [v waitForCommand@p p `*.4uc  1 a 1 66 ]
 "381
 [v waitForCommand@command command `[32]uc  1 a 32 30 ]
 "387
 [v waitForCommand@i i `i  1 a 2 62 ]
-"427
+"432
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\strncmp.c
 [v _strncmp strncmp `(i  1 e 2 0 ]
@@ -251,9 +251,7 @@ bt 4
 "373
 [v _sendSigfox sendSigfox `(v  1 e 1 0 ]
 {
-[v sendSigfox@hexMessage hexMessage `*.4uc  1 a 1 wreg ]
-[v sendSigfox@hexMessage hexMessage `*.4uc  1 a 1 wreg ]
-[v sendSigfox@hexMessage hexMessage `*.4uc  1 a 1 7 ]
+[v sendSigfox@hexMessage hexMessage `*.26uc  1 p 2 7 ]
 "378
 } 0
 "282

@@ -3,7 +3,6 @@ package com.example.jens.testrigg;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -19,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,8 +26,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -38,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -62,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int COLOR_GREEN = Color.rgb(111, 198, 85);
     private static final int COLOR_RED = Color.rgb(209, 54, 54);
     private Coordinate userCoordinate = null;
+    private int measureCounter = 0;
+    private int lastSigfoxSequenceNumber = -1;
+    private String lastSigfoxLinkQuality = null;
 
     Button pairedDevicesButton, sendButton, newMeasurementButton, getButton, postButton, mapsButton;
     TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
@@ -224,21 +226,23 @@ public class MainActivity extends AppCompatActivity {
         getButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GetHttpConnection connection = new GetHttpConnection();
-                connection.execute("https://httpbin.org/");
+                GetSigfoxStatus connection = new GetSigfoxStatus();
+                connection.execute("https://backend.sigfox.com/api/devices/38D054/messages?limit=1");
             }
         });
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PostHttpConnection connection = new PostHttpConnection();
+                /*PostHttpConnection connection = new PostHttpConnection();
                 String[] params = new String[2];
                 params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCfoPMvLd1nctIkv7shLHWzZs-Qb97I2og";
                 params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [{\"macAddress\": \"00:25:9c:cf:1c:ac\",\"signalStrength\": -43},{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}]}";
                 connection.execute(params);
-
-
+                */
+                String msg = new Integer(measureCounter).toString();
+                msg = generateSigfoxMessage(msg);
+                connectBluetooth.write(msg.getBytes());
             }
         });
 
@@ -252,9 +256,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private String generateSigfoxMessage(String msg) {
+        String str = "SEND_SIGFOX:";
+        str = str + String.format("%012x", new BigInteger(1, msg.getBytes(/*YOUR_CHARSET?*/)));
+        str = str + "\r\n";
+        Log.d(TAG, "Sigfox message: " + str);
+        return str;
+    }
+
     private void startMeasurementSession() {
         if (!isWaitingMessage && connectBluetooth != null) {
-            connectBluetooth.write("GET_ALL\r\n".getBytes());
+            //Get other peripherals info
+            connectBluetooth.write("GET_ALL_SEND_SIGFOX\r\n".getBytes());
             connectBluetooth.read();
         }
         else {
@@ -716,15 +729,26 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(s);
                 isWaitingMessage = false;
                 progress.cancel();
-                Toast.makeText(MainActivity.this, "Measurement data received!", Toast.LENGTH_SHORT).show();
-                UpdateAndSaveMeasurement updateSave = new UpdateAndSaveMeasurement();
-                updateSave.execute(parseMeasureValues(message));
+                if (message != "") {
+                    Toast.makeText(MainActivity.this, "Measurement data received!", Toast.LENGTH_SHORT).show();
+                    UpdateAndSaveMeasurement updateSave = new UpdateAndSaveMeasurement();
+                    updateSave.execute(parseMeasureValues(message));
+                }
             }
         }
     }
 
-    private class GetHttpConnection extends AsyncTask<String, Void, Void> {
+    private class GetSigfoxStatus extends AsyncTask<String, Void, Void> {
         URL url = null;
+        int seqNumber = -1;
+        String linkQuality = null;
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            lastSigfoxSequenceNumber = seqNumber;
+            lastSigfoxLinkQuality = linkQuality;
+        }
 
         @Override
         protected Void doInBackground(String... urls) {
@@ -734,18 +758,47 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             HttpURLConnection urlConnection = null;
+            int status = 1000;
 
 
             try {
                 urlConnection = (HttpURLConnection) url.openConnection();
+                // Add authorization header
+                String authorization = "5ad5fb0d3c8789433422e3b9:15b8835e36a3431ba1b555f2090e30f3";
+                byte[] encodedBytes;
+                encodedBytes = Base64.encode(authorization.getBytes(),0);
+                authorization = "Basic " + new String(encodedBytes);
+                urlConnection.setRequestProperty("Authorization", authorization);
+
+                status = urlConnection.getResponseCode();
+                String responseMessage = urlConnection.getResponseMessage();
+                Log.d(TAG, "Response: code " + status + ", message " + responseMessage);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             try {
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                String data = readStream(in);
-                Log.d(TAG, "InputStream: " + data);
+                if(status < 400) {
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    String data = readStream(in);
+                    Log.d(TAG, "InputStream: " + data);
+
+                    if(data.contains("seqNumber\":")) {
+                        int index = data.indexOf("seqNumber\":") + "seqNumber\":".length();
+                        int end = data.indexOf(',', index);
+                        String number = data.substring(index, end);
+                        seqNumber = Integer.valueOf(number);
+                        Log.d(TAG,"seqNumber: " + seqNumber);
+                    }
+                    if(data.contains("linkQuality\":\"")) {
+                        int index = data.indexOf("linkQuality\":\"") + "linkQuality\":\"".length();
+                        int end = data.indexOf('"', index);
+                        linkQuality = data.substring(index, end);
+                        Log.d(TAG,"linkQuality: " + linkQuality);
+                    }
+
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -782,11 +835,6 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             postHttpConnectionDone = true;
             Log.d(TAG, "http post " + postHttpConnectionDone);
-        }
-
-
-        public String getResponse() {
-            return response;
         }
 
 

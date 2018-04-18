@@ -8824,88 +8824,109 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _serialPrintBT (1 -> :s 23C `*uc ]
 "406
 }
-[; ;main.c: 406: } else if (strcmp(command, "GET_ALL\r\n") == 0) {
+[; ;main.c: 406: } else if (strcmp(command, "GET_ALL_SEND_SIGFOX\r\n") == 0) {
 [e $U 1000  ]
 [e :U 999 ]
 [e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 24C -> 0 `i 1001  ]
 {
-[; ;main.c: 407: getGPSData();
+[; ;main.c: 407: sendSigfox("000000000000\r\n");
 "407
-[e ( _getGPSData ..  ]
-[; ;main.c: 408: getGSMData();
+[e ( _sendSigfox (1 -> :s 25C `*uc ]
+[; ;main.c: 408: getGPSData();
 "408
-[e ( _getGSMData ..  ]
-[; ;main.c: 409: getWiFiData();
+[e ( _getGPSData ..  ]
+[; ;main.c: 409: getGSMData();
 "409
-[e ( _getWiFiData ..  ]
-[; ;main.c: 410: serialPrintBT("MESSAGE_END\r\n");
+[e ( _getGSMData ..  ]
+[; ;main.c: 410: getWiFiData();
 "410
-[e ( _serialPrintBT (1 -> :s 25C `*uc ]
+[e ( _getWiFiData ..  ]
+[; ;main.c: 411: serialPrintBT("MESSAGE_END\r\n");
 "411
+[e ( _serialPrintBT (1 -> :s 26C `*uc ]
+"412
 }
-[; ;main.c: 411: } else if (strncmp(command, "SEND_SIGFOX:", 12) == 0) {
+[; ;main.c: 412: } else if (strcmp(command, "GET_ALL\r\n") == 0) {
 [e $U 1002  ]
 [e :U 1001 ]
-[e $ ! == ( _strncmp (3 , , -> &U _command `*Cuc :s 26C -> -> 12 `i `ui -> 0 `i 1003  ]
+[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 27C -> 0 `i 1003  ]
 {
-"412
-[v _p `*uc ~T0 @X0 1 a ]
-[; ;main.c: 412: char * p;
-[; ;main.c: 413: p = command + 12;
+[; ;main.c: 413: getGPSData();
 "413
-[e = _p + &U _command * -> -> 12 `i `x -> -> # *U &U _command `i `x ]
+[e ( _getGPSData ..  ]
+[; ;main.c: 414: getGSMData();
 "414
+[e ( _getGSMData ..  ]
+[; ;main.c: 415: getWiFiData();
+"415
+[e ( _getWiFiData ..  ]
+[; ;main.c: 416: serialPrintBT("MESSAGE_END\r\n");
+"416
+[e ( _serialPrintBT (1 -> :s 28C `*uc ]
+"417
+}
+[; ;main.c: 417: } else if (strncmp(command, "SEND_SIGFOX:", 12) == 0) {
+[e $U 1004  ]
+[e :U 1003 ]
+[e $ ! == ( _strncmp (3 , , -> &U _command `*Cuc :s 29C -> -> 12 `i `ui -> 0 `i 1005  ]
+{
+"418
+[v _p `*uc ~T0 @X0 1 a ]
+[; ;main.c: 418: char * p;
+[; ;main.c: 419: p = command + 12;
+"419
+[e = _p + &U _command * -> -> 12 `i `x -> -> # *U &U _command `i `x ]
+"420
 [v _message `uc ~T0 @X0 -> 30 `i a ]
 [v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 414: char message[30];
-[; ;main.c: 415: int i = 0;
-"415
-[e = _i -> 0 `i ]
-[; ;main.c: 417: while(*p != '\r') {
-"417
-[e $U 1004  ]
-[e :U 1005 ]
-{
-[; ;main.c: 418: message[i] = *p;
-"418
-[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux *U _p ]
-[; ;main.c: 419: p++;
-"419
-[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
-[; ;main.c: 420: i++;
-"420
-[e ++ _i -> 1 `i ]
+[; ;main.c: 420: char message[30];
+[; ;main.c: 421: int i = 0;
 "421
-}
-[e :U 1004 ]
-"417
-[e $ != -> *U _p `ui -> 13 `ui 1005  ]
-[e :U 1006 ]
-[; ;main.c: 421: }
-[; ;main.c: 422: message[i] = '\0';
-"422
-[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux -> -> 0 `ui `uc ]
-[; ;main.c: 424: sendSigfox(message);
+[e = _i -> 0 `i ]
+[; ;main.c: 423: while(*p != '\r') {
+"423
+[e $U 1006  ]
+[e :U 1007 ]
+{
+[; ;main.c: 424: message[i] = *p;
 "424
-[e ( _sendSigfox (1 &U _message ]
-[; ;main.c: 425: serialPrintBT("MESSAGE_END\r\n");
+[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux *U _p ]
+[; ;main.c: 425: p++;
 "425
-[e ( _serialPrintBT (1 -> :s 27C `*uc ]
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+[; ;main.c: 426: i++;
 "426
-}
-[e :U 1003 ]
+[e ++ _i -> 1 `i ]
 "427
+}
+[e :U 1006 ]
+"423
+[e $ != -> *U _p `ui -> 13 `ui 1007  ]
+[e :U 1008 ]
+[; ;main.c: 427: }
+[; ;main.c: 428: message[i] = '\0';
+"428
+[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux -> -> 0 `ui `uc ]
+[; ;main.c: 430: sendSigfox(message);
+"430
+[e ( _sendSigfox (1 &U _message ]
+"431
+}
+[e :U 1005 ]
+"432
+[e :U 1004 ]
 [e :U 1002 ]
 [e :U 1000 ]
 [e :U 998 ]
 [e :U 996 ]
-[; ;main.c: 426: }
-[; ;main.c: 427: }
+[; ;main.c: 431: }
+[; ;main.c: 432: }
 [e :UE 987 ]
 }
 [a 16C 65 84 36 83 70 61 0 ]
-[a 26C 83 69 78 68 95 83 73 71 70 79 88 58 0 ]
+[a 29C 83 69 78 68 95 83 73 71 70 79 88 58 0 ]
 [a 11C 36 71 80 71 71 65 44 0 ]
+[a 24C 71 69 84 95 65 76 76 95 83 69 78 68 95 83 73 71 70 79 88 13 10 0 ]
 [a 13C 83 73 71 70 79 88 95 83 84 65 82 84 13 10 0 ]
 [a 10C 71 80 83 95 83 84 65 82 84 13 10 0 ]
 [a 5C 71 83 77 95 83 84 65 82 84 13 10 0 ]
@@ -8915,7 +8936,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [a 7C 65 84 43 67 83 81 13 10 0 ]
 [a 3C 65 84 43 67 87 76 65 80 13 10 0 ]
 [a 20C 71 69 84 95 71 83 77 13 10 0 ]
-[a 24C 71 69 84 95 65 76 76 13 10 0 ]
+[a 27C 71 69 84 95 65 76 76 13 10 0 ]
 [a 22C 71 69 84 95 87 73 70 73 13 10 0 ]
 [a 15C 83 73 71 70 79 88 95 69 78 68 13 10 0 ]
 [a 12C 71 80 83 95 69 78 68 13 10 0 ]
@@ -8924,9 +8945,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [a 19C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
 [a 21C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
 [a 23C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
-[a 25C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
-[a 27C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
+[a 26C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
+[a 28C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
 [a 8C 65 84 43 67 82 69 71 63 13 10 0 ]
 [a 6C 65 84 43 67 82 69 71 61 50 13 10 0 ]
 [a 2C 65 84 43 67 87 76 65 80 79 80 84 61 49 44 49 50 13 10 0 ]
+[a 25C 48 48 48 48 48 48 48 48 48 48 48 48 13 10 0 ]
 [a 17C 13 10 0 ]

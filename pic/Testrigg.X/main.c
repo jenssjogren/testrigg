@@ -403,6 +403,12 @@ void waitForCommand() {
     } else if (strcmp(command, "GET_WIFI\r\n") == 0) {
         getWiFiData();
         serialPrintBT("MESSAGE_END\r\n");
+    } else if (strcmp(command, "GET_ALL_SEND_SIGFOX\r\n") == 0) {
+        sendSigfox("000000000000\r\n");
+        getGPSData();
+        getGSMData();
+        getWiFiData();
+        serialPrintBT("MESSAGE_END\r\n");
     } else if (strcmp(command, "GET_ALL\r\n") == 0) {
         getGPSData();
         getGSMData();
@@ -422,6 +428,5 @@ void waitForCommand() {
         message[i] = '\0';
         
         sendSigfox(message);
-        serialPrintBT("MESSAGE_END\r\n");
     }
 }
