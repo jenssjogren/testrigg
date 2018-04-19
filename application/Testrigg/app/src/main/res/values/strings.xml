@@ -3,4 +3,5 @@
     <string name="bt_not_enabled_leaving">Bluetooth inte aktiverat, stänger ner</string>
     <string name="title_activity_maps">Map</string>
     <string name="geolocation_api_key">AIzaSyCfoPMvLd1nctIkv7shLHWzZs-Qb97I2og</string>
+    <string name="title_activity_view_measurement_on_map">Map</string>
 </resources>

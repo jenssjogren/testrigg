@@ -1,5 +1,8 @@
 package com.example.jens.testrigg;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,6 +11,8 @@ public class Measurement {
     private Coordinate user;
     private Coordinate wifiGoogle;
     private Coordinate wifiOpencellid;
+    private String googleDistance;
+    private String opencellidDistance;
     private String gsmRssi;
     private String gsmCid;
     private String gsmLac;
@@ -58,6 +63,33 @@ public class Measurement {
 
     public void setWifiOpencellid(Coordinate wifiOpencellid) {
         this.wifiOpencellid = wifiOpencellid;
+    }
+
+    public String getGpsDistance() {
+        if (user != null && gps != null) {
+            return computeDistance(user, gps);
+        }
+        else {
+            return "N/A";
+        }
+    }
+
+    public String getGoogleDistance() {
+        if (user != null && wifiGoogle != null) {
+            return computeDistance(user, wifiGoogle);
+        }
+        else {
+            return "N/A";
+        }
+    }
+
+    public String getOpencellidDistance() {
+        if (user != null && wifiOpencellid != null) {
+            return computeDistance(user, wifiOpencellid);
+        }
+        else {
+            return "N/A";
+        }
     }
 
     public Coordinate getGps() {
@@ -120,5 +152,19 @@ public class Measurement {
 
     public int getNrOfAccessPoints() {
         return nrOfAccessPoints;
+    }
+
+    private LatLng coordinateToLatLng(Coordinate coordinate) {
+        double lat = Double.valueOf(coordinate.lat);
+        double lng = Double.valueOf(coordinate.lng);
+        LatLng latLng = new LatLng(lat, lng);
+        return latLng;
+    }
+
+    private String computeDistance(Coordinate c1, Coordinate c2) {
+        LatLng latLng1 = coordinateToLatLng(c1);
+        LatLng latLng2 = coordinateToLatLng(c2);
+        double dist = SphericalUtil.computeDistanceBetween(latLng1, latLng2);
+        return Double.toString(dist);
     }
 }

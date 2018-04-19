@@ -20,24 +20,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="288dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
         <Button
-            android:id="@+id/button_get"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="144dp"
-            android:layout_marginTop="288dp"
-            android:text="get"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button_opencellid"
+            android:id="@+id/button_view_measurement_on_map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Post opencellid" />
+            android:text="View measurement on map"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/button_new_measurement"

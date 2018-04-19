@@ -63,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
     private Coordinate userCoordinate = null;
     private int measureCounter = 0;
     private int lastSigfoxSequenceNumber = -1;
+    private Measurement lastMeasurement = null;
 
-    Button pairedDevicesButton, makeMeasurementButton, newSessionButton, getButton, opencellidButton;
+    Button pairedDevicesButton, makeMeasurementButton, newSessionButton, getButton, viewMeasurementOnmapButton;
     TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi,
             gsmLac, gsmCid, sigfoxLink, wifiCoordinatesOpencellid;
 
@@ -77,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
         makeMeasurementButton = (Button) findViewById(R.id.button_send);
         newSessionButton = (Button) findViewById(R.id.button_new_measurement);
         newSessionButton.setBackgroundColor(COLOR_GREEN);
-        getButton = (Button) findViewById(R.id.button_get);
-        opencellidButton = (Button) findViewById(R.id.button_opencellid);
+        viewMeasurementOnmapButton = (Button) findViewById(R.id.button_view_measurement_on_map);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
         gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
@@ -191,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
 
                             String heading = "Time;User defined coordinates;" +
                                     "GPS coordinates;WiFi coordinates (Google);" +
-                                    "Access points reached;GSM RSSI;GSM LAC;" +
+                                    "Opencellid coordinates;GPS distance;Google distance;" +
+                                    " Opencellid distance;Access points reached;GSM RSSI;GSM LAC;" +
                                     "GSM CID;Sigfox link quality\r\n";
 
                             File dir = getApplicationDir("Testrigg");
@@ -230,23 +231,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        getButton.setOnClickListener(new View.OnClickListener() {
+
+        viewMeasurementOnmapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GetSigfoxStatus connection = new GetSigfoxStatus();
-                connection.execute("https://backend.sigfox.com/api/devices/38D054/messages?limit=1");
+                Intent mapsIntent = new Intent(MainActivity.this, ViewMeasurementOnMapActivity.class);
+                mapsIntent.putExtra("gps", lastMeasurement.getGps());
+                mapsIntent.putExtra("user", lastMeasurement.getUser());
+                mapsIntent.putExtra("google", lastMeasurement.getWifiGoogle());
+                mapsIntent.putExtra("opencellid", lastMeasurement.getWifiOpencellid());
+                startActivity(mapsIntent);
             }
         });
-
-        opencellidButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String[] params = {"https://eu1.unwiredlabs.com/v2/process.php","{\"token\": \"97b8eafda6008a\",\"wifi\": [{\"bssid\": \"84:d4:7e:ba:27:81\",\"signal\": -57}, {\"bssid\": \"84:d4:7e:ba:27:80\",\"signal\": -58}]}"};
-                PostHttpConnection postHttpConnection = new PostHttpConnection();
-                postHttpConnection.execute(params);
-            }
-        });
-
     }
 
     private String generateSigfoxMessage(String msg) {
@@ -489,6 +485,7 @@ public class MainActivity extends AppCompatActivity {
         Coordinate gps = measurement.getGps();
         Coordinate user = measurement.getUser();
         Coordinate wifiGoogle = measurement.getWifiGoogle();
+        Coordinate wifiOpencellid = measurement.getWifiOpencellid();
         String rowData = "";
 
         rowData = rowData + measurement.getMeasuredTime() + ";";
@@ -508,7 +505,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             rowData = rowData + "N/A" + ";";
         }
+        if (wifiOpencellid != null) {
+            rowData = rowData + wifiOpencellid.lat + " " + wifiOpencellid.lng + ";";
+        } else {
+            rowData = rowData + "N/A" + ";";
+        }
 
+        rowData = rowData + measurement.getGpsDistance() + ";";
+        rowData = rowData + measurement.getGoogleDistance() + ";";
+        rowData = rowData + measurement.getOpencellidDistance() + ";";
         rowData = rowData + "" + measurement.getNrOfAccessPoints() + ";";
         rowData = rowData + measurement.getGsmRssi() + ";";
         rowData = rowData + measurement.getGsmLac() + ";";
@@ -903,6 +908,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            viewMeasurementOnmapButton.setVisibility(View.VISIBLE);
             progress.cancel();
         }
 
@@ -955,6 +961,8 @@ public class MainActivity extends AppCompatActivity {
 
                 jsonloc = getOpencellidLocationJson(params);
                 updateOpencellidLocation(jsonloc);
+
+
             }
 
             wifiGoogle = measurement.getWifiGoogle();
@@ -964,6 +972,7 @@ public class MainActivity extends AppCompatActivity {
             updateSigfoxStatus();
 
             //Update information and save
+            lastMeasurement = measurement;
             if (!currentMeasurementSession.equals("")) {
                 File folder = getApplicationDir("Testrigg");
                 File file = new File(folder, currentMeasurementSession);
