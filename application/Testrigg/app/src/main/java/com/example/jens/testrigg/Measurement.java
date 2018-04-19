@@ -7,27 +7,41 @@ public class Measurement {
     private Coordinate gps;
     private Coordinate user;
     private Coordinate wifiGoogle;
+    private Coordinate wifiOpencellid;
     private String gsmRssi;
     private String gsmCid;
     private String gsmLac;
     private AccessPoint[] accessPoints;
     private int nrOfAccessPoints;
     private Date measuredTime;
+    private String sigfoxLinkQuality;
 
     public String getMeasuredTime() {
         return measuredTime.toString();
     }
+
+
 
     public Measurement() {
         measuredTime = Calendar.getInstance().getTime();
         gps = null;
         user = null;
         wifiGoogle = null;
+        wifiOpencellid = null;
         gsmRssi = "N/A";
         gsmCid = "N/A";
         gsmLac = "N/A";
+        sigfoxLinkQuality = "N/A";
         accessPoints = new AccessPoint[128];
         nrOfAccessPoints = 0;
+    }
+
+    public String getSigfoxLinkQuality() {
+        return sigfoxLinkQuality;
+    }
+
+    public void setSigfoxLinkQuality(String sigfoxLinkQuality) {
+        this.sigfoxLinkQuality = sigfoxLinkQuality;
     }
 
     public Coordinate getWifiGoogle() {
@@ -36,6 +50,14 @@ public class Measurement {
 
     public void setWifiGoogle(Coordinate wifiGoogle) {
         this.wifiGoogle = wifiGoogle;
+    }
+
+    public Coordinate getWifiOpencellid() {
+        return wifiOpencellid;
+    }
+
+    public void setWifiOpencellid(Coordinate wifiOpencellid) {
+        this.wifiOpencellid = wifiOpencellid;
     }
 
     public Coordinate getGps() {

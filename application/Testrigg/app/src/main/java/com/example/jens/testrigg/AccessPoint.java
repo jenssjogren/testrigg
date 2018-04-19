@@ -26,9 +26,15 @@ public class AccessPoint {
         this.mac = mac;
     }
 
-    public String getJson() {
+    public String getJsonForGoogle() {
         // "{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}";
         json = "{\"macAddress\": \"" + mac + "\",\"signalStrength\": " + rssi + "}";
+        return json;
+    }
+
+    public String getJsonForOpencellid() {
+        // "{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}";
+        json = "{\"bssid\": \"" + mac + "\",\"signal\": " + rssi + "}";
         return json;
     }
 }

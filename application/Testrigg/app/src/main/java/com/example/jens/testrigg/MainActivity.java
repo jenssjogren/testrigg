@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
     private Coordinate userCoordinate = null;
     private int measureCounter = 0;
     private int lastSigfoxSequenceNumber = -1;
-    private String lastSigfoxLinkQuality = null;
 
-    Button pairedDevicesButton, sendButton, newMeasurementButton, getButton, postButton, mapsButton;
-    TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi, gsmLac, gsmCid;
+    Button pairedDevicesButton, makeMeasurementButton, newSessionButton, getButton, opencellidButton;
+    TextView measuredTime, gpsCoordinates, userCoordinates, wifiCoordinatesGoogle, nrOfAps, gsmRssi,
+            gsmLac, gsmCid, sigfoxLink, wifiCoordinatesOpencellid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,21 +74,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         pairedDevicesButton = (Button) findViewById(R.id.button_paired_devices);
-        sendButton = (Button) findViewById(R.id.button_send);
-        newMeasurementButton = (Button) findViewById(R.id.button_new_measurement);
-        newMeasurementButton.setBackgroundColor(COLOR_GREEN);
+        makeMeasurementButton = (Button) findViewById(R.id.button_send);
+        newSessionButton = (Button) findViewById(R.id.button_new_measurement);
+        newSessionButton.setBackgroundColor(COLOR_GREEN);
         getButton = (Button) findViewById(R.id.button_get);
-        postButton = (Button) findViewById(R.id.button_post);
-        mapsButton = (Button) findViewById(R.id.button_maps);
+        opencellidButton = (Button) findViewById(R.id.button_opencellid);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
         gpsCoordinates = (TextView) findViewById(R.id.textView_gps_coordinates_data);
         userCoordinates = (TextView) findViewById(R.id.textView_user_coordinates_data);
         wifiCoordinatesGoogle = (TextView) findViewById(R.id.textView_wifi_coordinates_google_data);
+        wifiCoordinatesOpencellid = (TextView) findViewById(R.id.textView_wifi_coordinates_opencellid_data);
         nrOfAps = (TextView) findViewById(R.id.textView_nr_reached_aps_data);
         gsmRssi = (TextView) findViewById(R.id.textView_gsm_rssi_data);
         gsmLac = (TextView) findViewById(R.id.textView_gsm_lac_data);
         gsmCid = (TextView) findViewById(R.id.textView_gsm_cid_data);
+        sigfoxLink = (TextView) findViewById(R.id.textView_sigfox_link_quality_data);
 
         if (mBluetoothAdapter == null) {
             // Device doesn't support Bluetooth
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+
 
         pairedDevicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,55 +115,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        makeMeasurementButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                if (lastSigfoxSequenceNumber == -1) {
+                    //Get the last sequence number of sigfox messages
+                    GetSigfoxStatus getSigfoxStatus = new GetSigfoxStatus();
+                    getSigfoxStatus.execute("https://backend.sigfox.com/api/devices/38D054/messages?limit=1");
+                }
 
-                    // Use the Builder class for convenient dialog construction
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("Ange koordinater från?")
-                            .setPositiveButton("GPS", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
-                                    startActivityForResult(mapsIntent, REQUEST_USER_INPUT_LOCATION);
-                                }
-                            })
-                            .setNegativeButton("Textinmatning", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    builder.setMessage("Mata in koordinater");
-                                    LinearLayout lila1= new LinearLayout(builder.getContext());
-                                    lila1.setOrientation(LinearLayout.VERTICAL);
-                                    final EditText lat = new EditText(MainActivity.this);
-                                    lat.setHint("Latitude");
-                                    lat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                                    lila1.addView(lat);
-                                    final EditText lng = new EditText(MainActivity.this);
-                                    lng.setHint("Longitude");
-                                    lng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-                                    lila1.addView(lng);
+                // Use the Builder class for convenient dialog construction
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Ange koordinater från?")
+                        .setPositiveButton("GPS", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
+                                startActivityForResult(mapsIntent, REQUEST_USER_INPUT_LOCATION);
+                            }
+                        })
+                        .setNegativeButton("Textinmatning", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                builder.setMessage("Mata in koordinater");
+                                LinearLayout lila1 = new LinearLayout(builder.getContext());
+                                lila1.setOrientation(LinearLayout.VERTICAL);
+                                final EditText lat = new EditText(MainActivity.this);
+                                lat.setHint("Latitude");
+                                lat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                                lila1.addView(lat);
+                                final EditText lng = new EditText(MainActivity.this);
+                                lng.setHint("Longitude");
+                                lng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                                lila1.addView(lng);
 
-                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            userCoordinate = new Coordinate(lat.getText().toString(), lng.getText().toString());
-                                            startMeasurementSession();
-                                        }
-                                    });
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        userCoordinate = new Coordinate(lat.getText().toString(), lng.getText().toString());
+                                        startMeasurementSession();
+                                    }
+                                });
 
-                                    builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
+                                builder.setNegativeButton("Avbryt", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
 
-                                        }
-                                    });
-                                    builder.setView(lila1);
-                                    builder.show();
-                                }
-                            });
-                    builder.show();
+                                    }
+                                });
+                                builder.setView(lila1);
+                                builder.show();
+                            }
+                        });
+                builder.show();
             }
         });
 
-        newMeasurementButton.setOnClickListener(new View.OnClickListener() {
+        newSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!inMeasurementSession) {
@@ -179,13 +186,13 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             currentMeasurementSession = input.getText().toString() + ".csv";
                             inMeasurementSession = true;
-                            newMeasurementButton.setText("Cancel session");
-                            newMeasurementButton.setBackgroundColor(COLOR_RED);
+                            newSessionButton.setText("Cancel session");
+                            newSessionButton.setBackgroundColor(COLOR_RED);
 
                             String heading = "Time;User defined coordinates;" +
                                     "GPS coordinates;WiFi coordinates (Google);" +
                                     "Access points reached;GSM RSSI;GSM LAC;" +
-                                    "GSM CID\r\n";
+                                    "GSM CID;Sigfox link quality\r\n";
 
                             File dir = getApplicationDir("Testrigg");
                             File file = createFile(dir, currentMeasurementSession);
@@ -207,8 +214,8 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // End session
                                     inMeasurementSession = false;
-                                    newMeasurementButton.setText("New measurement");
-                                    newMeasurementButton.setBackgroundColor(COLOR_GREEN);
+                                    newSessionButton.setText("New session");
+                                    newSessionButton.setBackgroundColor(COLOR_GREEN);
                                     currentMeasurementSession = "";
                                 }
                             })
@@ -231,29 +238,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        postButton.setOnClickListener(new View.OnClickListener() {
+        opencellidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*PostHttpConnection connection = new PostHttpConnection();
-                String[] params = new String[2];
-                params[0] = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCfoPMvLd1nctIkv7shLHWzZs-Qb97I2og";
-                params[1] = "{\"considerIp\": \"false\",\"wifiAccessPoints\": [{\"macAddress\": \"00:25:9c:cf:1c:ac\",\"signalStrength\": -43},{\"macAddress\": \"00:25:9c:cf:1c:ad\",\"signalStrength\": -55}]}";
-                connection.execute(params);
-                */
-                String msg = new Integer(measureCounter).toString();
-                msg = generateSigfoxMessage(msg);
-                connectBluetooth.write(msg.getBytes());
+                String[] params = {"https://eu1.unwiredlabs.com/v2/process.php","{\"token\": \"97b8eafda6008a\",\"wifi\": [{\"bssid\": \"84:d4:7e:ba:27:81\",\"signal\": -57}, {\"bssid\": \"84:d4:7e:ba:27:80\",\"signal\": -58}]}"};
+                PostHttpConnection postHttpConnection = new PostHttpConnection();
+                postHttpConnection.execute(params);
             }
         });
 
-        mapsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
-                //startActivityForResult(deviceIntent, REQUEST_DEVICE_ADDRESS);
-                startActivityForResult(mapsIntent, REQUEST_USER_INPUT_LOCATION);
-            }
-        });
     }
 
     private String generateSigfoxMessage(String msg) {
@@ -269,8 +262,7 @@ public class MainActivity extends AppCompatActivity {
             //Get other peripherals info
             connectBluetooth.write("GET_ALL_SEND_SIGFOX\r\n".getBytes());
             connectBluetooth.read();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Kunde inte starta mätning", Toast.LENGTH_LONG).show();
         }
     }
@@ -521,6 +513,7 @@ public class MainActivity extends AppCompatActivity {
         rowData = rowData + measurement.getGsmRssi() + ";";
         rowData = rowData + measurement.getGsmLac() + ";";
         rowData = rowData + measurement.getGsmCid() + ";";
+        rowData = rowData + measurement.getSigfoxLinkQuality() + ";";
 
         rowData = rowData + "\r\n";
 
@@ -558,6 +551,9 @@ public class MainActivity extends AppCompatActivity {
                     //Connect to selected device
                     connectBluetooth = new ConnectBluetooth();
                     connectBluetooth.execute(mBluetoothAdapter.getRemoteDevice(macAddress));
+
+                    makeMeasurementButton.setVisibility(View.VISIBLE);
+                    newSessionButton.setVisibility(View.VISIBLE);
 
                 } else {
                     Toast.makeText(this, "Något gick fel", Toast.LENGTH_LONG).show();
@@ -741,13 +737,11 @@ public class MainActivity extends AppCompatActivity {
     private class GetSigfoxStatus extends AsyncTask<String, Void, Void> {
         URL url = null;
         int seqNumber = -1;
-        String linkQuality = null;
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             lastSigfoxSequenceNumber = seqNumber;
-            lastSigfoxLinkQuality = linkQuality;
         }
 
         @Override
@@ -766,7 +760,7 @@ public class MainActivity extends AppCompatActivity {
                 // Add authorization header
                 String authorization = "5ad5fb0d3c8789433422e3b9:15b8835e36a3431ba1b555f2090e30f3";
                 byte[] encodedBytes;
-                encodedBytes = Base64.encode(authorization.getBytes(),0);
+                encodedBytes = Base64.encode(authorization.getBytes(), 0);
                 authorization = "Basic " + new String(encodedBytes);
                 urlConnection.setRequestProperty("Authorization", authorization);
 
@@ -778,25 +772,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
             try {
-                if(status < 400) {
+                if (status < 400) {
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                     String data = readStream(in);
                     Log.d(TAG, "InputStream: " + data);
 
-                    if(data.contains("seqNumber\":")) {
+                    if (data.contains("seqNumber\":")) {
                         int index = data.indexOf("seqNumber\":") + "seqNumber\":".length();
                         int end = data.indexOf(',', index);
                         String number = data.substring(index, end);
                         seqNumber = Integer.valueOf(number);
-                        Log.d(TAG,"seqNumber: " + seqNumber);
+                        Log.d(TAG, "seqNumber: " + seqNumber);
                     }
-                    if(data.contains("linkQuality\":\"")) {
-                        int index = data.indexOf("linkQuality\":\"") + "linkQuality\":\"".length();
-                        int end = data.indexOf('"', index);
-                        linkQuality = data.substring(index, end);
-                        Log.d(TAG,"linkQuality: " + linkQuality);
-                    }
-
                 }
 
             } catch (IOException e) {
@@ -905,14 +892,18 @@ public class MainActivity extends AppCompatActivity {
 
     private class UpdateAndSaveMeasurement extends AsyncTask<Measurement, Void, Void> {
         private Measurement measurement;
+        ProgressDialog progress;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progress = ProgressDialog.show(MainActivity.this, "", "Ger Sigfox lite tid...");  //show a progress dialog
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            progress.cancel();
         }
 
         @Override
@@ -923,6 +914,7 @@ public class MainActivity extends AppCompatActivity {
             Coordinate gps = measurement.getGps();
             Coordinate user = measurement.getUser();
             Coordinate wifiGoogle;
+            Coordinate wifiOpencellid;
             AccessPoint[] accessPoints = measurement.getAccessPoints();
             int nrOfAccessPoints = measurement.getNrOfAccessPoints();
 
@@ -938,21 +930,40 @@ public class MainActivity extends AppCompatActivity {
 
                 for (AccessPoint ap : accessPoints) {
                     if (measurement.getAccessPoint(nrOfAccessPoints - 1).equals(ap)) {
-                        params[1] = params[1] + ap.getJson();
+                        params[1] = params[1] + ap.getJsonForGoogle();
                     } else {
-                        params[1] = params[1] + ap.getJson() + ",";
+                        params[1] = params[1] + ap.getJsonForGoogle() + ",";
                     }
                 }
                 params[1] = params[1] + "]}";
 
-                String jsonloc = getWifiLocationJson(params);
-                updateWifiLocation(jsonloc);
+                String jsonloc = getGoogleLocationJson(params);
+                updateGoogleLocation(jsonloc);
+
+                //Get information from Opencellid
+                params[0] = "https://eu1.unwiredlabs.com/v2/process.php";
+                params[1] = "{\"token\": \"97b8eafda6008a\",\"wifi\": [";
+
+                for (AccessPoint ap : accessPoints) {
+                    if (measurement.getAccessPoint(nrOfAccessPoints - 1).equals(ap)) {
+                        params[1] = params[1] + ap.getJsonForOpencellid();
+                    } else {
+                        params[1] = params[1] + ap.getJsonForOpencellid() + ",";
+                    }
+                }
+                params[1] = params[1] + "]}";
+
+                jsonloc = getOpencellidLocationJson(params);
+                updateOpencellidLocation(jsonloc);
             }
 
             wifiGoogle = measurement.getWifiGoogle();
+            wifiOpencellid = measurement.getWifiOpencellid();
 
+            //Check if new sigfox message is registered in the sigfox cloud
+            updateSigfoxStatus();
 
-            //Update for user and save
+            //Update information and save
             if (!currentMeasurementSession.equals("")) {
                 File folder = getApplicationDir("Testrigg");
                 File file = new File(folder, currentMeasurementSession);
@@ -974,19 +985,25 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 wifiCoordinatesGoogle.setText("N/A");
             }
+            if (wifiOpencellid != null) {
+                wifiCoordinatesOpencellid.setText(wifiOpencellid.lat + " " + wifiOpencellid.lng);
+            } else {
+                wifiCoordinatesOpencellid.setText("N/A");
+            }
 
             measuredTime.setText(measurement.getMeasuredTime());
             nrOfAps.setText("" + measurement.getNrOfAccessPoints());
             gsmRssi.setText(measurement.getGsmRssi());
             gsmLac.setText(measurement.getGsmLac());
             gsmCid.setText(measurement.getGsmCid());
+            sigfoxLink.setText(measurement.getSigfoxLinkQuality());
 
 
             return null;
         }
 
 
-        private String getWifiLocationJson(String[] urls) {
+        private String getGoogleLocationJson(String[] urls) {
             URL url = null;
             String output = urls[1];
             String response = null;
@@ -1017,6 +1034,102 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+            try {
+                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+                writeStream(out, output);
+                int status = urlConnection.getResponseCode();
+                String responseMessage = urlConnection.getResponseMessage();
+                Log.d(TAG, "Response: code " + status + ", message " + responseMessage);
+
+                if (status < 400) {
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    response = readStream(in);
+                    Log.d(TAG, "InputStream: " + response);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
+            return response;
+        }
+
+        private void writeStream(OutputStream out, String message) throws IOException {
+            out.write(message.getBytes());
+            out.flush();
+        }
+
+        private String readStream(InputStream is) throws IOException {
+            StringBuilder sb = new StringBuilder();
+            BufferedReader r = new BufferedReader(new InputStreamReader(is), 1000);
+
+
+            for (String line = r.readLine(); line != null; line = r.readLine()) {
+                sb.append(line);
+            }
+            is.close();
+            return sb.toString();
+        }
+
+        private void updateGoogleLocation(String json) {
+            String lat = "";
+            String lng = "";
+            String acc = "";
+            int index = json.indexOf("\"lat\": ") + "\"lat\": ".length();
+
+            while (json.charAt(index) != ',') {
+                lat = lat + json.charAt(index);
+                index++;
+            }
+
+            index = json.indexOf("\"lng\": ") + "\"lng\": ".length();
+            while (json.charAt(index) != ' ') {
+                lng = lng + json.charAt(index);
+                index++;
+            }
+
+            index = json.indexOf("\"accuracy\": ") + "\"accuracy\": ".length();
+            while (json.charAt(index) != '}') {
+                acc = acc + json.charAt(index);
+                index++;
+            }
+
+            Coordinate coordinate = new Coordinate(lat, lng);
+            measurement.setWifiGoogle(coordinate);
+
+            Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
+        }
+
+        private String getOpencellidLocationJson(String[] urls) {
+            URL url = null;
+            String output = urls[1];
+            String response = null;
+
+
+            try {
+                url = new URL(urls[0]);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            HttpURLConnection urlConnection = null;
+
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setChunkedStreamingMode(0);
+                //urlConnection.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("Accept", "*/*");
+                //urlConnection.setFixedLengthStreamingMode(output.getBytes().length);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             try {
                 OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
@@ -1038,49 +1151,103 @@ public class MainActivity extends AppCompatActivity {
             return response;
         }
 
-        private void writeStream (OutputStream out, String message) throws IOException {
-            out.write(message.getBytes());
-            out.flush();
-        }
-        private String readStream (InputStream is) throws IOException {
-            StringBuilder sb = new StringBuilder();
-            BufferedReader r = new BufferedReader(new InputStreamReader(is), 1000);
-
-
-            for (String line = r.readLine(); line != null; line = r.readLine()) {
-                sb.append(line);
-            }
-            is.close();
-            return sb.toString();
-        }
-
-        private void updateWifiLocation(String jsonFromGoogle) {
+        private void updateOpencellidLocation(String json) {
             String lat = "";
             String lng = "";
             String acc = "";
-            int index = jsonFromGoogle.indexOf("\"lat\": ") + "\"lat\": ".length();
+            int index = json.indexOf("\"lat\":") + "\"lat\":".length();
 
-            while (jsonFromGoogle.charAt(index) != ',') {
-                lat = lat + jsonFromGoogle.charAt(index);
+            while (json.charAt(index) != ',') {
+                lat = lat + json.charAt(index);
                 index++;
             }
 
-            index = jsonFromGoogle.indexOf("\"lng\": ") + "\"lng\": ".length();
-            while (jsonFromGoogle.charAt(index) != ' ') {
-                lng = lng + jsonFromGoogle.charAt(index);
+            index = json.indexOf("\"lon\":") + "\"lon\":".length();
+            while (json.charAt(index) != ',') {
+                lng = lng + json.charAt(index);
                 index++;
             }
 
-            index = jsonFromGoogle.indexOf("\"accuracy\": ") + "\"accuracy\": ".length();
-            while (jsonFromGoogle.charAt(index) != '}') {
-                acc = acc + jsonFromGoogle.charAt(index);
+            index = json.indexOf("\"accuracy\":") + "\"accuracy\":".length();
+            while (json.charAt(index) != '}') {
+                acc = acc + json.charAt(index);
                 index++;
             }
 
             Coordinate coordinate = new Coordinate(lat, lng);
-            measurement.setWifiGoogle(coordinate);
+            measurement.setWifiOpencellid(coordinate);
 
             Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
+        }
+
+        private void updateSigfoxStatus() {
+
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+            int status = 1000;
+            int seqNumber = -1;
+            String linkQuality = null;
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                url = new URL("https://backend.sigfox.com/api/devices/38D054/messages?limit=1");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                // Add authorization header
+                String authorization = "5ad5fb0d3c8789433422e3b9:15b8835e36a3431ba1b555f2090e30f3";
+                byte[] encodedBytes;
+                encodedBytes = Base64.encode(authorization.getBytes(), 0);
+                authorization = "Basic " + new String(encodedBytes);
+                urlConnection.setRequestProperty("Authorization", authorization);
+
+                status = urlConnection.getResponseCode();
+                String responseMessage = urlConnection.getResponseMessage();
+                Log.d(TAG, "Response: code " + status + ", message " + responseMessage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (status < 400) {
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    String data = readStream(in);
+                    Log.d(TAG, "InputStream: " + data);
+
+                    if (data.contains("seqNumber\":")) {
+                        int index = data.indexOf("seqNumber\":") + "seqNumber\":".length();
+                        int end = data.indexOf(',', index);
+                        String number = data.substring(index, end);
+                        seqNumber = Integer.valueOf(number);
+                        Log.d(TAG, "seqNumber: " + seqNumber);
+                        if (seqNumber > lastSigfoxSequenceNumber) {
+                            //new message received since last check
+                            lastSigfoxSequenceNumber = seqNumber;
+                            if (data.contains("linkQuality\":\"")) {
+                                index = data.indexOf("linkQuality\":\"") + "linkQuality\":\"".length();
+                                end = data.indexOf('"', index);
+                                linkQuality = data.substring(index, end);
+                                Log.d(TAG, "linkQuality: " + linkQuality);
+                                measurement.setSigfoxLinkQuality(linkQuality);
+                            }
+                        }
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
         }
     }
 }
