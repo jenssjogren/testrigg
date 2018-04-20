@@ -192,12 +192,17 @@ public class MainActivity extends AppCompatActivity {
                             String heading = "Time;User defined coordinates;" +
                                     "GPS coordinates;WiFi coordinates (Google);" +
                                     "Opencellid coordinates;GPS distance;Google distance;" +
-                                    " Opencellid distance;Access points reached;GSM RSSI;GSM LAC;" +
+                                    " Opencellid distance;Google accuracy;Opencellid accuracy;" +
+                                    "Access points reached;GSM RSSI;GSM LAC;" +
                                     "GSM CID;Sigfox link quality\r\n";
 
                             File dir = getApplicationDir("Testrigg");
                             File file = createFile(dir, currentMeasurementSession);
-                            writeToFile(file, heading);
+                            if (file.length() == 0) {
+                                //Write only heading if file is empty
+                                writeToFile(file, heading);
+                            }
+
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -338,10 +343,16 @@ public class MainActivity extends AppCompatActivity {
                 //Not known or not detectable signal
                 rssi = "N/A";
             } else {
-                int rssiInt = Integer.parseInt(rssi);
-                int dbm = -113 + 2 * rssiInt;
-                rssi = "" + dbm;
-                Log.d(TAG, "GSM RSSI in dBm: " + rssi);
+                try {
+                    //First messages after hardware restart will throw exception...
+                    int rssiInt = Integer.parseInt(rssi);
+                    int dbm = -113 + 2 * rssiInt;
+                    rssi = "" + dbm;
+                    Log.d(TAG, "GSM RSSI in dBm: " + rssi);
+                }catch (NumberFormatException e) {
+                    rssi = "N/A";
+                }
+
             }
 
             //LAC and CID
@@ -514,6 +525,16 @@ public class MainActivity extends AppCompatActivity {
         rowData = rowData + measurement.getGpsDistance() + ";";
         rowData = rowData + measurement.getGoogleDistance() + ";";
         rowData = rowData + measurement.getOpencellidDistance() + ";";
+        if (wifiGoogle != null) {
+            rowData = rowData + wifiGoogle.acc + ";";
+        } else {
+            rowData = rowData + "N/A" + ";";
+        }
+        if (wifiOpencellid != null) {
+            rowData = rowData + wifiOpencellid.acc + ";";
+        } else {
+            rowData = rowData + "N/A" + ";";
+        }
         rowData = rowData + "" + measurement.getNrOfAccessPoints() + ";";
         rowData = rowData + measurement.getGsmRssi() + ";";
         rowData = rowData + measurement.getGsmLac() + ";";
@@ -1103,7 +1124,7 @@ public class MainActivity extends AppCompatActivity {
                 index++;
             }
 
-            Coordinate coordinate = new Coordinate(lat, lng);
+            Coordinate coordinate = new Coordinate(lat, lng, acc);
             measurement.setWifiGoogle(coordinate);
 
             Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
@@ -1183,7 +1204,7 @@ public class MainActivity extends AppCompatActivity {
                 index++;
             }
 
-            Coordinate coordinate = new Coordinate(lat, lng);
+            Coordinate coordinate = new Coordinate(lat, lng, acc);
             measurement.setWifiOpencellid(coordinate);
 
             Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
