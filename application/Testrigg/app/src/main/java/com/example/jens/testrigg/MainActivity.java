@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         pairedDevicesButton = (Button) findViewById(R.id.button_paired_devices);
         makeMeasurementButton = (Button) findViewById(R.id.button_send);
         newSessionButton = (Button) findViewById(R.id.button_new_measurement);
-        newSessionButton.setBackgroundColor(COLOR_GREEN);
+        newSessionButton.setTextColor(COLOR_GREEN);
         viewMeasurementOnmapButton = (Button) findViewById(R.id.button_view_measurement_on_map);
 
         measuredTime = (TextView) findViewById(R.id.textView_time_measured_data);
@@ -187,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                             currentMeasurementSession = input.getText().toString() + ".csv";
                             inMeasurementSession = true;
                             newSessionButton.setText("Cancel session");
-                            newSessionButton.setBackgroundColor(COLOR_RED);
+                            newSessionButton.setTextColor(COLOR_RED);
 
                             String heading = "Time;User defined coordinates;" +
                                     "GPS coordinates;WiFi coordinates (Google);" +
@@ -221,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                                     // End session
                                     inMeasurementSession = false;
                                     newSessionButton.setText("New session");
-                                    newSessionButton.setBackgroundColor(COLOR_GREEN);
+                                    newSessionButton.setTextColor(COLOR_GREEN);
                                     currentMeasurementSession = "";
                                 }
                             })
