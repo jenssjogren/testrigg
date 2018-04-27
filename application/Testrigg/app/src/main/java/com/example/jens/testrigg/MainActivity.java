@@ -1106,29 +1106,33 @@ public class MainActivity extends AppCompatActivity {
             String lat = "";
             String lng = "";
             String acc = "";
-            int index = json.indexOf("\"lat\": ") + "\"lat\": ".length();
 
-            while (json.charAt(index) != ',') {
-                lat = lat + json.charAt(index);
-                index++;
+            if(json != null) {
+                int index = json.indexOf("\"lat\": ") + "\"lat\": ".length();
+
+                while (json.charAt(index) != ',') {
+                    lat = lat + json.charAt(index);
+                    index++;
+                }
+
+                index = json.indexOf("\"lng\": ") + "\"lng\": ".length();
+                while (json.charAt(index) != ' ') {
+                    lng = lng + json.charAt(index);
+                    index++;
+                }
+
+                index = json.indexOf("\"accuracy\": ") + "\"accuracy\": ".length();
+                while (json.charAt(index) != '}') {
+                    acc = acc + json.charAt(index);
+                    index++;
+                }
+
+                Coordinate coordinate = new Coordinate(lat, lng, acc);
+                measurement.setWifiGoogle(coordinate);
+
+                Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
             }
 
-            index = json.indexOf("\"lng\": ") + "\"lng\": ".length();
-            while (json.charAt(index) != ' ') {
-                lng = lng + json.charAt(index);
-                index++;
-            }
-
-            index = json.indexOf("\"accuracy\": ") + "\"accuracy\": ".length();
-            while (json.charAt(index) != '}') {
-                acc = acc + json.charAt(index);
-                index++;
-            }
-
-            Coordinate coordinate = new Coordinate(lat, lng, acc);
-            measurement.setWifiGoogle(coordinate);
-
-            Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
         }
 
         private String getOpencellidLocationJson(String[] urls) {
@@ -1204,9 +1208,15 @@ public class MainActivity extends AppCompatActivity {
                 acc = acc + json.charAt(index);
                 index++;
             }
+            try {
+                Double.valueOf(lat);
+                Coordinate coordinate = new Coordinate(lat, lng, acc);
+                measurement.setWifiOpencellid(coordinate);
+            }catch (NumberFormatException e) {
 
-            Coordinate coordinate = new Coordinate(lat, lng, acc);
-            measurement.setWifiOpencellid(coordinate);
+            }
+
+
 
             Log.d(TAG, "lat: " + lat + "lng: " + lng + "acc: " + acc);
         }
