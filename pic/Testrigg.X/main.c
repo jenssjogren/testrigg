@@ -91,6 +91,10 @@ void main(void) {
     ANSELB = 0;
     ANSELC = 0;
 
+    //RB7 trigger pin for energy measurement
+    TRISB7 = 0;
+    LATB7 = 0;
+
     //Enable interrupt
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
@@ -102,7 +106,7 @@ void main(void) {
 
     while (1) {
         waitForCommand();
-       
+
     }
     return;
 }
@@ -377,6 +381,24 @@ void sendSigfox(char hexMessage[]) {
     serialPrintPeripheral("\r\n");
 }
 
+void sendSMS(char number[], char message[]) {
+    //__delay_ms(300);
+    setActivePeripheral(gsm);
+    serialPrintPeripheral("AT+CMGF=1\r\n"); //Text mode
+    __delay_ms(2000);
+    serialPrintPeripheral("AT+CMGS=\"");
+    serialPrintPeripheral(number);
+    serialPrintPeripheral("\"\r\n");
+    __delay_ms(3000);
+    serialPrintPeripheral(message);
+    __delay_ms(500);
+    serialWritePeripheral('\x1A'); //CTRL+Z char
+    __delay_ms(100);
+    serialPrintPeripheral("\r\n");
+    TRISB7 = 1; //Trigger high
+    __delay_ms(100);
+}
+
 void waitForCommand() {
     char command[32];
 
@@ -417,16 +439,29 @@ void waitForCommand() {
     } else if (strncmp(command, "SEND_SIGFOX:", 12) == 0) {
         char * p;
         p = command + 12;
-        char message[30];       
+        char message[30];
         int i = 0;
-        
-        while(*p != '\r') {
+
+        while (*p != '\r') {
             message[i] = *p;
             p++;
             i++;
         }
         message[i] = '\0';
-        
+
         sendSigfox(message);
+    } else if ("SEND_SMS\r\n") {
+        sendSMS("nummer", "Hello World");
+
+        startTimer(4);
+        while (!timerDone) {
+            if (PIR3bits.RC1IF) {
+                char c = serialReadPeripheral();
+                if (c == 'O') { //Check for 'O' in "OK"
+                    TRISB7 = 0; //Trigger low
+                }
+                serialWriteBT(c);
+            }
+        }
     }
 }

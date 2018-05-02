@@ -6,6 +6,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ANSELB `Vuc ~T0 @X0 0 e@8003 ]
 "18589
 [v _ANSELC `Vuc ~T0 @X0 0 e@8014 ]
+"22262
+[v _TRISB7 `Vb ~T0 @X0 0 e@159 ]
+"20406
+[v _LATB7 `Vb ~T0 @X0 0 e@207 ]
 "417
 [s S26 :1 `uc 1 :5 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S26 . INTEDG . PEIE GIE ]
@@ -20,7 +24,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p i __delay ]
 "64 main.c
 [v _initBTSerial `(v ~T0 @X0 0 ef ]
-"101
+"105
 [c E8210 0 1 2 3 4 .. ]
 [n E8210 peripheral gps wifi sigfox gsm bt  ]
 "65
@@ -7811,1144 +7815,1263 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 92: ANSELC = 0;
 "92
 [e = _ANSELC -> -> 0 `i `uc ]
-[; ;main.c: 95: INTCONbits.GIE = 1;
+[; ;main.c: 95: TRISB7 = 0;
 "95
-[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;main.c: 96: INTCONbits.PEIE = 1;
+[e = _TRISB7 -> -> 0 `i `b ]
+[; ;main.c: 96: LATB7 = 0;
 "96
-[e = . . _INTCONbits 0 2 -> -> 1 `i `uc ]
-[; ;main.c: 99: _delay((unsigned long)((5000)*(32000000/4000.0)));
+[e = _LATB7 -> -> 0 `i `b ]
+[; ;main.c: 99: INTCONbits.GIE = 1;
 "99
-[e ( __delay (1 -> * -> -> 5000 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 100: initBTSerial();
+[e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
+[; ;main.c: 100: INTCONbits.PEIE = 1;
 "100
-[e ( _initBTSerial ..  ]
-[; ;main.c: 101: setActivePeripheral(sigfox);
-"101
-[e ( _setActivePeripheral (1 . `E8210 2 ]
-[; ;main.c: 103: while (1) {
+[e = . . _INTCONbits 0 2 -> -> 1 `i `uc ]
+[; ;main.c: 103: _delay((unsigned long)((5000)*(32000000/4000.0)));
 "103
+[e ( __delay (1 -> * -> -> 5000 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 104: initBTSerial();
+"104
+[e ( _initBTSerial ..  ]
+[; ;main.c: 105: setActivePeripheral(sigfox);
+"105
+[e ( _setActivePeripheral (1 . `E8210 2 ]
+[; ;main.c: 107: while (1) {
+"107
 [e :U 906 ]
 {
-[; ;main.c: 104: waitForCommand();
-"104
+[; ;main.c: 108: waitForCommand();
+"108
 [e ( _waitForCommand ..  ]
-"106
+"110
 }
 [e :U 905 ]
-"103
+"107
 [e $U 906  ]
 [e :U 907 ]
-[; ;main.c: 106: }
-[; ;main.c: 107: return;
-"107
+[; ;main.c: 110: }
+[; ;main.c: 111: return;
+"111
 [e $UE 904  ]
-[; ;main.c: 108: }
-"108
+[; ;main.c: 112: }
+"112
 [e :UE 904 ]
 }
-"110
+"114
 [v _initBTSerial `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 110: void initBTSerial() {
+[; ;main.c: 114: void initBTSerial() {
 [e :U _initBTSerial ]
 [f ]
-[; ;main.c: 115: RB6PPS = 0x11;
-"115
-[e = _RB6PPS -> -> 17 `i `uc ]
-[; ;main.c: 116: TX2STAbits.BRGH = 1;
-"116
-[e = . . _TX2STAbits 0 2 -> -> 1 `i `uc ]
-[; ;main.c: 117: SP2BRG = 16;
-"117
-[e = _SP2BRG -> -> 16 `i `us ]
-[; ;main.c: 118: TX2STAbits.SYNC = 0;
-"118
-[e = . . _TX2STAbits 0 4 -> -> 0 `i `uc ]
-[; ;main.c: 119: RC2STAbits.SPEN = 1;
+[; ;main.c: 119: RB6PPS = 0x11;
 "119
-[e = . . _RC2STAbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 120: TX2STAbits.TXEN = 1;
+[e = _RB6PPS -> -> 17 `i `uc ]
+[; ;main.c: 120: TX2STAbits.BRGH = 1;
 "120
-[e = . . _TX2STAbits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 123: TRISB5 = 1;
+[e = . . _TX2STAbits 0 2 -> -> 1 `i `uc ]
+[; ;main.c: 121: SP2BRG = 16;
+"121
+[e = _SP2BRG -> -> 16 `i `us ]
+[; ;main.c: 122: TX2STAbits.SYNC = 0;
+"122
+[e = . . _TX2STAbits 0 4 -> -> 0 `i `uc ]
+[; ;main.c: 123: RC2STAbits.SPEN = 1;
 "123
-[e = _TRISB5 -> -> 1 `i `b ]
-[; ;main.c: 124: RX2DTPPSbits.RX2DTPPS = 0x0D;
+[e = . . _RC2STAbits 0 7 -> -> 1 `i `uc ]
+[; ;main.c: 124: TX2STAbits.TXEN = 1;
 "124
+[e = . . _TX2STAbits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 127: TRISB5 = 1;
+"127
+[e = _TRISB5 -> -> 1 `i `b ]
+[; ;main.c: 128: RX2DTPPSbits.RX2DTPPS = 0x0D;
+"128
 [e = . . _RX2DTPPSbits 0 0 -> -> 13 `i `uc ]
-[; ;main.c: 125: RC2STAbits.CREN = 1;
-"125
+[; ;main.c: 129: RC2STAbits.CREN = 1;
+"129
 [e = . . _RC2STAbits 0 4 -> -> 1 `i `uc ]
-[; ;main.c: 126: }
-"126
+[; ;main.c: 130: }
+"130
 [e :UE 908 ]
 }
-"128
+"132
 [v _serialWritePeripheral `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;main.c: 128: void serialWritePeripheral(char c) {
+[; ;main.c: 132: void serialWritePeripheral(char c) {
 [e :U _serialWritePeripheral ]
 [v _c `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 129: while (!PIR3bits.TX1IF) {
-"129
+[; ;main.c: 133: while (!PIR3bits.TX1IF) {
+"133
 [e $U 910  ]
 [e :U 911 ]
 {
-"130
+"134
 }
 [e :U 910 ]
-"129
+"133
 [e $ ! != -> . . _PIR3bits 0 3 `i -> -> -> 0 `i `Vuc `i 911  ]
 [e :U 912 ]
-[; ;main.c: 130: }
-[; ;main.c: 131: TX1REG = c;
-"131
+[; ;main.c: 134: }
+[; ;main.c: 135: TX1REG = c;
+"135
 [e = _TX1REG _c ]
-[; ;main.c: 132: }
-"132
+[; ;main.c: 136: }
+"136
 [e :UE 909 ]
 }
-"134
+"138
 [v _serialPrintPeripheral `(v ~T0 @X0 1 ef1`*uc ]
 {
-[; ;main.c: 134: void serialPrintPeripheral(char s[]) {
+[; ;main.c: 138: void serialPrintPeripheral(char s[]) {
 [e :U _serialPrintPeripheral ]
 [v _s `*uc ~T0 @X0 1 r1 ]
 [f ]
-"135
+"139
 [v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 135: int i = 0;
+[; ;main.c: 139: int i = 0;
 [e = _i -> 0 `i ]
-[; ;main.c: 136: while (s[i] != '\0') {
-"136
+[; ;main.c: 140: while (s[i] != '\0') {
+"140
 [e $U 914  ]
 [e :U 915 ]
 {
-[; ;main.c: 137: serialWritePeripheral(s[i]);
-"137
+[; ;main.c: 141: serialWritePeripheral(s[i]);
+"141
 [e ( _serialWritePeripheral (1 *U + _s * -> _i `x -> -> # *U _s `i `x ]
-[; ;main.c: 138: i++;
-"138
+[; ;main.c: 142: i++;
+"142
 [e ++ _i -> 1 `i ]
-"139
+"143
 }
 [e :U 914 ]
-"136
+"140
 [e $ != -> *U + _s * -> _i `x -> -> # *U _s `i `x `ui -> 0 `ui 915  ]
 [e :U 916 ]
-[; ;main.c: 139: }
-[; ;main.c: 140: }
-"140
+[; ;main.c: 143: }
+[; ;main.c: 144: }
+"144
 [e :UE 913 ]
 }
-"142
+"146
 [v _serialReadPeripheral `(uc ~T0 @X0 1 ef ]
 {
-[; ;main.c: 142: char serialReadPeripheral() {
+[; ;main.c: 146: char serialReadPeripheral() {
 [e :U _serialReadPeripheral ]
 [f ]
-[; ;main.c: 143: while (!PIR3bits.RC1IF) {
-"143
+[; ;main.c: 147: while (!PIR3bits.RC1IF) {
+"147
 [e $U 918  ]
 [e :U 919 ]
 {
-"144
-}
-[e :U 918 ]
-"143
-[e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 919  ]
-[e :U 920 ]
-[; ;main.c: 144: }
-[; ;main.c: 145: if (1 == RC1STAbits.OERR) {
-"145
-[e $ ! == -> 1 `i -> . . _RC1STAbits 0 1 `i 921  ]
-{
-[; ;main.c: 146: RC1STAbits.SPEN = 0;
-"146
-[e = . . _RC1STAbits 0 7 -> -> 0 `i `uc ]
-[; ;main.c: 147: RC1STAbits.SPEN = 1;
-"147
-[e = . . _RC1STAbits 0 7 -> -> 1 `i `uc ]
 "148
 }
-[e :U 921 ]
+[e :U 918 ]
+"147
+[e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 919  ]
+[e :U 920 ]
 [; ;main.c: 148: }
-[; ;main.c: 149: return RC1REG;
+[; ;main.c: 149: if (1 == RC1STAbits.OERR) {
 "149
+[e $ ! == -> 1 `i -> . . _RC1STAbits 0 1 `i 921  ]
+{
+[; ;main.c: 150: RC1STAbits.SPEN = 0;
+"150
+[e = . . _RC1STAbits 0 7 -> -> 0 `i `uc ]
+[; ;main.c: 151: RC1STAbits.SPEN = 1;
+"151
+[e = . . _RC1STAbits 0 7 -> -> 1 `i `uc ]
+"152
+}
+[e :U 921 ]
+[; ;main.c: 152: }
+[; ;main.c: 153: return RC1REG;
+"153
 [e ) _RC1REG ]
 [e $UE 917  ]
-[; ;main.c: 150: }
-"150
+[; ;main.c: 154: }
+"154
 [e :UE 917 ]
 }
-"152
+"156
 [v _serialFindPeripheral `(uc ~T0 @X0 1 ef1`*uc ]
 {
-[; ;main.c: 152: char serialFindPeripheral(char s[]) {
+[; ;main.c: 156: char serialFindPeripheral(char s[]) {
 [e :U _serialFindPeripheral ]
 [v _s `*uc ~T0 @X0 1 r1 ]
 [f ]
-"153
+"157
 [v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 153: int i = 0;
+[; ;main.c: 157: int i = 0;
 [e = _i -> 0 `i ]
-[; ;main.c: 154: while (s[i] != '\0') {
-"154
+[; ;main.c: 158: while (s[i] != '\0') {
+"158
 [e $U 923  ]
 [e :U 924 ]
 {
-[; ;main.c: 155: if (serialReadPeripheral() == s[i]) {
-"155
+[; ;main.c: 159: if (serialReadPeripheral() == s[i]) {
+"159
 [e $ ! == -> ( _serialReadPeripheral ..  `i -> *U + _s * -> _i `x -> -> # *U _s `i `x `i 926  ]
 {
-[; ;main.c: 156: i++;
-"156
+[; ;main.c: 160: i++;
+"160
 [e ++ _i -> 1 `i ]
-"157
+"161
 }
-[; ;main.c: 157: } else {
+[; ;main.c: 161: } else {
 [e $U 927  ]
 [e :U 926 ]
 {
-[; ;main.c: 158: return 0;
-"158
+[; ;main.c: 162: return 0;
+"162
 [e ) -> -> 0 `i `uc ]
 [e $UE 922  ]
-"159
+"163
 }
 [e :U 927 ]
-"160
+"164
 }
 [e :U 923 ]
-"154
+"158
 [e $ != -> *U + _s * -> _i `x -> -> # *U _s `i `x `ui -> 0 `ui 924  ]
 [e :U 925 ]
-[; ;main.c: 159: }
-[; ;main.c: 160: }
-[; ;main.c: 161: return 1;
-"161
+[; ;main.c: 163: }
+[; ;main.c: 164: }
+[; ;main.c: 165: return 1;
+"165
 [e ) -> -> 1 `i `uc ]
 [e $UE 922  ]
-[; ;main.c: 162: }
-"162
+[; ;main.c: 166: }
+"166
 [e :UE 922 ]
 }
-"164
+"168
 [v _setActivePeripheral `(v ~T0 @X0 1 ef1`E8210 ]
 {
-[; ;main.c: 164: void setActivePeripheral(enum peripheral peri) {
+[; ;main.c: 168: void setActivePeripheral(enum peripheral peri) {
 [e :U _setActivePeripheral ]
 [v _peri `E8210 ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 173: RC6PPS = 0x00;
-"173
+[; ;main.c: 177: RC6PPS = 0x00;
+"177
 [e = _RC6PPS -> -> 0 `i `uc ]
-[; ;main.c: 174: RC1PPS = 0x00;
-"174
+[; ;main.c: 178: RC1PPS = 0x00;
+"178
 [e = _RC1PPS -> -> 0 `i `uc ]
-[; ;main.c: 175: RA4PPS = 0x00;
-"175
-[e = _RA4PPS -> -> 0 `i `uc ]
-[; ;main.c: 176: RC4PPS = 0x00;
-"176
-[e = _RC4PPS -> -> 0 `i `uc ]
-[; ;main.c: 179: switch (peri) {
+[; ;main.c: 179: RA4PPS = 0x00;
 "179
+[e = _RA4PPS -> -> 0 `i `uc ]
+[; ;main.c: 180: RC4PPS = 0x00;
+"180
+[e = _RC4PPS -> -> 0 `i `uc ]
+[; ;main.c: 183: switch (peri) {
+"183
 [e $U 930  ]
 {
-[; ;main.c: 180: case sigfox:
-"180
-[e :U 931 ]
-[; ;main.c: 181: {
-"181
-{
-[; ;main.c: 182: RC6PPS = 0x0F;
-"182
-[e = _RC6PPS -> -> 15 `i `uc ]
-[; ;main.c: 183: SP1BRG = 207;
-"183
-[e = _SP1BRG -> -> 207 `i `us ]
-[; ;main.c: 184: TRISC3 = 1;
+[; ;main.c: 184: case sigfox:
 "184
-[e = _TRISC3 -> -> 1 `i `b ]
-[; ;main.c: 185: RX1DTPPSbits.RX1DTPPS = 0x13;
+[e :U 931 ]
+[; ;main.c: 185: {
 "185
-[e = . . _RX1DTPPSbits 0 0 -> -> 19 `i `uc ]
-[; ;main.c: 186: break;
+{
+[; ;main.c: 186: RC6PPS = 0x0F;
 "186
-[e $U 929  ]
+[e = _RC6PPS -> -> 15 `i `uc ]
+[; ;main.c: 187: SP1BRG = 207;
 "187
-}
-[; ;main.c: 187: }
-[; ;main.c: 188: case gsm:
-"188
-[e :U 932 ]
-[; ;main.c: 189: {
-"189
-{
-[; ;main.c: 190: RC1PPS = 0x0F;
-"190
-[e = _RC1PPS -> -> 15 `i `uc ]
-[; ;main.c: 191: SP1BRG = 16;
-"191
-[e = _SP1BRG -> -> 16 `i `us ]
-[; ;main.c: 192: TRISC0 = 1;
-"192
-[e = _TRISC0 -> -> 1 `i `b ]
-[; ;main.c: 193: RX1DTPPSbits.RX1DTPPS = 0x10;
-"193
-[e = . . _RX1DTPPSbits 0 0 -> -> 16 `i `uc ]
-[; ;main.c: 194: break;
-"194
-[e $U 929  ]
-"195
-}
-[; ;main.c: 195: }
-[; ;main.c: 196: case wifi:
-"196
-[e :U 933 ]
-[; ;main.c: 197: {
-"197
-{
-[; ;main.c: 198: RA4PPS = 0x0F;
-"198
-[e = _RA4PPS -> -> 15 `i `uc ]
-[; ;main.c: 199: SP1BRG = 16;
-"199
-[e = _SP1BRG -> -> 16 `i `us ]
-[; ;main.c: 200: TRISA5 = 1;
-"200
-[e = _TRISA5 -> -> 1 `i `b ]
-[; ;main.c: 201: RX1DTPPSbits.RX1DTPPS = 0x05;
-"201
-[e = . . _RX1DTPPSbits 0 0 -> -> 5 `i `uc ]
-[; ;main.c: 202: break;
-"202
-[e $U 929  ]
-"203
-}
-[; ;main.c: 203: }
-[; ;main.c: 204: case gps:
-"204
-[e :U 934 ]
-[; ;main.c: 205: {
-"205
-{
-[; ;main.c: 206: RC4PPS = 0x0F;
-"206
-[e = _RC4PPS -> -> 15 `i `uc ]
-[; ;main.c: 207: SP1BRG = 207;
-"207
 [e = _SP1BRG -> -> 207 `i `us ]
-[; ;main.c: 208: TRISC5 = 1;
+[; ;main.c: 188: TRISC3 = 1;
+"188
+[e = _TRISC3 -> -> 1 `i `b ]
+[; ;main.c: 189: RX1DTPPSbits.RX1DTPPS = 0x13;
+"189
+[e = . . _RX1DTPPSbits 0 0 -> -> 19 `i `uc ]
+[; ;main.c: 190: break;
+"190
+[e $U 929  ]
+"191
+}
+[; ;main.c: 191: }
+[; ;main.c: 192: case gsm:
+"192
+[e :U 932 ]
+[; ;main.c: 193: {
+"193
+{
+[; ;main.c: 194: RC1PPS = 0x0F;
+"194
+[e = _RC1PPS -> -> 15 `i `uc ]
+[; ;main.c: 195: SP1BRG = 16;
+"195
+[e = _SP1BRG -> -> 16 `i `us ]
+[; ;main.c: 196: TRISC0 = 1;
+"196
+[e = _TRISC0 -> -> 1 `i `b ]
+[; ;main.c: 197: RX1DTPPSbits.RX1DTPPS = 0x10;
+"197
+[e = . . _RX1DTPPSbits 0 0 -> -> 16 `i `uc ]
+[; ;main.c: 198: break;
+"198
+[e $U 929  ]
+"199
+}
+[; ;main.c: 199: }
+[; ;main.c: 200: case wifi:
+"200
+[e :U 933 ]
+[; ;main.c: 201: {
+"201
+{
+[; ;main.c: 202: RA4PPS = 0x0F;
+"202
+[e = _RA4PPS -> -> 15 `i `uc ]
+[; ;main.c: 203: SP1BRG = 16;
+"203
+[e = _SP1BRG -> -> 16 `i `us ]
+[; ;main.c: 204: TRISA5 = 1;
+"204
+[e = _TRISA5 -> -> 1 `i `b ]
+[; ;main.c: 205: RX1DTPPSbits.RX1DTPPS = 0x05;
+"205
+[e = . . _RX1DTPPSbits 0 0 -> -> 5 `i `uc ]
+[; ;main.c: 206: break;
+"206
+[e $U 929  ]
+"207
+}
+[; ;main.c: 207: }
+[; ;main.c: 208: case gps:
 "208
-[e = _TRISC5 -> -> 1 `i `b ]
-[; ;main.c: 209: RX1DTPPSbits.RX1DTPPS = 0x15;
+[e :U 934 ]
+[; ;main.c: 209: {
 "209
-[e = . . _RX1DTPPSbits 0 0 -> -> 21 `i `uc ]
-[; ;main.c: 210: break;
+{
+[; ;main.c: 210: RC4PPS = 0x0F;
 "210
-[e $U 929  ]
+[e = _RC4PPS -> -> 15 `i `uc ]
+[; ;main.c: 211: SP1BRG = 207;
 "211
-}
+[e = _SP1BRG -> -> 207 `i `us ]
+[; ;main.c: 212: TRISC5 = 1;
 "212
-}
-[; ;main.c: 211: }
-[; ;main.c: 212: }
+[e = _TRISC5 -> -> 1 `i `b ]
+[; ;main.c: 213: RX1DTPPSbits.RX1DTPPS = 0x15;
+"213
+[e = . . _RX1DTPPSbits 0 0 -> -> 21 `i `uc ]
+[; ;main.c: 214: break;
+"214
 [e $U 929  ]
-"179
+"215
+}
+"216
+}
+[; ;main.c: 215: }
+[; ;main.c: 216: }
+[e $U 929  ]
+"183
 [e :U 930 ]
 [e [\ _peri , $ . `E8210 2 931
  , $ . `E8210 3 932
  , $ . `E8210 1 933
  , $ . `E8210 0 934
  929 ]
-"212
-[e :U 929 ]
-[; ;main.c: 214: TX1STAbits.BRGH = 1;
-"214
-[e = . . _TX1STAbits 0 2 -> -> 1 `i `uc ]
-[; ;main.c: 215: TX1STAbits.SYNC = 0;
-"215
-[e = . . _TX1STAbits 0 4 -> -> 0 `i `uc ]
-[; ;main.c: 216: RC1STAbits.SPEN = 1;
 "216
-[e = . . _RC1STAbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 217: TX1STAbits.TXEN = 1;
-"217
-[e = . . _TX1STAbits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 218: RC1STAbits.CREN = 1;
+[e :U 929 ]
+[; ;main.c: 218: TX1STAbits.BRGH = 1;
 "218
-[e = . . _RC1STAbits 0 4 -> -> 1 `i `uc ]
-[; ;main.c: 219: }
+[e = . . _TX1STAbits 0 2 -> -> 1 `i `uc ]
+[; ;main.c: 219: TX1STAbits.SYNC = 0;
 "219
+[e = . . _TX1STAbits 0 4 -> -> 0 `i `uc ]
+[; ;main.c: 220: RC1STAbits.SPEN = 1;
+"220
+[e = . . _RC1STAbits 0 7 -> -> 1 `i `uc ]
+[; ;main.c: 221: TX1STAbits.TXEN = 1;
+"221
+[e = . . _TX1STAbits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 222: RC1STAbits.CREN = 1;
+"222
+[e = . . _RC1STAbits 0 4 -> -> 1 `i `uc ]
+[; ;main.c: 223: }
+"223
 [e :UE 928 ]
 }
-"221
+"225
 [v _serialWriteBT `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;main.c: 221: void serialWriteBT(char c) {
+[; ;main.c: 225: void serialWriteBT(char c) {
 [e :U _serialWriteBT ]
 [v _c `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 222: while (!PIR3bits.TX2IF) {
-"222
+[; ;main.c: 226: while (!PIR3bits.TX2IF) {
+"226
 [e $U 936  ]
 [e :U 937 ]
 {
-"223
+"227
 }
 [e :U 936 ]
-"222
+"226
 [e $ ! != -> . . _PIR3bits 0 5 `i -> -> -> 0 `i `Vuc `i 937  ]
 [e :U 938 ]
-[; ;main.c: 223: }
-[; ;main.c: 224: TX2REG = c;
-"224
+[; ;main.c: 227: }
+[; ;main.c: 228: TX2REG = c;
+"228
 [e = _TX2REG _c ]
-[; ;main.c: 225: }
-"225
+[; ;main.c: 229: }
+"229
 [e :UE 935 ]
 }
-"227
+"231
 [v _serialPrintBT `(v ~T0 @X0 1 ef1`*uc ]
 {
-[; ;main.c: 227: void serialPrintBT(char s[]) {
+[; ;main.c: 231: void serialPrintBT(char s[]) {
 [e :U _serialPrintBT ]
 [v _s `*uc ~T0 @X0 1 r1 ]
 [f ]
-"228
+"232
 [v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 228: int i = 0;
+[; ;main.c: 232: int i = 0;
 [e = _i -> 0 `i ]
-[; ;main.c: 229: while (s[i] != '\0') {
-"229
+[; ;main.c: 233: while (s[i] != '\0') {
+"233
 [e $U 940  ]
 [e :U 941 ]
 {
-[; ;main.c: 230: serialWriteBT(s[i]);
-"230
+[; ;main.c: 234: serialWriteBT(s[i]);
+"234
 [e ( _serialWriteBT (1 *U + _s * -> _i `x -> -> # *U _s `i `x ]
-[; ;main.c: 231: i++;
-"231
+[; ;main.c: 235: i++;
+"235
 [e ++ _i -> 1 `i ]
-"232
+"236
 }
 [e :U 940 ]
-"229
+"233
 [e $ != -> *U + _s * -> _i `x -> -> # *U _s `i `x `ui -> 0 `ui 941  ]
 [e :U 942 ]
-[; ;main.c: 232: }
-[; ;main.c: 233: }
-"233
+[; ;main.c: 236: }
+[; ;main.c: 237: }
+"237
 [e :UE 939 ]
 }
-"235
+"239
 [v _serialReadBT `(uc ~T0 @X0 1 ef ]
 {
-[; ;main.c: 235: char serialReadBT() {
+[; ;main.c: 239: char serialReadBT() {
 [e :U _serialReadBT ]
 [f ]
-[; ;main.c: 236: while (!PIR3bits.RC2IF) {
-"236
+[; ;main.c: 240: while (!PIR3bits.RC2IF) {
+"240
 [e $U 944  ]
 [e :U 945 ]
 {
-"237
-}
-[e :U 944 ]
-"236
-[e $ ! != -> . . _PIR3bits 0 6 `i -> -> -> 0 `i `Vuc `i 945  ]
-[e :U 946 ]
-[; ;main.c: 237: }
-[; ;main.c: 238: if (1 == RC2STAbits.OERR) {
-"238
-[e $ ! == -> 1 `i -> . . _RC2STAbits 0 1 `i 947  ]
-{
-[; ;main.c: 239: RC2STAbits.SPEN = 0;
-"239
-[e = . . _RC2STAbits 0 7 -> -> 0 `i `uc ]
-[; ;main.c: 240: RC2STAbits.SPEN = 1;
-"240
-[e = . . _RC2STAbits 0 7 -> -> 1 `i `uc ]
 "241
 }
-[e :U 947 ]
+[e :U 944 ]
+"240
+[e $ ! != -> . . _PIR3bits 0 6 `i -> -> -> 0 `i `Vuc `i 945  ]
+[e :U 946 ]
 [; ;main.c: 241: }
-[; ;main.c: 242: return RC2REG;
+[; ;main.c: 242: if (1 == RC2STAbits.OERR) {
 "242
+[e $ ! == -> 1 `i -> . . _RC2STAbits 0 1 `i 947  ]
+{
+[; ;main.c: 243: RC2STAbits.SPEN = 0;
+"243
+[e = . . _RC2STAbits 0 7 -> -> 0 `i `uc ]
+[; ;main.c: 244: RC2STAbits.SPEN = 1;
+"244
+[e = . . _RC2STAbits 0 7 -> -> 1 `i `uc ]
+"245
+}
+[e :U 947 ]
+[; ;main.c: 245: }
+[; ;main.c: 246: return RC2REG;
+"246
 [e ) _RC2REG ]
 [e $UE 943  ]
-[; ;main.c: 243: }
-"243
+[; ;main.c: 247: }
+"247
 [e :UE 943 ]
 }
-"245
+"249
 [v _serialFindBT `(uc ~T0 @X0 1 ef1`*uc ]
 {
-[; ;main.c: 245: char serialFindBT(char s[]) {
+[; ;main.c: 249: char serialFindBT(char s[]) {
 [e :U _serialFindBT ]
 [v _s `*uc ~T0 @X0 1 r1 ]
 [f ]
-"246
+"250
 [v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 246: int i = 0;
+[; ;main.c: 250: int i = 0;
 [e = _i -> 0 `i ]
-[; ;main.c: 247: while (s[i] != '\0') {
-"247
+[; ;main.c: 251: while (s[i] != '\0') {
+"251
 [e $U 949  ]
 [e :U 950 ]
 {
-[; ;main.c: 248: if (serialReadBT() == s[i]) {
-"248
+[; ;main.c: 252: if (serialReadBT() == s[i]) {
+"252
 [e $ ! == -> ( _serialReadBT ..  `i -> *U + _s * -> _i `x -> -> # *U _s `i `x `i 952  ]
 {
-[; ;main.c: 249: i++;
-"249
+[; ;main.c: 253: i++;
+"253
 [e ++ _i -> 1 `i ]
-"250
+"254
 }
-[; ;main.c: 250: } else {
+[; ;main.c: 254: } else {
 [e $U 953  ]
 [e :U 952 ]
 {
-[; ;main.c: 251: return 0;
-"251
+[; ;main.c: 255: return 0;
+"255
 [e ) -> -> 0 `i `uc ]
 [e $UE 948  ]
-"252
+"256
 }
 [e :U 953 ]
-"253
+"257
 }
 [e :U 949 ]
-"247
+"251
 [e $ != -> *U + _s * -> _i `x -> -> # *U _s `i `x `ui -> 0 `ui 950  ]
 [e :U 951 ]
-[; ;main.c: 252: }
-[; ;main.c: 253: }
-[; ;main.c: 254: return 1;
-"254
+[; ;main.c: 256: }
+[; ;main.c: 257: }
+[; ;main.c: 258: return 1;
+"258
 [e ) -> -> 1 `i `uc ]
 [e $UE 948  ]
-[; ;main.c: 255: }
-"255
+[; ;main.c: 259: }
+"259
 [e :UE 948 ]
 }
 [v $root$_timerCount `(v ~T0 @X0 0 e ]
 [v F8241 `(v ~T0 @X0 1 tf ]
-"257
+"261
 [v _timerCount `IF8241 ~T0 @X0 1 e ]
 {
-[; ;main.c: 257: void interrupt timerCount() {
+[; ;main.c: 261: void interrupt timerCount() {
 [e :U _timerCount ]
 [f ]
-[; ;main.c: 259: if (PIR0bits.TMR0IF) {
-"259
+[; ;main.c: 263: if (PIR0bits.TMR0IF) {
+"263
 [e $ ! != -> . . _PIR0bits 0 3 `i -> -> -> 0 `i `Vuc `i 955  ]
 {
-[; ;main.c: 260: timerActual++;
-"260
-[e ++ _timerActual -> 1 `i ]
-[; ;main.c: 261: PIR0bits.TMR0IF = 0;
-"261
-[e = . . _PIR0bits 0 3 -> -> 0 `i `uc ]
-"262
-}
-[e :U 955 ]
-[; ;main.c: 262: }
-[; ;main.c: 263: if (timerActual == timerSetpoint) {
-"263
-[e $ ! == _timerActual _timerSetpoint 956  ]
-{
-[; ;main.c: 264: timerDone = 1;
+[; ;main.c: 264: timerActual++;
 "264
-[e = _timerDone -> -> 1 `i `uc ]
-[; ;main.c: 265: T0CON0bits.T0EN = 0;
+[e ++ _timerActual -> 1 `i ]
+[; ;main.c: 265: PIR0bits.TMR0IF = 0;
 "265
-[e = . . _T0CON0bits 0 4 -> -> 0 `i `uc ]
+[e = . . _PIR0bits 0 3 -> -> 0 `i `uc ]
 "266
 }
-[e :U 956 ]
+[e :U 955 ]
 [; ;main.c: 266: }
-[; ;main.c: 267: }
+[; ;main.c: 267: if (timerActual == timerSetpoint) {
 "267
+[e $ ! == _timerActual _timerSetpoint 956  ]
+{
+[; ;main.c: 268: timerDone = 1;
+"268
+[e = _timerDone -> -> 1 `i `uc ]
+[; ;main.c: 269: T0CON0bits.T0EN = 0;
+"269
+[e = . . _T0CON0bits 0 4 -> -> 0 `i `uc ]
+"270
+}
+[e :U 956 ]
+[; ;main.c: 270: }
+[; ;main.c: 271: }
+"271
 [e :UE 954 ]
 }
-"269
+"273
 [v _startTimer `(v ~T0 @X0 1 ef1`i ]
 {
-[; ;main.c: 269: void startTimer(int seconds) {
+[; ;main.c: 273: void startTimer(int seconds) {
 [e :U _startTimer ]
 [v _seconds `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 272: timerDone = 0;
-"272
-[e = _timerDone -> -> 0 `i `uc ]
-[; ;main.c: 273: timerSetpoint = seconds;
-"273
-[e = _timerSetpoint _seconds ]
-[; ;main.c: 274: timerActual = 0;
-"274
-[e = _timerActual -> 0 `i ]
-[; ;main.c: 276: PIE0bits.TMR0IE = 1;
+[; ;main.c: 276: timerDone = 0;
 "276
-[e = . . _PIE0bits 0 3 -> -> 1 `i `uc ]
-[; ;main.c: 277: T0CON0 = 0b00010000;
+[e = _timerDone -> -> 0 `i `uc ]
+[; ;main.c: 277: timerSetpoint = seconds;
 "277
-[e = _T0CON0 -> -> 16 `i `uc ]
-[; ;main.c: 278: T0CON1 = 0b01000111;
+[e = _timerSetpoint _seconds ]
+[; ;main.c: 278: timerActual = 0;
 "278
-[e = _T0CON1 -> -> 71 `i `uc ]
-[; ;main.c: 279: T0CON0bits.T0EN = 1;
-"279
-[e = . . _T0CON0bits 0 4 -> -> 1 `i `uc ]
-[; ;main.c: 280: }
+[e = _timerActual -> 0 `i ]
+[; ;main.c: 280: PIE0bits.TMR0IE = 1;
 "280
+[e = . . _PIE0bits 0 3 -> -> 1 `i `uc ]
+[; ;main.c: 281: T0CON0 = 0b00010000;
+"281
+[e = _T0CON0 -> -> 16 `i `uc ]
+[; ;main.c: 282: T0CON1 = 0b01000111;
+"282
+[e = _T0CON1 -> -> 71 `i `uc ]
+[; ;main.c: 283: T0CON0bits.T0EN = 1;
+"283
+[e = . . _T0CON0bits 0 4 -> -> 1 `i `uc ]
+[; ;main.c: 284: }
+"284
 [e :UE 957 ]
 }
-"282
+"286
 [v _getWiFiData `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 282: void getWiFiData() {
+[; ;main.c: 286: void getWiFiData() {
 [e :U _getWiFiData ]
 [f ]
-[; ;main.c: 283: serialPrintBT("WIFI_START\r\n");
-"283
-[e ( _serialPrintBT (1 -> :s 1C `*uc ]
-[; ;main.c: 284: setActivePeripheral(wifi);
-"284
-[e ( _setActivePeripheral (1 . `E8210 1 ]
-[; ;main.c: 285: serialPrintPeripheral("AT+CWLAPOPT=1,12\r\n");
-"285
-[e ( _serialPrintPeripheral (1 -> :s 2C `*uc ]
-[; ;main.c: 286: _delay((unsigned long)((500)*(32000000/4000.0)));
-"286
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 287: serialPrintPeripheral("AT+CWLAP\r\n");
+[; ;main.c: 287: serialPrintBT("WIFI_START\r\n");
 "287
-[e ( _serialPrintPeripheral (1 -> :s 3C `*uc ]
-[; ;main.c: 288: _delay((unsigned long)((10)*(32000000/4000.0)));
+[e ( _serialPrintBT (1 -> :s 1C `*uc ]
+[; ;main.c: 288: setActivePeripheral(wifi);
 "288
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 290: serialReadPeripheral();
+[e ( _setActivePeripheral (1 . `E8210 1 ]
+[; ;main.c: 289: serialPrintPeripheral("AT+CWLAPOPT=1,12\r\n");
+"289
+[e ( _serialPrintPeripheral (1 -> :s 2C `*uc ]
+[; ;main.c: 290: _delay((unsigned long)((500)*(32000000/4000.0)));
 "290
-[e ( _serialReadPeripheral ..  ]
-[; ;main.c: 292: startTimer(3);
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 291: serialPrintPeripheral("AT+CWLAP\r\n");
+"291
+[e ( _serialPrintPeripheral (1 -> :s 3C `*uc ]
+[; ;main.c: 292: _delay((unsigned long)((10)*(32000000/4000.0)));
 "292
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 294: serialReadPeripheral();
+"294
+[e ( _serialReadPeripheral ..  ]
+[; ;main.c: 296: startTimer(3);
+"296
 [e ( _startTimer (1 -> 3 `i ]
-[; ;main.c: 293: while (!timerDone) {
-"293
+[; ;main.c: 297: while (!timerDone) {
+"297
 [e $U 959  ]
 [e :U 960 ]
 {
-[; ;main.c: 294: if (PIR3bits.RC1IF) {
-"294
+[; ;main.c: 298: if (PIR3bits.RC1IF) {
+"298
 [e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 962  ]
 {
-[; ;main.c: 295: serialWriteBT(serialReadPeripheral());
-"295
+[; ;main.c: 299: serialWriteBT(serialReadPeripheral());
+"299
 [e ( _serialWriteBT (1 ( _serialReadPeripheral ..  ]
-"296
+"300
 }
 [e :U 962 ]
-"297
+"301
 }
 [e :U 959 ]
-"293
+"297
 [e $ ! != -> _timerDone `i -> -> -> 0 `i `uc `i 960  ]
 [e :U 961 ]
-[; ;main.c: 296: }
-[; ;main.c: 297: }
-[; ;main.c: 298: serialPrintBT("WIFI_END\r\n");
-"298
-[e ( _serialPrintBT (1 -> :s 4C `*uc ]
-[; ;main.c: 299: _delay((unsigned long)((10)*(32000000/4000.0)));
-"299
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 [; ;main.c: 300: }
-"300
+[; ;main.c: 301: }
+[; ;main.c: 302: serialPrintBT("WIFI_END\r\n");
+"302
+[e ( _serialPrintBT (1 -> :s 4C `*uc ]
+[; ;main.c: 303: _delay((unsigned long)((10)*(32000000/4000.0)));
+"303
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 304: }
+"304
 [e :UE 958 ]
 }
-"302
+"306
 [v _getGSMData `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 302: void getGSMData() {
+[; ;main.c: 306: void getGSMData() {
 [e :U _getGSMData ]
 [f ]
-[; ;main.c: 303: serialPrintBT("GSM_START\r\n");
-"303
-[e ( _serialPrintBT (1 -> :s 5C `*uc ]
-[; ;main.c: 305: setActivePeripheral(gsm);
-"305
-[e ( _setActivePeripheral (1 . `E8210 3 ]
-[; ;main.c: 306: serialPrintPeripheral("AT+CREG=2\r\n");
-"306
-[e ( _serialPrintPeripheral (1 -> :s 6C `*uc ]
-[; ;main.c: 307: _delay((unsigned long)((500)*(32000000/4000.0)));
+[; ;main.c: 307: serialPrintBT("GSM_START\r\n");
 "307
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 308: serialPrintPeripheral("AT+CSQ\r\n");
-"308
-[e ( _serialPrintPeripheral (1 -> :s 7C `*uc ]
-[; ;main.c: 309: _delay((unsigned long)((10)*(32000000/4000.0)));
+[e ( _serialPrintBT (1 -> :s 5C `*uc ]
+[; ;main.c: 309: setActivePeripheral(gsm);
 "309
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 310: serialReadPeripheral();
+[e ( _setActivePeripheral (1 . `E8210 3 ]
+[; ;main.c: 310: serialPrintPeripheral("AT+CREG=2\r\n");
 "310
-[e ( _serialReadPeripheral ..  ]
-[; ;main.c: 312: startTimer(1);
+[e ( _serialPrintPeripheral (1 -> :s 6C `*uc ]
+[; ;main.c: 311: _delay((unsigned long)((500)*(32000000/4000.0)));
+"311
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 312: serialPrintPeripheral("AT+CSQ\r\n");
 "312
-[e ( _startTimer (1 -> 1 `i ]
-[; ;main.c: 313: while (!timerDone) {
+[e ( _serialPrintPeripheral (1 -> :s 7C `*uc ]
+[; ;main.c: 313: _delay((unsigned long)((10)*(32000000/4000.0)));
 "313
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 314: serialReadPeripheral();
+"314
+[e ( _serialReadPeripheral ..  ]
+[; ;main.c: 316: startTimer(1);
+"316
+[e ( _startTimer (1 -> 1 `i ]
+[; ;main.c: 317: while (!timerDone) {
+"317
 [e $U 964  ]
 [e :U 965 ]
 {
-[; ;main.c: 314: if (PIR3bits.RC1IF) {
-"314
+[; ;main.c: 318: if (PIR3bits.RC1IF) {
+"318
 [e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 967  ]
 {
-[; ;main.c: 315: serialWriteBT(serialReadPeripheral());
-"315
+[; ;main.c: 319: serialWriteBT(serialReadPeripheral());
+"319
 [e ( _serialWriteBT (1 ( _serialReadPeripheral ..  ]
-"316
+"320
 }
 [e :U 967 ]
-"317
+"321
 }
 [e :U 964 ]
-"313
+"317
 [e $ ! != -> _timerDone `i -> -> -> 0 `i `uc `i 965  ]
 [e :U 966 ]
-[; ;main.c: 316: }
-[; ;main.c: 317: }
-[; ;main.c: 319: serialPrintPeripheral("AT+CREG?\r\n");
-"319
-[e ( _serialPrintPeripheral (1 -> :s 8C `*uc ]
-[; ;main.c: 320: _delay((unsigned long)((10)*(32000000/4000.0)));
-"320
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 322: startTimer(1);
-"322
-[e ( _startTimer (1 -> 1 `i ]
-[; ;main.c: 323: while (!timerDone) {
+[; ;main.c: 320: }
+[; ;main.c: 321: }
+[; ;main.c: 323: serialPrintPeripheral("AT+CREG?\r\n");
 "323
+[e ( _serialPrintPeripheral (1 -> :s 8C `*uc ]
+[; ;main.c: 324: _delay((unsigned long)((10)*(32000000/4000.0)));
+"324
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 326: startTimer(1);
+"326
+[e ( _startTimer (1 -> 1 `i ]
+[; ;main.c: 327: while (!timerDone) {
+"327
 [e $U 968  ]
 [e :U 969 ]
 {
-[; ;main.c: 324: if (PIR3bits.RC1IF) {
-"324
+[; ;main.c: 328: if (PIR3bits.RC1IF) {
+"328
 [e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 971  ]
 {
-[; ;main.c: 325: serialWriteBT(serialReadPeripheral());
-"325
+[; ;main.c: 329: serialWriteBT(serialReadPeripheral());
+"329
 [e ( _serialWriteBT (1 ( _serialReadPeripheral ..  ]
-"326
+"330
 }
 [e :U 971 ]
-"327
+"331
 }
 [e :U 968 ]
-"323
+"327
 [e $ ! != -> _timerDone `i -> -> -> 0 `i `uc `i 969  ]
 [e :U 970 ]
-[; ;main.c: 326: }
-[; ;main.c: 327: }
-[; ;main.c: 329: serialPrintBT("GSM_END\r\n");
-"329
-[e ( _serialPrintBT (1 -> :s 9C `*uc ]
-[; ;main.c: 330: _delay((unsigned long)((10)*(32000000/4000.0)));
-"330
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 330: }
 [; ;main.c: 331: }
-"331
+[; ;main.c: 333: serialPrintBT("GSM_END\r\n");
+"333
+[e ( _serialPrintBT (1 -> :s 9C `*uc ]
+[; ;main.c: 334: _delay((unsigned long)((10)*(32000000/4000.0)));
+"334
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 335: }
+"335
 [e :UE 963 ]
 }
-"333
+"337
 [v _getGPSData `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 333: void getGPSData() {
+[; ;main.c: 337: void getGPSData() {
 [e :U _getGPSData ]
 [f ]
-[; ;main.c: 334: setActivePeripheral(gps);
-"334
-[e ( _setActivePeripheral (1 . `E8210 0 ]
-[; ;main.c: 335: serialPrintBT("GPS_START\r\n");
-"335
-[e ( _serialPrintBT (1 -> :s 10C `*uc ]
-"336
-[v _found `uc ~T0 @X0 1 a ]
-[; ;main.c: 336: char found = 0;
-[e = _found -> -> 0 `i `uc ]
-[; ;main.c: 337: startTimer(3);
-"337
-[e ( _startTimer (1 -> 3 `i ]
-[; ;main.c: 338: while (!timerDone && !found) {
+[; ;main.c: 338: setActivePeripheral(gps);
 "338
+[e ( _setActivePeripheral (1 . `E8210 0 ]
+[; ;main.c: 339: serialPrintBT("GPS_START\r\n");
+"339
+[e ( _serialPrintBT (1 -> :s 10C `*uc ]
+"340
+[v _found `uc ~T0 @X0 1 a ]
+[; ;main.c: 340: char found = 0;
+[e = _found -> -> 0 `i `uc ]
+[; ;main.c: 341: startTimer(3);
+"341
+[e ( _startTimer (1 -> 3 `i ]
+[; ;main.c: 342: while (!timerDone && !found) {
+"342
 [e $U 973  ]
 [e :U 974 ]
 {
-[; ;main.c: 339: if (PIR3bits.RC1IF) {
-"339
+[; ;main.c: 343: if (PIR3bits.RC1IF) {
+"343
 [e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 976  ]
 {
-[; ;main.c: 340: if (serialFindPeripheral("$GPGGA,")) {
-"340
+[; ;main.c: 344: if (serialFindPeripheral("$GPGGA,")) {
+"344
 [e $ ! != -> ( _serialFindPeripheral (1 -> :s 11C `*uc `i -> -> -> 0 `i `uc `i 977  ]
 {
-"341
+"345
 [v _c `uc ~T0 @X0 1 a ]
-[; ;main.c: 341: char c = 'c';
+[; ;main.c: 345: char c = 'c';
 [e = _c -> -> 99 `ui `uc ]
-[; ;main.c: 342: while (c != '\n') {
-"342
+[; ;main.c: 346: while (c != '\n') {
+"346
 [e $U 978  ]
 [e :U 979 ]
 {
-[; ;main.c: 343: c = serialReadPeripheral();
-"343
-[e = _c ( _serialReadPeripheral ..  ]
-[; ;main.c: 344: serialWriteBT(c);
-"344
-[e ( _serialWriteBT (1 _c ]
-"345
-}
-[e :U 978 ]
-"342
-[e $ != -> _c `ui -> 10 `ui 979  ]
-[e :U 980 ]
-[; ;main.c: 345: }
-[; ;main.c: 346: found = 1;
-"346
-[e = _found -> -> 1 `i `uc ]
+[; ;main.c: 347: c = serialReadPeripheral();
 "347
-}
-[e :U 977 ]
+[e = _c ( _serialReadPeripheral ..  ]
+[; ;main.c: 348: serialWriteBT(c);
 "348
-}
-[e :U 976 ]
+[e ( _serialWriteBT (1 _c ]
 "349
 }
+[e :U 978 ]
+"346
+[e $ != -> _c `ui -> 10 `ui 979  ]
+[e :U 980 ]
+[; ;main.c: 349: }
+[; ;main.c: 350: found = 1;
+"350
+[e = _found -> -> 1 `i `uc ]
+"351
+}
+[e :U 977 ]
+"352
+}
+[e :U 976 ]
+"353
+}
 [e :U 973 ]
-"338
+"342
 [e $ && ! != -> _timerDone `i -> -> -> 0 `i `uc `i ! != -> _found `i -> -> -> 0 `i `uc `i 974  ]
 [e :U 975 ]
-[; ;main.c: 347: }
-[; ;main.c: 348: }
-[; ;main.c: 349: }
-[; ;main.c: 350: serialPrintBT("GPS_END\r\n");
-"350
-[e ( _serialPrintBT (1 -> :s 12C `*uc ]
-[; ;main.c: 351: _delay((unsigned long)((10)*(32000000/4000.0)));
-"351
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 351: }
 [; ;main.c: 352: }
-"352
+[; ;main.c: 353: }
+[; ;main.c: 354: serialPrintBT("GPS_END\r\n");
+"354
+[e ( _serialPrintBT (1 -> :s 12C `*uc ]
+[; ;main.c: 355: _delay((unsigned long)((10)*(32000000/4000.0)));
+"355
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 356: }
+"356
 [e :UE 972 ]
 }
-"354
+"358
 [v _getSigfoxData `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 354: void getSigfoxData() {
+[; ;main.c: 358: void getSigfoxData() {
 [e :U _getSigfoxData ]
 [f ]
-[; ;main.c: 355: setActivePeripheral(sigfox);
-"355
+[; ;main.c: 359: setActivePeripheral(sigfox);
+"359
 [e ( _setActivePeripheral (1 . `E8210 2 ]
-[; ;main.c: 356: serialPrintBT("SIGFOX_START\r\n");
-"356
-[e ( _serialPrintBT (1 -> :s 13C `*uc ]
-[; ;main.c: 357: serialPrintPeripheral("AT\r\n");
-"357
-[e ( _serialPrintPeripheral (1 -> :s 14C `*uc ]
-[; ;main.c: 358: _delay((unsigned long)((1)*(32000000/4000.0)));
-"358
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 360: serialReadPeripheral();
+[; ;main.c: 360: serialPrintBT("SIGFOX_START\r\n");
 "360
-[e ( _serialReadPeripheral ..  ]
-[; ;main.c: 362: startTimer(2);
+[e ( _serialPrintBT (1 -> :s 13C `*uc ]
+[; ;main.c: 361: serialPrintPeripheral("AT\r\n");
+"361
+[e ( _serialPrintPeripheral (1 -> :s 14C `*uc ]
+[; ;main.c: 362: _delay((unsigned long)((1)*(32000000/4000.0)));
 "362
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 364: serialReadPeripheral();
+"364
+[e ( _serialReadPeripheral ..  ]
+[; ;main.c: 366: startTimer(2);
+"366
 [e ( _startTimer (1 -> 2 `i ]
-[; ;main.c: 363: while (!timerDone) {
-"363
+[; ;main.c: 367: while (!timerDone) {
+"367
 [e $U 982  ]
 [e :U 983 ]
 {
-[; ;main.c: 364: if (PIR3bits.RC1IF) {
-"364
+[; ;main.c: 368: if (PIR3bits.RC1IF) {
+"368
 [e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 985  ]
 {
-[; ;main.c: 365: serialWriteBT(serialReadPeripheral());
-"365
+[; ;main.c: 369: serialWriteBT(serialReadPeripheral());
+"369
 [e ( _serialWriteBT (1 ( _serialReadPeripheral ..  ]
-"366
+"370
 }
 [e :U 985 ]
-"367
+"371
 }
 [e :U 982 ]
-"363
+"367
 [e $ ! != -> _timerDone `i -> -> -> 0 `i `uc `i 983  ]
 [e :U 984 ]
-[; ;main.c: 366: }
-[; ;main.c: 367: }
-[; ;main.c: 369: serialPrintBT("SIGFOX_END\r\n");
-"369
-[e ( _serialPrintBT (1 -> :s 15C `*uc ]
-[; ;main.c: 370: _delay((unsigned long)((10)*(32000000/4000.0)));
-"370
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 370: }
 [; ;main.c: 371: }
-"371
+[; ;main.c: 373: serialPrintBT("SIGFOX_END\r\n");
+"373
+[e ( _serialPrintBT (1 -> :s 15C `*uc ]
+[; ;main.c: 374: _delay((unsigned long)((10)*(32000000/4000.0)));
+"374
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 375: }
+"375
 [e :UE 981 ]
 }
-"373
+"377
 [v _sendSigfox `(v ~T0 @X0 1 ef1`*uc ]
 {
-[; ;main.c: 373: void sendSigfox(char hexMessage[]) {
+[; ;main.c: 377: void sendSigfox(char hexMessage[]) {
 [e :U _sendSigfox ]
 [v _hexMessage `*uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 374: setActivePeripheral(sigfox);
-"374
-[e ( _setActivePeripheral (1 . `E8210 2 ]
-[; ;main.c: 375: serialPrintPeripheral("AT$SF=");
-"375
-[e ( _serialPrintPeripheral (1 -> :s 16C `*uc ]
-[; ;main.c: 376: serialPrintPeripheral(hexMessage);
-"376
-[e ( _serialPrintPeripheral (1 _hexMessage ]
-[; ;main.c: 377: serialPrintPeripheral("\r\n");
-"377
-[e ( _serialPrintPeripheral (1 -> :s 17C `*uc ]
-[; ;main.c: 378: }
+[; ;main.c: 378: setActivePeripheral(sigfox);
 "378
+[e ( _setActivePeripheral (1 . `E8210 2 ]
+[; ;main.c: 379: serialPrintPeripheral("AT$SF=");
+"379
+[e ( _serialPrintPeripheral (1 -> :s 16C `*uc ]
+[; ;main.c: 380: serialPrintPeripheral(hexMessage);
+"380
+[e ( _serialPrintPeripheral (1 _hexMessage ]
+[; ;main.c: 381: serialPrintPeripheral("\r\n");
+"381
+[e ( _serialPrintPeripheral (1 -> :s 17C `*uc ]
+[; ;main.c: 382: }
+"382
 [e :UE 986 ]
 }
-"380
-[v _waitForCommand `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 380: void waitForCommand() {
-[e :U _waitForCommand ]
-[f ]
-"381
-[v _command `uc ~T0 @X0 -> 32 `i a ]
-[; ;main.c: 381: char command[32];
-[; ;main.c: 383: while (!PIR3bits.RC2IF) {
-"383
-[e $U 988  ]
-[e :U 989 ]
-{
 "384
-}
-[e :U 988 ]
-"383
-[e $ ! != -> . . _PIR3bits 0 6 `i -> -> -> 0 `i `Vuc `i 989  ]
-[e :U 990 ]
-[; ;main.c: 384: }
-[; ;main.c: 386: startTimer(2);
+[v _sendSMS `(v ~T0 @X0 1 ef2`*uc`*uc ]
+{
+[; ;main.c: 384: void sendSMS(char number[], char message[]) {
+[e :U _sendSMS ]
+[v _number `*uc ~T0 @X0 1 r1 ]
+[v _message `*uc ~T0 @X0 1 r2 ]
+[f ]
+[; ;main.c: 386: setActivePeripheral(gsm);
 "386
-[e ( _startTimer (1 -> 2 `i ]
+[e ( _setActivePeripheral (1 . `E8210 3 ]
+[; ;main.c: 387: serialPrintPeripheral("AT+CMGF=1\r\n");
 "387
-[v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 387: int i = 0;
-[e = _i -> 0 `i ]
-[; ;main.c: 388: while (!timerDone) {
+[e ( _serialPrintPeripheral (1 -> :s 18C `*uc ]
+[; ;main.c: 388: _delay((unsigned long)((2000)*(32000000/4000.0)));
 "388
-[e $U 991  ]
-[e :U 992 ]
-{
-[; ;main.c: 389: if (PIR3bits.RC2IF) {
+[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 389: serialPrintPeripheral("AT+CMGS=\"");
 "389
-[e $ ! != -> . . _PIR3bits 0 6 `i -> -> -> 0 `i `Vuc `i 994  ]
-{
-[; ;main.c: 390: command[i] = serialReadBT();
+[e ( _serialPrintPeripheral (1 -> :s 19C `*uc ]
+[; ;main.c: 390: serialPrintPeripheral(number);
 "390
-[e = *U + &U _command * -> -> _i `ui `ux -> -> # *U &U _command `ui `ux ( _serialReadBT ..  ]
-[; ;main.c: 391: i++;
+[e ( _serialPrintPeripheral (1 _number ]
+[; ;main.c: 391: serialPrintPeripheral("\"\r\n");
 "391
-[e ++ _i -> 1 `i ]
+[e ( _serialPrintPeripheral (1 -> :s 20C `*uc ]
+[; ;main.c: 392: _delay((unsigned long)((3000)*(32000000/4000.0)));
 "392
-}
-[e :U 994 ]
+[e ( __delay (1 -> * -> -> 3000 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 393: serialPrintPeripheral(message);
 "393
-}
-[e :U 991 ]
-"388
-[e $ ! != -> _timerDone `i -> -> -> 0 `i `uc `i 992  ]
-[e :U 993 ]
-[; ;main.c: 392: }
-[; ;main.c: 393: }
-[; ;main.c: 394: command[i] = '\0';
+[e ( _serialPrintPeripheral (1 _message ]
+[; ;main.c: 394: _delay((unsigned long)((500)*(32000000/4000.0)));
 "394
-[e = *U + &U _command * -> -> _i `ui `ux -> -> # *U &U _command `ui `ux -> -> 0 `ui `uc ]
-[; ;main.c: 397: if (strcmp(command, "GET_GPS\r\n") == 0) {
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 395: serialWritePeripheral('\x1A');
+"395
+[e ( _serialWritePeripheral (1 -> -> 26 `ui `uc ]
+[; ;main.c: 396: _delay((unsigned long)((100)*(32000000/4000.0)));
+"396
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 397: serialPrintPeripheral("\r\n");
 "397
-[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 18C -> 0 `i 995  ]
-{
-[; ;main.c: 398: getGPSData();
+[e ( _serialPrintPeripheral (1 -> :s 21C `*uc ]
+[; ;main.c: 398: TRISB7 = 1;
 "398
-[e ( _getGPSData ..  ]
-[; ;main.c: 399: serialPrintBT("MESSAGE_END\r\n");
+[e = _TRISB7 -> -> 1 `i `b ]
+[; ;main.c: 399: _delay((unsigned long)((100)*(32000000/4000.0)));
 "399
-[e ( _serialPrintBT (1 -> :s 19C `*uc ]
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 400: }
 "400
-}
-[; ;main.c: 400: } else if (strcmp(command, "GET_GSM\r\n") == 0) {
-[e $U 996  ]
-[e :U 995 ]
-[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 20C -> 0 `i 997  ]
-{
-[; ;main.c: 401: getGSMData();
-"401
-[e ( _getGSMData ..  ]
-[; ;main.c: 402: serialPrintBT("MESSAGE_END\r\n");
-"402
-[e ( _serialPrintBT (1 -> :s 21C `*uc ]
-"403
-}
-[; ;main.c: 403: } else if (strcmp(command, "GET_WIFI\r\n") == 0) {
-[e $U 998  ]
-[e :U 997 ]
-[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 22C -> 0 `i 999  ]
-{
-[; ;main.c: 404: getWiFiData();
-"404
-[e ( _getWiFiData ..  ]
-[; ;main.c: 405: serialPrintBT("MESSAGE_END\r\n");
-"405
-[e ( _serialPrintBT (1 -> :s 23C `*uc ]
-"406
-}
-[; ;main.c: 406: } else if (strcmp(command, "GET_ALL_SEND_SIGFOX\r\n") == 0) {
-[e $U 1000  ]
-[e :U 999 ]
-[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 24C -> 0 `i 1001  ]
-{
-[; ;main.c: 407: sendSigfox("000000000000\r\n");
-"407
-[e ( _sendSigfox (1 -> :s 25C `*uc ]
-[; ;main.c: 408: getGPSData();
-"408
-[e ( _getGPSData ..  ]
-[; ;main.c: 409: getGSMData();
-"409
-[e ( _getGSMData ..  ]
-[; ;main.c: 410: getWiFiData();
-"410
-[e ( _getWiFiData ..  ]
-[; ;main.c: 411: serialPrintBT("MESSAGE_END\r\n");
-"411
-[e ( _serialPrintBT (1 -> :s 26C `*uc ]
-"412
-}
-[; ;main.c: 412: } else if (strcmp(command, "GET_ALL\r\n") == 0) {
-[e $U 1002  ]
-[e :U 1001 ]
-[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 27C -> 0 `i 1003  ]
-{
-[; ;main.c: 413: getGPSData();
-"413
-[e ( _getGPSData ..  ]
-[; ;main.c: 414: getGSMData();
-"414
-[e ( _getGSMData ..  ]
-[; ;main.c: 415: getWiFiData();
-"415
-[e ( _getWiFiData ..  ]
-[; ;main.c: 416: serialPrintBT("MESSAGE_END\r\n");
-"416
-[e ( _serialPrintBT (1 -> :s 28C `*uc ]
-"417
-}
-[; ;main.c: 417: } else if (strncmp(command, "SEND_SIGFOX:", 12) == 0) {
-[e $U 1004  ]
-[e :U 1003 ]
-[e $ ! == ( _strncmp (3 , , -> &U _command `*Cuc :s 29C -> -> 12 `i `ui -> 0 `i 1005  ]
-{
-"418
-[v _p `*uc ~T0 @X0 1 a ]
-[; ;main.c: 418: char * p;
-[; ;main.c: 419: p = command + 12;
-"419
-[e = _p + &U _command * -> -> 12 `i `x -> -> # *U &U _command `i `x ]
-"420
-[v _message `uc ~T0 @X0 -> 30 `i a ]
-[v _i `i ~T0 @X0 1 a ]
-[; ;main.c: 420: char message[30];
-[; ;main.c: 421: int i = 0;
-"421
-[e = _i -> 0 `i ]
-[; ;main.c: 423: while(*p != '\r') {
-"423
-[e $U 1006  ]
-[e :U 1007 ]
-{
-[; ;main.c: 424: message[i] = *p;
-"424
-[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux *U _p ]
-[; ;main.c: 425: p++;
-"425
-[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
-[; ;main.c: 426: i++;
-"426
-[e ++ _i -> 1 `i ]
-"427
-}
-[e :U 1006 ]
-"423
-[e $ != -> *U _p `ui -> 13 `ui 1007  ]
-[e :U 1008 ]
-[; ;main.c: 427: }
-[; ;main.c: 428: message[i] = '\0';
-"428
-[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux -> -> 0 `ui `uc ]
-[; ;main.c: 430: sendSigfox(message);
-"430
-[e ( _sendSigfox (1 &U _message ]
-"431
-}
-[e :U 1005 ]
-"432
-[e :U 1004 ]
-[e :U 1002 ]
-[e :U 1000 ]
-[e :U 998 ]
-[e :U 996 ]
-[; ;main.c: 431: }
-[; ;main.c: 432: }
 [e :UE 987 ]
 }
+"402
+[v _waitForCommand `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 402: void waitForCommand() {
+[e :U _waitForCommand ]
+[f ]
+"403
+[v _command `uc ~T0 @X0 -> 32 `i a ]
+[; ;main.c: 403: char command[32];
+[; ;main.c: 405: while (!PIR3bits.RC2IF) {
+"405
+[e $U 989  ]
+[e :U 990 ]
+{
+"406
+}
+[e :U 989 ]
+"405
+[e $ ! != -> . . _PIR3bits 0 6 `i -> -> -> 0 `i `Vuc `i 990  ]
+[e :U 991 ]
+[; ;main.c: 406: }
+[; ;main.c: 408: startTimer(2);
+"408
+[e ( _startTimer (1 -> 2 `i ]
+"409
+[v _i `i ~T0 @X0 1 a ]
+[; ;main.c: 409: int i = 0;
+[e = _i -> 0 `i ]
+[; ;main.c: 410: while (!timerDone) {
+"410
+[e $U 992  ]
+[e :U 993 ]
+{
+[; ;main.c: 411: if (PIR3bits.RC2IF) {
+"411
+[e $ ! != -> . . _PIR3bits 0 6 `i -> -> -> 0 `i `Vuc `i 995  ]
+{
+[; ;main.c: 412: command[i] = serialReadBT();
+"412
+[e = *U + &U _command * -> -> _i `ui `ux -> -> # *U &U _command `ui `ux ( _serialReadBT ..  ]
+[; ;main.c: 413: i++;
+"413
+[e ++ _i -> 1 `i ]
+"414
+}
+[e :U 995 ]
+"415
+}
+[e :U 992 ]
+"410
+[e $ ! != -> _timerDone `i -> -> -> 0 `i `uc `i 993  ]
+[e :U 994 ]
+[; ;main.c: 414: }
+[; ;main.c: 415: }
+[; ;main.c: 416: command[i] = '\0';
+"416
+[e = *U + &U _command * -> -> _i `ui `ux -> -> # *U &U _command `ui `ux -> -> 0 `ui `uc ]
+[; ;main.c: 419: if (strcmp(command, "GET_GPS\r\n") == 0) {
+"419
+[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 22C -> 0 `i 996  ]
+{
+[; ;main.c: 420: getGPSData();
+"420
+[e ( _getGPSData ..  ]
+[; ;main.c: 421: serialPrintBT("MESSAGE_END\r\n");
+"421
+[e ( _serialPrintBT (1 -> :s 23C `*uc ]
+"422
+}
+[; ;main.c: 422: } else if (strcmp(command, "GET_GSM\r\n") == 0) {
+[e $U 997  ]
+[e :U 996 ]
+[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 24C -> 0 `i 998  ]
+{
+[; ;main.c: 423: getGSMData();
+"423
+[e ( _getGSMData ..  ]
+[; ;main.c: 424: serialPrintBT("MESSAGE_END\r\n");
+"424
+[e ( _serialPrintBT (1 -> :s 25C `*uc ]
+"425
+}
+[; ;main.c: 425: } else if (strcmp(command, "GET_WIFI\r\n") == 0) {
+[e $U 999  ]
+[e :U 998 ]
+[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 26C -> 0 `i 1000  ]
+{
+[; ;main.c: 426: getWiFiData();
+"426
+[e ( _getWiFiData ..  ]
+[; ;main.c: 427: serialPrintBT("MESSAGE_END\r\n");
+"427
+[e ( _serialPrintBT (1 -> :s 27C `*uc ]
+"428
+}
+[; ;main.c: 428: } else if (strcmp(command, "GET_ALL_SEND_SIGFOX\r\n") == 0) {
+[e $U 1001  ]
+[e :U 1000 ]
+[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 28C -> 0 `i 1002  ]
+{
+[; ;main.c: 429: sendSigfox("000000000000\r\n");
+"429
+[e ( _sendSigfox (1 -> :s 29C `*uc ]
+[; ;main.c: 430: getGPSData();
+"430
+[e ( _getGPSData ..  ]
+[; ;main.c: 431: getGSMData();
+"431
+[e ( _getGSMData ..  ]
+[; ;main.c: 432: getWiFiData();
+"432
+[e ( _getWiFiData ..  ]
+[; ;main.c: 433: serialPrintBT("MESSAGE_END\r\n");
+"433
+[e ( _serialPrintBT (1 -> :s 30C `*uc ]
+"434
+}
+[; ;main.c: 434: } else if (strcmp(command, "GET_ALL\r\n") == 0) {
+[e $U 1003  ]
+[e :U 1002 ]
+[e $ ! == ( _strcmp (2 , -> &U _command `*Cuc :s 31C -> 0 `i 1004  ]
+{
+[; ;main.c: 435: getGPSData();
+"435
+[e ( _getGPSData ..  ]
+[; ;main.c: 436: getGSMData();
+"436
+[e ( _getGSMData ..  ]
+[; ;main.c: 437: getWiFiData();
+"437
+[e ( _getWiFiData ..  ]
+[; ;main.c: 438: serialPrintBT("MESSAGE_END\r\n");
+"438
+[e ( _serialPrintBT (1 -> :s 32C `*uc ]
+"439
+}
+[; ;main.c: 439: } else if (strncmp(command, "SEND_SIGFOX:", 12) == 0) {
+[e $U 1005  ]
+[e :U 1004 ]
+[e $ ! == ( _strncmp (3 , , -> &U _command `*Cuc :s 33C -> -> 12 `i `ui -> 0 `i 1006  ]
+{
+"440
+[v _p `*uc ~T0 @X0 1 a ]
+[; ;main.c: 440: char * p;
+[; ;main.c: 441: p = command + 12;
+"441
+[e = _p + &U _command * -> -> 12 `i `x -> -> # *U &U _command `i `x ]
+"442
+[v _message `uc ~T0 @X0 -> 30 `i a ]
+[v _i `i ~T0 @X0 1 a ]
+[; ;main.c: 442: char message[30];
+[; ;main.c: 443: int i = 0;
+"443
+[e = _i -> 0 `i ]
+[; ;main.c: 445: while (*p != '\r') {
+"445
+[e $U 1007  ]
+[e :U 1008 ]
+{
+[; ;main.c: 446: message[i] = *p;
+"446
+[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux *U _p ]
+[; ;main.c: 447: p++;
+"447
+[e ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+[; ;main.c: 448: i++;
+"448
+[e ++ _i -> 1 `i ]
+"449
+}
+[e :U 1007 ]
+"445
+[e $ != -> *U _p `ui -> 13 `ui 1008  ]
+[e :U 1009 ]
+[; ;main.c: 449: }
+[; ;main.c: 450: message[i] = '\0';
+"450
+[e = *U + &U _message * -> -> _i `ui `ux -> -> # *U &U _message `ui `ux -> -> 0 `ui `uc ]
+[; ;main.c: 452: sendSigfox(message);
+"452
+[e ( _sendSigfox (1 &U _message ]
+"453
+}
+[; ;main.c: 453: } else if ("SEND_SMS\r\n") {
+[e $U 1010  ]
+[e :U 1006 ]
+[e $ ! != :s 34C -> -> 0 `i `*Cuc 1011  ]
+{
+[; ;main.c: 454: sendSMS("nummer", "Hello World");
+"454
+[e ( _sendSMS (2 , -> :s 35C `*uc -> :s 36C `*uc ]
+[; ;main.c: 456: startTimer(4);
+"456
+[e ( _startTimer (1 -> 4 `i ]
+[; ;main.c: 457: while (!timerDone) {
+"457
+[e $U 1012  ]
+[e :U 1013 ]
+{
+[; ;main.c: 458: if (PIR3bits.RC1IF) {
+"458
+[e $ ! != -> . . _PIR3bits 0 4 `i -> -> -> 0 `i `Vuc `i 1015  ]
+{
+"459
+[v _c `uc ~T0 @X0 1 a ]
+[; ;main.c: 459: char c = serialReadPeripheral();
+[e = _c ( _serialReadPeripheral ..  ]
+[; ;main.c: 460: if (c == 'O') {
+"460
+[e $ ! == -> _c `ui -> 79 `ui 1016  ]
+{
+[; ;main.c: 461: TRISB7 = 0;
+"461
+[e = _TRISB7 -> -> 0 `i `b ]
+"462
+}
+[e :U 1016 ]
+[; ;main.c: 462: }
+[; ;main.c: 463: serialWriteBT(c);
+"463
+[e ( _serialWriteBT (1 _c ]
+"464
+}
+[e :U 1015 ]
+"465
+}
+[e :U 1012 ]
+"457
+[e $ ! != -> _timerDone `i -> -> -> 0 `i `uc `i 1013  ]
+[e :U 1014 ]
+"466
+}
+[e :U 1011 ]
+"467
+[e :U 1010 ]
+[e :U 1005 ]
+[e :U 1003 ]
+[e :U 1001 ]
+[e :U 999 ]
+[e :U 997 ]
+[; ;main.c: 464: }
+[; ;main.c: 465: }
+[; ;main.c: 466: }
+[; ;main.c: 467: }
+[e :UE 988 ]
+}
+[a 35C 110 117 109 109 101 114 0 ]
+[a 36C 72 101 108 108 111 32 87 111 114 108 100 0 ]
 [a 16C 65 84 36 83 70 61 0 ]
-[a 29C 83 69 78 68 95 83 73 71 70 79 88 58 0 ]
+[a 33C 83 69 78 68 95 83 73 71 70 79 88 58 0 ]
 [a 11C 36 71 80 71 71 65 44 0 ]
-[a 24C 71 69 84 95 65 76 76 95 83 69 78 68 95 83 73 71 70 79 88 13 10 0 ]
+[a 19C 65 84 43 67 77 71 83 61 34 0 ]
+[a 28C 71 69 84 95 65 76 76 95 83 69 78 68 95 83 73 71 70 79 88 13 10 0 ]
 [a 13C 83 73 71 70 79 88 95 83 84 65 82 84 13 10 0 ]
 [a 10C 71 80 83 95 83 84 65 82 84 13 10 0 ]
 [a 5C 71 83 77 95 83 84 65 82 84 13 10 0 ]
 [a 1C 87 73 70 73 95 83 84 65 82 84 13 10 0 ]
 [a 14C 65 84 13 10 0 ]
-[a 18C 71 69 84 95 71 80 83 13 10 0 ]
+[a 22C 71 69 84 95 71 80 83 13 10 0 ]
+[a 34C 83 69 78 68 95 83 77 83 13 10 0 ]
 [a 7C 65 84 43 67 83 81 13 10 0 ]
 [a 3C 65 84 43 67 87 76 65 80 13 10 0 ]
-[a 20C 71 69 84 95 71 83 77 13 10 0 ]
-[a 27C 71 69 84 95 65 76 76 13 10 0 ]
-[a 22C 71 69 84 95 87 73 70 73 13 10 0 ]
+[a 24C 71 69 84 95 71 83 77 13 10 0 ]
+[a 31C 71 69 84 95 65 76 76 13 10 0 ]
+[a 26C 71 69 84 95 87 73 70 73 13 10 0 ]
 [a 15C 83 73 71 70 79 88 95 69 78 68 13 10 0 ]
 [a 12C 71 80 83 95 69 78 68 13 10 0 ]
 [a 9C 71 83 77 95 69 78 68 13 10 0 ]
 [a 4C 87 73 70 73 95 69 78 68 13 10 0 ]
-[a 19C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
-[a 21C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
 [a 23C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
-[a 26C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
-[a 28C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
+[a 25C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
+[a 27C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
+[a 30C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
+[a 32C 77 69 83 83 65 71 69 95 69 78 68 13 10 0 ]
 [a 8C 65 84 43 67 82 69 71 63 13 10 0 ]
 [a 6C 65 84 43 67 82 69 71 61 50 13 10 0 ]
 [a 2C 65 84 43 67 87 76 65 80 79 80 84 61 49 44 49 50 13 10 0 ]
-[a 25C 48 48 48 48 48 48 48 48 48 48 48 48 13 10 0 ]
+[a 18C 65 84 43 67 77 71 70 61 49 13 10 0 ]
+[a 29C 48 48 48 48 48 48 48 48 48 48 48 48 13 10 0 ]
+[a 20C 34 13 10 0 ]
 [a 17C 13 10 0 ]
+[a 21C 13 10 0 ]

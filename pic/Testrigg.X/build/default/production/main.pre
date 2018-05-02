@@ -10164,6 +10164,10 @@ ANSELB = 0;
 ANSELC = 0;
 
 
+TRISB7 = 0;
+LATB7 = 0;
+
+
 INTCONbits.GIE = 1;
 INTCONbits.PEIE = 1;
 
@@ -10235,7 +10239,7 @@ return 1;
 
 void setActivePeripheral(enum peripheral peri) {
 
-# 173
+# 177
 RC6PPS = 0x00;
 RC1PPS = 0x00;
 RA4PPS = 0x00;
@@ -10443,6 +10447,24 @@ serialPrintPeripheral(hexMessage);
 serialPrintPeripheral("\r\n");
 }
 
+void sendSMS(char number[], char message[]) {
+
+setActivePeripheral(gsm);
+serialPrintPeripheral("AT+CMGF=1\r\n");
+_delay((unsigned long)((2000)*(32000000/4000.0)));
+serialPrintPeripheral("AT+CMGS=\"");
+serialPrintPeripheral(number);
+serialPrintPeripheral("\"\r\n");
+_delay((unsigned long)((3000)*(32000000/4000.0)));
+serialPrintPeripheral(message);
+_delay((unsigned long)((500)*(32000000/4000.0)));
+serialWritePeripheral('\x1A');
+_delay((unsigned long)((100)*(32000000/4000.0)));
+serialPrintPeripheral("\r\n");
+TRISB7 = 1;
+_delay((unsigned long)((100)*(32000000/4000.0)));
+}
+
 void waitForCommand() {
 char command[32];
 
@@ -10486,7 +10508,7 @@ p = command + 12;
 char message[30];
 int i = 0;
 
-while(*p != '\r') {
+while (*p != '\r') {
 message[i] = *p;
 p++;
 i++;
@@ -10494,5 +10516,18 @@ i++;
 message[i] = '\0';
 
 sendSigfox(message);
+} else if ("SEND_SMS\r\n") {
+sendSMS("nummer", "Hello World");
+
+startTimer(4);
+while (!timerDone) {
+if (PIR3bits.RC1IF) {
+char c = serialReadPeripheral();
+if (c == 'O') {
+TRISB7 = 0;
+}
+serialWriteBT(c);
+}
+}
 }
 }
