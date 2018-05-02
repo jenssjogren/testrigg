@@ -653,6 +653,11 @@ DIN A3, landscape with extra doc field</description>
 <wire x1="-15.24" y1="7.62" x2="-22.86" y2="7.62" width="0.1524" layer="91"/>
 <label x="-22.86" y="7.62" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="2"/>
+<wire x1="-96.52" y1="63.5" x2="-111.76" y2="63.5" width="0.1524" layer="91"/>
+<label x="-111.76" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="3.3V" class="0">
 <segment>
@@ -669,6 +674,11 @@ DIN A3, landscape with extra doc field</description>
 <pinref part="SIGFOX" gate="G$1" pin="VCC"/>
 <wire x1="78.74" y1="-40.64" x2="78.74" y2="-55.88" width="0.1524" layer="91"/>
 <label x="78.74" y="-55.88" size="1.778" layer="95" rot="R270" xref="yes"/>
+</segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="1"/>
+<wire x1="-96.52" y1="66.04" x2="-99.06" y2="66.04" width="0.1524" layer="91"/>
+<label x="-99.06" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -697,12 +707,22 @@ DIN A3, landscape with extra doc field</description>
 <wire x1="-86.36" y1="-33.02" x2="-86.36" y2="-40.64" width="0.1524" layer="91"/>
 <label x="-86.36" y="-40.64" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="20"/>
+<wire x1="-81.28" y1="66.04" x2="-78.74" y2="66.04" width="0.1524" layer="91"/>
+<label x="-78.74" y="66.04" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="WIFI-RX" class="0">
 <segment>
 <pinref part="WIFI" gate="G$1" pin="URXD"/>
 <wire x1="15.24" y1="-7.62" x2="20.32" y2="-7.62" width="0.1524" layer="91"/>
 <label x="20.32" y="-7.62" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="3"/>
+<wire x1="-96.52" y1="60.96" x2="-99.06" y2="60.96" width="0.1524" layer="91"/>
+<label x="-99.06" y="60.96" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="5V" class="0">
@@ -728,12 +748,22 @@ DIN A3, landscape with extra doc field</description>
 <wire x1="17.78" y1="50.8" x2="25.4" y2="50.8" width="0.1524" layer="91"/>
 <label x="25.4" y="50.8" size="1.778" layer="95" xref="yes"/>
 </segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="15"/>
+<wire x1="-81.28" y1="53.34" x2="-66.04" y2="53.34" width="0.1524" layer="91"/>
+<label x="-66.04" y="53.34" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="GSM-TX" class="0">
 <segment>
 <pinref part="GSM/GPRS" gate="G$1" pin="UTX"/>
 <wire x1="17.78" y1="45.72" x2="25.4" y2="45.72" width="0.1524" layer="91"/>
 <label x="25.4" y="45.72" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="16"/>
+<wire x1="-81.28" y1="55.88" x2="-78.74" y2="55.88" width="0.1524" layer="91"/>
+<label x="-78.74" y="55.88" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="GPS-TX" class="0">
@@ -742,12 +772,22 @@ DIN A3, landscape with extra doc field</description>
 <wire x1="73.66" y1="27.94" x2="73.66" y2="20.32" width="0.1524" layer="91"/>
 <label x="73.66" y="20.32" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="5"/>
+<wire x1="-96.52" y1="55.88" x2="-99.06" y2="55.88" width="0.1524" layer="91"/>
+<label x="-99.06" y="55.88" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="GPS-RX" class="0">
 <segment>
 <pinref part="GPS" gate="G$1" pin="RXD"/>
 <wire x1="78.74" y1="27.94" x2="78.74" y2="20.32" width="0.1524" layer="91"/>
 <label x="78.74" y="20.32" size="1.778" layer="95" rot="R270" xref="yes"/>
+</segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="6"/>
+<wire x1="-96.52" y1="53.34" x2="-116.84" y2="53.34" width="0.1524" layer="91"/>
+<label x="-116.84" y="53.34" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SIGFOX-TX" class="0">
@@ -756,12 +796,22 @@ DIN A3, landscape with extra doc field</description>
 <wire x1="63.5" y1="-40.64" x2="63.5" y2="-55.88" width="0.1524" layer="91"/>
 <label x="63.5" y="-55.88" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="7"/>
+<wire x1="-96.52" y1="50.8" x2="-99.06" y2="50.8" width="0.1524" layer="91"/>
+<label x="-99.06" y="50.8" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="SIGFOX-RX" class="0">
 <segment>
 <pinref part="SIGFOX" gate="G$1" pin="RX"/>
 <wire x1="66.04" y1="-40.64" x2="66.04" y2="-55.88" width="0.1524" layer="91"/>
 <label x="66.04" y="-55.88" size="1.778" layer="95" rot="R270" xref="yes"/>
+</segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="8"/>
+<wire x1="-96.52" y1="48.26" x2="-116.84" y2="48.26" width="0.1524" layer="91"/>
+<label x="-116.84" y="48.26" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="BT-TX" class="0">
@@ -770,12 +820,43 @@ DIN A3, landscape with extra doc field</description>
 <wire x1="-81.28" y1="-33.02" x2="-81.28" y2="-40.64" width="0.1524" layer="91"/>
 <label x="-81.28" y="-40.64" size="1.778" layer="95" rot="R270" xref="yes"/>
 </segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="12"/>
+<wire x1="-81.28" y1="45.72" x2="-78.74" y2="45.72" width="0.1524" layer="91"/>
+<label x="-78.74" y="45.72" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="BT-RX" class="0">
 <segment>
 <pinref part="BLUETOOTH" gate="G$1" pin="RX"/>
 <wire x1="-76.2" y1="-33.02" x2="-76.2" y2="-40.64" width="0.1524" layer="91"/>
 <label x="-76.2" y="-40.64" size="1.778" layer="95" rot="R270" xref="yes"/>
+</segment>
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="11"/>
+<wire x1="-81.28" y1="43.18" x2="-68.58" y2="43.18" width="0.1524" layer="91"/>
+<label x="-68.58" y="43.18" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="VPP" class="0">
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="4"/>
+<wire x1="-96.52" y1="58.42" x2="-111.76" y2="58.42" width="0.1524" layer="91"/>
+<label x="-111.76" y="58.42" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="ICSPDAT" class="0">
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="19"/>
+<wire x1="-81.28" y1="63.5" x2="-63.5" y2="63.5" width="0.1524" layer="91"/>
+<label x="-63.5" y="63.5" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="ICSPCLK" class="0">
+<segment>
+<pinref part="PIC16F15344" gate="G$1" pin="18"/>
+<wire x1="-81.28" y1="60.96" x2="-78.74" y2="60.96" width="0.1524" layer="91"/>
+<label x="-78.74" y="60.96" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 </nets>
