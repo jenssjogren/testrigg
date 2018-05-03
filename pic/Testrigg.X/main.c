@@ -289,6 +289,7 @@ void getWiFiData() {
     serialPrintPeripheral("AT+CWLAPOPT=1,12\r\n");
     __delay_ms(500);
     serialPrintPeripheral("AT+CWLAP\r\n");
+    LATB7 = 1; //Trigger high
     __delay_ms(10);
 
     serialReadPeripheral(); //Clear buffer from char
@@ -296,7 +297,11 @@ void getWiFiData() {
     startTimer(3);
     while (!timerDone) {
         if (PIR3bits.RC1IF) {
-            serialWriteBT(serialReadPeripheral());
+            char c = serialReadPeripheral();
+            if (c == 'O') { //Look for 'O' in "OK"
+                LATB7 = 0; //Trigger low
+            }
+            serialWriteBT(c);
         }
     }
     serialPrintBT("WIFI_END\r\n");
@@ -395,7 +400,7 @@ void sendSMS(char number[], char message[]) {
     serialWritePeripheral('\x1A'); //CTRL+Z char
     __delay_ms(100);
     serialPrintPeripheral("\r\n");
-    TRISB7 = 1; //Trigger high
+    LATB7 = 1; //Trigger high
     __delay_ms(100);
 }
 
@@ -458,7 +463,20 @@ void waitForCommand() {
             if (PIR3bits.RC1IF) {
                 char c = serialReadPeripheral();
                 if (c == 'O') { //Check for 'O' in "OK"
-                    TRISB7 = 0; //Trigger low
+                    LATB7 = 0; //Trigger low
+                }
+                serialWriteBT(c);
+            }
+        }
+    } else if ("SEND_SIGFOX") {
+        sendSigfox("48656c6c6f20576f726c64"); //Hello World
+        LATB7 = 1; //Trigger high
+        startTimer(4);
+        while (!timerDone) {
+            if (PIR3bits.RC1IF) {
+                char c = serialReadPeripheral();
+                if (c == 'O') { //Check for 'O' in "OK"
+                    LATB7 = 0; //Trigger low
                 }
                 serialWriteBT(c);
             }
