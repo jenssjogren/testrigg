@@ -91,9 +91,10 @@ void main(void) {
     ANSELB = 0;
     ANSELC = 0;
 
-    //RB7 trigger pin for energy measurement
-    TRISB7 = 0;
-    LATB7 = 0;
+    //RC7 trigger pin for energy measurement
+    RC7PPS = 0;
+    TRISC7 = 0;
+    LATC7 = 0;
 
     //Enable interrupt
     INTCONbits.GIE = 1;
@@ -289,7 +290,7 @@ void getWiFiData() {
     serialPrintPeripheral("AT+CWLAPOPT=1,12\r\n");
     __delay_ms(500);
     serialPrintPeripheral("AT+CWLAP\r\n");
-    LATB7 = 1; //Trigger high
+    LATC7 = 1; //Trigger high
     __delay_ms(10);
 
     serialReadPeripheral(); //Clear buffer from char
@@ -299,7 +300,7 @@ void getWiFiData() {
         if (PIR3bits.RC1IF) {
             char c = serialReadPeripheral();
             if (c == 'O') { //Look for 'O' in "OK"
-                LATB7 = 0; //Trigger low
+                LATC7 = 0; //Trigger low
             }
             serialWriteBT(c);
         }
@@ -400,7 +401,7 @@ void sendSMS(char number[], char message[]) {
     serialWritePeripheral('\x1A'); //CTRL+Z char
     __delay_ms(100);
     serialPrintPeripheral("\r\n");
-    LATB7 = 1; //Trigger high
+    LATC7 = 1; //Trigger high
     __delay_ms(100);
 }
 
@@ -455,7 +456,7 @@ void waitForCommand() {
         message[i] = '\0';
 
         sendSigfox(message);
-    } else if ("SEND_SMS\r\n") {
+    } else if (strcmp(command, "SEND_SMS\r\n") == 0) {
         sendSMS("nummer", "Hello World");
 
         startTimer(4);
@@ -463,23 +464,27 @@ void waitForCommand() {
             if (PIR3bits.RC1IF) {
                 char c = serialReadPeripheral();
                 if (c == 'O') { //Check for 'O' in "OK"
-                    LATB7 = 0; //Trigger low
+                    LATC7 = 0; //Trigger low
                 }
                 serialWriteBT(c);
             }
         }
-    } else if ("SEND_SIGFOX") {
+    } else if (strcmp(command, "SEND_SIGFOX\r\n") == 0) {
         sendSigfox("48656c6c6f20576f726c64"); //Hello World
-        LATB7 = 1; //Trigger high
-        startTimer(4);
+        LATC7 = 1; //Trigger high
+        startTimer(10);
         while (!timerDone) {
             if (PIR3bits.RC1IF) {
                 char c = serialReadPeripheral();
                 if (c == 'O') { //Check for 'O' in "OK"
-                    LATB7 = 0; //Trigger low
+                    LATC7 = 0; //Trigger low
                 }
                 serialWriteBT(c);
             }
         }
+    } else if(strcmp(command, "TRIGON\r\n") == 0) {
+        LATC7 = 1;
+    } else if(strcmp(command, "TRIGOFF\r\n") == 0) {
+        LATC7 = 0;
     }
 }

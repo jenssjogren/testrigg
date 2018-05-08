@@ -10146,10 +10146,11 @@ void serialPrintBT(char s[]);
 char serialReadBT();
 char serialFindBT(char s[]);
 
-void getWifiData();
+void getWiFiData();
 void getGSMData();
 void getGPSData();
-void getSIGFOXData();
+void getSigfoxData();
+void sendSigfox(char message[]);
 
 void waitForCommand();
 
@@ -10157,12 +10158,15 @@ void interrupt timerCount();
 void startTimer(int seconds);
 
 void main(void) {
-TRISB = 0;
-
 
 ANSELA = 0;
 ANSELB = 0;
 ANSELC = 0;
+
+
+RC7PPS = 0;
+TRISC7 = 0;
+LATC7 = 0;
 
 
 INTCONbits.GIE = 1;
@@ -10174,11 +10178,8 @@ initBTSerial();
 setActivePeripheral(sigfox);
 
 while (1) {
-
-# 112
 waitForCommand();
 
-# 132
 }
 return;
 }
@@ -10219,7 +10220,6 @@ char serialReadPeripheral() {
 while (!PIR3bits.RC1IF) {
 }
 if (1 == RC1STAbits.OERR) {
-
 RC1STAbits.SPEN = 0;
 RC1STAbits.SPEN = 1;
 }
@@ -10238,10 +10238,9 @@ return 0;
 return 1;
 }
 
-
 void setActivePeripheral(enum peripheral peri) {
 
-# 200
+# 178
 RC6PPS = 0x00;
 RC1PPS = 0x00;
 RA4PPS = 0x00;
@@ -10251,7 +10250,6 @@ RC4PPS = 0x00;
 switch (peri) {
 case sigfox:
 {
-
 RC6PPS = 0x0F;
 SP1BRG = 207;
 TRISC3 = 1;
@@ -10260,7 +10258,6 @@ break;
 }
 case gsm:
 {
-
 RC1PPS = 0x0F;
 SP1BRG = 16;
 TRISC0 = 1;
@@ -10269,7 +10266,6 @@ break;
 }
 case wifi:
 {
-
 RA4PPS = 0x0F;
 SP1BRG = 16;
 TRISA5 = 1;
@@ -10278,7 +10274,6 @@ break;
 }
 case gps:
 {
-
 RC4PPS = 0x0F;
 SP1BRG = 207;
 TRISC5 = 1;
@@ -10297,7 +10292,6 @@ RC1STAbits.CREN = 1;
 void serialWriteBT(char c) {
 while (!PIR3bits.TX2IF) {
 }
-
 TX2REG = c;
 }
 
@@ -10313,7 +10307,6 @@ char serialReadBT() {
 while (!PIR3bits.RC2IF) {
 }
 if (1 == RC2STAbits.OERR) {
-
 RC2STAbits.SPEN = 0;
 RC2STAbits.SPEN = 1;
 }
@@ -10333,6 +10326,7 @@ return 1;
 }
 
 void interrupt timerCount() {
+
 if (PIR0bits.TMR0IF) {
 timerActual++;
 PIR0bits.TMR0IF = 0;
@@ -10356,12 +10350,13 @@ T0CON1 = 0b01000111;
 T0CON0bits.T0EN = 1;
 }
 
-void getWifiData() {
+void getWiFiData() {
 serialPrintBT("WIFI_START\r\n");
 setActivePeripheral(wifi);
 serialPrintPeripheral("AT+CWLAPOPT=1,12\r\n");
 _delay((unsigned long)((500)*(32000000/4000.0)));
 serialPrintPeripheral("AT+CWLAP\r\n");
+LATC7 = 1;
 _delay((unsigned long)((10)*(32000000/4000.0)));
 
 serialReadPeripheral();
@@ -10369,7 +10364,11 @@ serialReadPeripheral();
 startTimer(3);
 while (!timerDone) {
 if (PIR3bits.RC1IF) {
-serialWriteBT(serialReadPeripheral());
+char c = serialReadPeripheral();
+if (c == 'O') {
+LATC7 = 0;
+}
+serialWriteBT(c);
 }
 }
 serialPrintBT("WIFI_END\r\n");
@@ -10428,7 +10427,7 @@ serialPrintBT("GPS_END\r\n");
 _delay((unsigned long)((10)*(32000000/4000.0)));
 }
 
-void getSIGFOXData() {
+void getSigfoxData() {
 setActivePeripheral(sigfox);
 serialPrintBT("SIGFOX_START\r\n");
 serialPrintPeripheral("AT\r\n");
@@ -10447,40 +10446,111 @@ serialPrintBT("SIGFOX_END\r\n");
 _delay((unsigned long)((10)*(32000000/4000.0)));
 }
 
-void waitForCommand() {
-char buffer[32];
-char * s1;
+void sendSigfox(char hexMessage[]) {
+setActivePeripheral(sigfox);
+serialPrintPeripheral("AT$SF=");
+serialPrintPeripheral(hexMessage);
+serialPrintPeripheral("\r\n");
+}
 
-while(!PIR3bits.RC2IF) {
+void sendSMS(char number[], char message[]) {
+
+setActivePeripheral(gsm);
+serialPrintPeripheral("AT+CMGF=1\r\n");
+_delay((unsigned long)((2000)*(32000000/4000.0)));
+serialPrintPeripheral("AT+CMGS=\"");
+serialPrintPeripheral(number);
+serialPrintPeripheral("\"\r\n");
+_delay((unsigned long)((3000)*(32000000/4000.0)));
+serialPrintPeripheral(message);
+_delay((unsigned long)((500)*(32000000/4000.0)));
+serialWritePeripheral('\x1A');
+_delay((unsigned long)((100)*(32000000/4000.0)));
+serialPrintPeripheral("\r\n");
+LATC7 = 1;
+_delay((unsigned long)((100)*(32000000/4000.0)));
+}
+
+void waitForCommand() {
+char command[32];
+
+while (!PIR3bits.RC2IF) {
 }
 
 startTimer(2);
 int i = 0;
 while (!timerDone) {
 if (PIR3bits.RC2IF) {
-buffer[i] = serialReadBT();
+command[i] = serialReadBT();
 i++;
 }
 }
-buffer[i] = '\0';
+command[i] = '\0';
 
-s1 = buffer;
-while(*s1) {
-serialWriteBT(*s1);
-*s1++;
+
+if (strcmp(command, "GET_GPS\r\n") == 0) {
+getGPSData();
+serialPrintBT("MESSAGE_END\r\n");
+} else if (strcmp(command, "GET_GSM\r\n") == 0) {
+getGSMData();
+serialPrintBT("MESSAGE_END\r\n");
+} else if (strcmp(command, "GET_WIFI\r\n") == 0) {
+getWiFiData();
+serialPrintBT("MESSAGE_END\r\n");
+} else if (strcmp(command, "GET_ALL_SEND_SIGFOX\r\n") == 0) {
+sendSigfox("000000000000\r\n");
+getGPSData();
+getGSMData();
+getWiFiData();
+serialPrintBT("MESSAGE_END\r\n");
+} else if (strcmp(command, "GET_ALL\r\n") == 0) {
+getGPSData();
+getGSMData();
+getWiFiData();
+serialPrintBT("MESSAGE_END\r\n");
+} else if (strncmp(command, "SEND_SIGFOX:", 12) == 0) {
+char * p;
+p = command + 12;
+char message[30];
+int i = 0;
+
+while (*p != '\r') {
+message[i] = *p;
+p++;
+i++;
 }
+message[i] = '\0';
 
+sendSigfox(message);
+} else if ("SEND_SMS\r\n") {
+sendSMS("nummer", "Hello World");
 
-
-
-if(strcmp(s1, "GET_GPS\r\n") == 0) {
-serialPrintBT("Equal\r\n");
-
+startTimer(4);
+while (!timerDone) {
+if (PIR3bits.RC1IF) {
+char c = serialReadPeripheral();
+if (c == 'O') {
+LATC7 = 0;
 }
-if(strcmp(s1, "GET_GPS\r\n") < 0) {
-serialPrintBT("Less\r\n");
+serialWriteBT(c);
 }
-if(strcmp(s1, "GET_GPS\r\n") > 0) {
-serialPrintBT("Greater\r\n");
+}
+} else if ("SEND_SIGFOX\r\n") {
+sendSigfox("48656c6c6f20576f726c64");
+LATC7 = 1;
+startTimer(4);
+while (!timerDone) {
+if (PIR3bits.RC1IF) {
+char c = serialReadPeripheral();
+if (c == 'O') {
+LATC7 = 0;
+}
+serialWriteBT(c);
+}
+}
+} else if("TRIGON\r\n") {
+LATC7 = 1;
+} else if("TRIGOFF\r\n") {
+LATC7 = 0;
 }
 }
